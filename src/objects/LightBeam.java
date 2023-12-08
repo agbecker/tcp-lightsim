@@ -1,14 +1,21 @@
 package objects;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 public class LightBeam extends ObjectToRender {
+    
+    private ArrayList<LightBeamSegment> segments;
 
-    private SourceObject source;
-    private ArrayList<Vector2> vertices;
-    boolean isLastSegmentDotted;
-    boolean showArrows;
-    
-    
+    public LightBeam() {
+
+    }
+
+    public static Vector2 findImagePoint(LightBeam beam1, LightBeam beam2) {
+        return new Vector2();
+    }
+
+    public void render() {
+
+    }
+
 }

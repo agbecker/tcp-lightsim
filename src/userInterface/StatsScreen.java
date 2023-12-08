@@ -2,19 +2,19 @@ package userInterface;
 
 import objects.ObjectToRender;
 
-public class Updater extends Screen {
+public class StatsScreen extends Screen {
     
-    // Atributos
+        // Atributos
     private ObjectToRender objectSelected;
-    private boolean displayUpdaterDescription;
+    private boolean displaySimulationStats;
 
-    public Updater(int width, int height, int begX, int begY) {
+    public StatsScreen(int width, int height, int begX, int begY) {
         super(width, height, begX, begY);
-        displayUpdaterDescription = true;
+        displaySimulationStats = true;
     }
 
     void setObjectSelected(ObjectToRender objectSelected) {
-
+        
     }
 
     void updateParameters() {
