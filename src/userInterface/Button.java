@@ -22,13 +22,13 @@ public abstract class Button {
 
     protected Rectangle rect, shadow;
 
-    final static Color MEDIUM_BLUE = new Color(0, 146, 255, 255);
-    final static Color DARK_BLUE = new Color(0, 116, 203, 255);
-    final static Color LIGHT_BLUE = new Color(128, 200, 255, 255);
-    final static Color BG_BLUE = new Color(14, 137, 230, 255);
-    final static int SHADOW_OFFSET = 5;
-    final static int BORDER_OFFSET = 5;
-    final static int FONT_SIZE = 30;
+    public final static Color MEDIUM_BLUE = new Color(0, 146, 255, 255);
+    public final static Color DARK_BLUE = new Color(0, 116, 203, 255);
+    public final static Color LIGHT_BLUE = new Color(128, 200, 255, 255);
+    public final static Color BG_BLUE = new Color(14, 137, 230, 255);
+    protected final static int SHADOW_OFFSET = 5;
+    protected final static int BORDER_OFFSET = 5;
+    protected final static int FONT_SIZE = 30;
 
 
     public Button(int x, int y, int width, int height, String label, Raylib rlj) {
