@@ -11,28 +11,34 @@ public class UITest {
 
     public static void main(String[] args) {
         Raylib rlj = new Raylib(800, 600, "teste");
-        Button but = new Button(15, 15, 300, 60, "Olá");
+        Button but = new Button(150, 150, 300, 60, "Simular", rlj);
+        Button but2 = new Button(150, 250, 300, 60, "Como usar", rlj);
+        Button[] buttons = {but, but2};
 
         Vector2 mousepoint = new Vector2(0,0);
 
         while(!rlj.core.WindowShouldClose()){
 
             mousepoint = rCore.GetMousePosition();
-            //but.setIsBeingPressed(false);
-
-            if(rlj.shapes.CheckCollisionPointRec(mousepoint, but.getShadow())
-                && rlj.core.IsMouseButtonDown(MOUSE_BUTTON_LEFT)
-            ) {
-                but.setIsBeingPressed(true);
-            }
-
-            else{
-                but.setIsBeingPressed(false);
-            }
 
             rlj.core.BeginDrawing();
-            rlj.core.ClearBackground(Color.RAYWHITE);
-            but.render();
+            rlj.core.ClearBackground(Button.BG_BLUE);
+
+            for(Button b : buttons) {
+                if(rlj.shapes.CheckCollisionPointRec(mousepoint, b.getShadow())
+                && rCore.IsMouseButtonDown(MOUSE_BUTTON_LEFT)
+                ) {
+                    b.setIsBeingPressed(true);
+                }
+
+                else{
+                    b.setIsBeingPressed(false);
+                }
+
+                b.render();
+
+            }
+
             rlj.core.EndDrawing();
         }
         
