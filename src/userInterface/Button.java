@@ -12,7 +12,7 @@ import com.raylib.java.text.rText.FontType;
 import com.raylib.java.text.Font;
 //import com.raylib.java.Raylib;
 
-public class Button {
+public abstract class Button {
     protected int begX, begY, width, height;
     protected String label;
     protected Texture2D texture;
@@ -102,6 +102,7 @@ public class Button {
     public Rectangle getShadow(){
         return this.shadow;
     }
-    
+
+    public abstract void function();    
     
 }

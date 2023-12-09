@@ -11,8 +11,8 @@ public class UITest {
 
     public static void main(String[] args) {
         Raylib rlj = new Raylib(800, 600, "teste");
-        Button but = new Button(150, 150, 300, 60, "Simular", rlj);
-        Button but2 = new Button(150, 250, 300, 60, "Como usar", rlj);
+        Button but = new MenuButton(250, 150, 300, 60, "Simular", rlj);
+        Button but2 = new MenuButton(250, 250, 300, 60, "Como usar", rlj);
         Button[] buttons = {but, but2};
 
         Vector2 mousepoint = new Vector2(0,0);
