@@ -6,6 +6,9 @@ import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.shapes.rShapes;
 import com.raylib.java.textures.*;
+
+import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_BUTTON_LEFT;
+
 import com.raylib.java.Raylib;
 import com.raylib.java.text.rText;
 import com.raylib.java.text.rText.FontType;
@@ -17,8 +20,7 @@ public abstract class Button {
     protected String label;
     protected Texture2D texture;
     protected boolean isBeingPressed;
-    //private static final rText txt = new rText();
-    private Raylib rlj;
+    protected static Raylib rlj;
 
     protected Rectangle rect, shadow;
 
@@ -61,11 +63,42 @@ public abstract class Button {
         this.isBeingPressed = pressed;
     }
 
+    public void checkIsBeingPressed() {
+        Vector2 cursor = rCore.GetMousePosition();
+
+        // Cria "hitbox" para determinar se o cursor está sobre o botão
+        Rectangle button;
+        if(!isBeingPressed) {
+            button = new Rectangle(rect.getX(), rect.getY(), width+SHADOW_OFFSET, height+SHADOW_OFFSET);
+        }
+
+        else {
+            button = new Rectangle(shadow.getX(), shadow.getY(), width, height);
+        }
+
+        // Se usuário não estiver interagindo
+        if(!isBeingPressed && !rCore.IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+            return;
+        }
+
+        // Se o usuário clicar no botão
+        if(!isBeingPressed && rlj.shapes.CheckCollisionPointRec(cursor, button) && rCore.IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+            isBeingPressed = true;
+            return;
+        }
+
+        // Se o usuário soltar o botão
+        if(isBeingPressed && !rCore.IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+            isBeingPressed = false;
+            // Se o cursor estiver sobre o botão ao soltar, ativa a função do botão
+            if(rlj.shapes.CheckCollisionPointRec(cursor, button)) {
+                function();
+            }
+        }
+    }
+
     public void render() {
-        //new rText().DrawText("Oi", 100, 100, 30, DARK_BLUE);
-        //new Raylib().text.DrawText(label, 10, 10, FONT_SIZE, DARK_BLUE);
-        //Raylib rlj = new Raylib();
-        //rText txt = new rText();
+        checkIsBeingPressed();
 
         // Modo idle do botão
         if(!this.isBeingPressed) {
