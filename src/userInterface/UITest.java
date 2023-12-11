@@ -15,26 +15,15 @@ public class UITest {
         Button but2 = new MenuButton(250, 250, 300, 60, "Como usar", rlj);
         Button[] buttons = {but, but2};
 
-        Vector2 mousepoint = new Vector2(0,0);
 
         while(!rlj.core.WindowShouldClose()){
 
-            mousepoint = rCore.GetMousePosition();
 
             rlj.core.BeginDrawing();
             rlj.core.ClearBackground(Button.BG_BLUE);
 
             for(Button b : buttons) {
-                if(rlj.shapes.CheckCollisionPointRec(mousepoint, b.getShadow())
-                && rCore.IsMouseButtonDown(MOUSE_BUTTON_LEFT)
-                ) {
-                    b.setIsBeingPressed(true);
-                }
-
-                else{
-                    b.setIsBeingPressed(false);
-                }
-
+                
                 b.render();
 
             }

@@ -40,7 +40,7 @@ public abstract class Button {
         this.height = height;
         this.label = label;
         this.texture = null;
-        this.rlj = rlj;
+        Button.rlj = rlj;
 
         this.rect = new Rectangle(x-SHADOW_OFFSET, y-SHADOW_OFFSET, width, height);
         this.shadow = new Rectangle(x, y, width, height);
@@ -53,7 +53,7 @@ public abstract class Button {
         this.height = height;
         this.texture = texture;
         this.label = null;
-        this.rlj = rlj;
+        Button.rlj = rlj;
 
         this.rect = new Rectangle(x-SHADOW_OFFSET, y-SHADOW_OFFSET, width, height);
         this.shadow = new Rectangle(x, y, width, height);
