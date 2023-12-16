@@ -34,9 +34,7 @@ public class LightBeamSegment extends ObjectToRender {
         this.isDashed = false;
         ObjectToRender.simulationScreen = screen;
         ObjectToRender.rlj = rlj;
-        Vector2 startPointYFlipped = new Vector2(startingPoint.x, -startingPoint.y);
-        Vector2 endPointYFlipped = new Vector2(endingPoint.x, -endingPoint.y);
-        this.theta = getAngle(startPointYFlipped, endPointYFlipped);
+        this.theta = getAngle(startingPoint, endingPoint);
         this.segmentSize = Math.sqrt(Math.pow(startingPoint.x - endingPoint.x, 2) + Math.pow(startingPoint.y - endingPoint.y, 2));
     }
 
@@ -47,10 +45,12 @@ public class LightBeamSegment extends ObjectToRender {
         this.isDashed = false;
 
         ArrayList<Double> cornerAngles = new ArrayList<Double>();
-        cornerAngles.add(getAngle(startingPoint, new Vector2(screen.getWidth(), screen.getHeight())));
-        cornerAngles.add(getAngle(startingPoint, new Vector2(0                , screen.getHeight())));
-        cornerAngles.add(getAngle(startingPoint, new Vector2(0                , 0                 )));
         cornerAngles.add(getAngle(startingPoint, new Vector2(screen.getWidth(), 0                 )));
+        cornerAngles.add(getAngle(startingPoint, new Vector2(0                , 0                 )));
+        cornerAngles.add(getAngle(startingPoint, new Vector2(0                , screen.getHeight())));
+        cornerAngles.add(getAngle(startingPoint, new Vector2(screen.getWidth(), screen.getHeight())));
+
+        //System.out.printf("%f %f %f %f%n", cornerAngles.get(0), cornerAngles.get(1), cornerAngles.get(2), cornerAngles.get(3));
 
         if(cornerAngles.get(0) < this.theta && this.theta <= cornerAngles.get(1)) {
             double x = (startingPoint.y - 0) / getSlope(theta) + startingPoint.x;

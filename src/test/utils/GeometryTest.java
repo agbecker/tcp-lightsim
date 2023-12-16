@@ -17,13 +17,13 @@ public class GeometryTest {
     @Test
     public void getAngleTest() {
         assertEquals(0, getAngle(new Vector2(0,0), new Vector2(1,0)), 0.1);
-        assertEquals(45, getAngle(new Vector2(0,0), new Vector2(1,1)), 0.1);
-        assertEquals(90, getAngle(new Vector2(0,0), new Vector2(0,1)), 0.1);
-        assertEquals(135, getAngle(new Vector2(0,0), new Vector2(-1,1)), 0.1);
+        assertEquals(45, getAngle(new Vector2(0,0), new Vector2(1,-1)), 0.1);
+        assertEquals(90, getAngle(new Vector2(0,0), new Vector2(0,-1)), 0.1);
+        assertEquals(135, getAngle(new Vector2(0,0), new Vector2(-1,-1)), 0.1);
         assertEquals(180, getAngle(new Vector2(0,0), new Vector2(-1,0)), 0.1);
-        assertEquals(225, getAngle(new Vector2(0,0), new Vector2(-1,-1)), 0.1);
-        assertEquals(270, getAngle(new Vector2(0,0), new Vector2(0,-1)), 0.1);
-        assertEquals(315, getAngle(new Vector2(0,0), new Vector2(1,-1)), 0.1);
+        assertEquals(225, getAngle(new Vector2(0,0), new Vector2(-1,1)), 0.1);
+        assertEquals(270, getAngle(new Vector2(0,0), new Vector2(0,1)), 0.1);
+        assertEquals(315, getAngle(new Vector2(0,0), new Vector2(1,1)), 0.1);
     }
 
     @Test
