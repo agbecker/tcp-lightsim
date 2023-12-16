@@ -11,7 +11,9 @@ import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_BUTTON_LEFT;
 
 public class UITest {
 
-    public static void main(String[] args) {
+    // Descomentar caso queira testar elementos da UI
+
+    /*public static void main(String[] args) {
         Raylib rlj = new Raylib(800, 600, "teste");
         Slider slider = new Slider(-40, 28, new Vector2(400, 300), 200, rlj);
 
@@ -31,6 +33,6 @@ public class UITest {
             rlj.core.EndDrawing();
         }
         
-    }
+    }*/
     
 }

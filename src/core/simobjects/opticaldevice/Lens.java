@@ -13,7 +13,7 @@ public class Lens extends OpticalDevice {
         this.isDivergent = isDivergent;
     }
 
-    public void render() {
+    public void render(int xAbs, int yAbs) {
 
     }
 

@@ -50,7 +50,7 @@ public class SourceObject extends ObjectToRender {
         return new SourceObject(opticalDevice, generatesImage);
     }
     
-    public void render() {
+    public void render(int xAbs, int yAbs) {
         
     }
 

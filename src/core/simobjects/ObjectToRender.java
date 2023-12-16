@@ -26,7 +26,7 @@ public abstract class ObjectToRender {
         return statsScreen;
     }
 
-    public abstract void render();
+    public abstract void render(int xAbs, int yAbs);
 
     public void toggleUpdate() {
         // Chama setObjectSelected de Updater

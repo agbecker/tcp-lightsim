@@ -17,7 +17,7 @@ public class LightBeam extends ObjectToRender {
         return new Vector2();
     }
 
-    public void render() {
+    public void render(int xAbs, int yAbs) {
 
     }
 
