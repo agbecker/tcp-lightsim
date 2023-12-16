@@ -15,27 +15,38 @@ public class LightBeamSegmentTest {
         Raylib rlj = new Raylib(800, 600, "teste");
         SimulationScreen simulationScreen = new SimulationScreen(600, 400, 100, 100, null);
         
-        LightBeamSegment segment = new LightBeamSegment(new Vector2(50, 100), new Vector2(150, 250), simulationScreen, rlj);
+        LightBeamSegment segment = new LightBeamSegment(new Vector2(300, 100), new Vector2(500, 300), simulationScreen, rlj);
 
-        //ArrayList<LightBeamSegment> segs = new ArrayList<LightBeamSegment>();
-        //segs.add(new LightBeamSegment(new Vector2(simulationScreen.getWidth()/2, simulationScreen.getHeight()/2), 0, simulationScreen, rlj));
-        //segs.add(new LightBeamSegment(new Vector2(simulationScreen.getWidth()/2, simulationScreen.getHeight()/2), 20, simulationScreen, rlj));
-        //segs.add(new LightBeamSegment(new Vector2(simulationScreen.getWidth()/2, simulationScreen.getHeight()/2), 70, simulationScreen, rlj));
-        //segs.add(new LightBeamSegment(new Vector2(simulationScreen.getWidth()/2, simulationScreen.getHeight()/2), 120, simulationScreen, rlj));
-        //segs.add(new LightBeamSegment(new Vector2(simulationScreen.getWidth()/2, simulationScreen.getHeight()/2), 160, simulationScreen, rlj));
-        //segs.add(new LightBeamSegment(new Vector2(simulationScreen.getWidth()/2, simulationScreen.getHeight()/2), 190, simulationScreen, rlj));
-        //segs.add(new LightBeamSegment(new Vector2(simulationScreen.getWidth()/2, simulationScreen.getHeight()/2), 240, simulationScreen, rlj));
-        //segs.add(new LightBeamSegment(new Vector2(simulationScreen.getWidth()/2, simulationScreen.getHeight()/2), 280, simulationScreen, rlj));
-        //segs.add(new LightBeamSegment(new Vector2(simulationScreen.getWidth()/2, simulationScreen.getHeight()/2), 310, simulationScreen, rlj));
-        //segs.add(new LightBeamSegment(new Vector2(simulationScreen.getWidth()/2, simulationScreen.getHeight()/2), 350, simulationScreen, rlj));
+        ArrayList<LightBeamSegment> segs = new ArrayList<LightBeamSegment>();
+
+        // 1: Ângulo entre canto superior direito e canto superior esquerdo
+        segs.add(new LightBeamSegment(new Vector2(100, 200), 90, simulationScreen, rlj));
+        segs.add(new LightBeamSegment(new Vector2(100, 200), 70, simulationScreen, rlj));
+        segs.add(new LightBeamSegment(new Vector2(100, 200), 100, simulationScreen, rlj));
+                
+        // 2: Ângulo entre canto superior esquerdo e canto inferior esquerdo
+        segs.add(new LightBeamSegment(new Vector2(100, 200), 180, simulationScreen, rlj));
+        segs.add(new LightBeamSegment(new Vector2(100, 200), 160, simulationScreen, rlj));
+        segs.add(new LightBeamSegment(new Vector2(100, 200), 190, simulationScreen, rlj));
+
+        // 3: Ângulo entre canto inferior esquerdo e canto inferior direito
+        segs.add(new LightBeamSegment(new Vector2(100, 200), 270, simulationScreen, rlj));
+        segs.add(new LightBeamSegment(new Vector2(100, 200), 280, simulationScreen, rlj));
+        segs.add(new LightBeamSegment(new Vector2(100, 200), 250, simulationScreen, rlj));
+
+        // 4: Ângulo entre canto inferior direito e canto superior direito
+        segs.add(new LightBeamSegment(new Vector2(100, 200), 0, simulationScreen, rlj));
+        segs.add(new LightBeamSegment(new Vector2(100, 200), 340, simulationScreen, rlj));
+        segs.add(new LightBeamSegment(new Vector2(100, 200), 10, simulationScreen, rlj));
 
         while(!rlj.core.WindowShouldClose()){
             rlj.core.BeginDrawing();
             rlj.core.ClearBackground(Color.BLUE);
+            rlj.shapes.DrawRectangleLines(simulationScreen.getBegX(), simulationScreen.getBegY(), simulationScreen.getWidth(), simulationScreen.getHeight(), Color.RAYWHITE);
             segment.render();
-            //for(int i = 0; i < segs.size(); i++) {
-            //    segs.get(i).render();
-            //}
+            for(int i = 0; i < segs.size(); i++) {
+                segs.get(i).render();
+            }
             rlj.core.EndDrawing();
         }
 
