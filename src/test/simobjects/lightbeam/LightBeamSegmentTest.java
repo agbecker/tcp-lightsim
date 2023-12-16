@@ -16,6 +16,7 @@ public class LightBeamSegmentTest {
         SimulationScreen simulationScreen = new SimulationScreen(600, 400, 100, 100, null);
         
         LightBeamSegment segment = new LightBeamSegment(new Vector2(300, 100), new Vector2(500, 300), simulationScreen, rlj);
+        segment.setIsDashed(true);
 
         ArrayList<LightBeamSegment> segs = new ArrayList<LightBeamSegment>();
 

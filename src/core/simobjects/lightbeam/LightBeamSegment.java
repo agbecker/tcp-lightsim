@@ -1,6 +1,7 @@
 package core.simobjects.lightbeam;
 
 import java.util.ArrayList;
+import java.util.Vector;
 import java.lang.Math;
 import static core.utils.Geometry.*;
 
@@ -16,8 +17,9 @@ public class LightBeamSegment extends ObjectToRender {
 
     private Vector2 startingPoint, endingPoint;
     private double theta;
-    private boolean isDotted;
+    private boolean isDashed;
     private boolean showArrows;
+    private double segmentSize;
     
     private final int LINE_DASH_SIZE = 5;
     private final int ARROW_SIZE = 10;
@@ -29,19 +31,20 @@ public class LightBeamSegment extends ObjectToRender {
         this.startingPoint = startingPoint;
         this.endingPoint = endingPoint;
         this.showArrows = true;
-        this.isDotted = false;
+        this.isDashed = false;
         ObjectToRender.simulationScreen = screen;
         ObjectToRender.rlj = rlj;
         Vector2 startPointYFlipped = new Vector2(startingPoint.x, -startingPoint.y);
         Vector2 endPointYFlipped = new Vector2(endingPoint.x, -endingPoint.y);
         this.theta = getAngle(startPointYFlipped, endPointYFlipped);
+        this.segmentSize = Math.sqrt(Math.pow(startingPoint.x - endingPoint.x, 2) + Math.pow(startingPoint.y - endingPoint.y, 2));
     }
 
     public LightBeamSegment(Vector2 startingPoint, double theta, Screen screen, Raylib rlj) {
         this.startingPoint = startingPoint;
         this.theta = theta;
         this.showArrows = true;
-        this.isDotted = false;
+        this.isDashed = false;
 
         ArrayList<Double> cornerAngles = new ArrayList<Double>();
         cornerAngles.add(getAngle(startingPoint, new Vector2(screen.getWidth(), screen.getHeight())));
@@ -65,43 +68,42 @@ public class LightBeamSegment extends ObjectToRender {
 
         ObjectToRender.simulationScreen = screen;
         ObjectToRender.rlj = rlj;
+        this.segmentSize = Math.sqrt(Math.pow(startingPoint.x - endingPoint.x, 2) + Math.pow(startingPoint.y - endingPoint.y, 2));
     }
 
     public static Vector2 intersection(LightBeamSegment l1, LightBeamSegment l2) {
         return new Vector2();
     }
 
-    public void setIsDotted(boolean isDotted) {
-        this.isDotted = isDotted;
+    public void setIsDashed(boolean isDashed) {
+        this.isDashed = isDashed;
     }
 
     public void setShowArrows(boolean showArrows) {
         this.showArrows = showArrows;
     }
 
+    public void render() {
+        render(simulationScreen.getBegX(), simulationScreen.getBegY());
+    }
+
     public void render(int xAbs, int yAbs) {
         Vector2 absStart = new Vector2(xAbs + startingPoint.x, yAbs + startingPoint.y);
         Vector2 absEnd = new Vector2(xAbs + endingPoint.x, yAbs + endingPoint.y);
-        rlj.shapes.DrawLineEx(absStart, absEnd, LINE_THICKNESS, LINE_COLOR);
-        if(showArrows) {
-            Vector2 p1 = new Vector2(ARROW_SIZE*(float)Math.cos(Math.toRadians(180-ARROW_ANGLE+theta)), 
-                                     -ARROW_SIZE*(float)Math.sin(Math.toRadians(180-ARROW_ANGLE+theta)));
-            Vector2 p2 = new Vector2(ARROW_SIZE*(float)Math.cos(Math.toRadians(180+ARROW_ANGLE+theta)), 
-                                     -ARROW_SIZE*(float)Math.sin(Math.toRadians(180+ARROW_ANGLE+theta)));
-            Vector2 middlePoint = new Vector2((absStart.x + absEnd.x)/2, (absStart.y + absEnd.y)/2);
-            p1.x += middlePoint.x;
-            p1.y += middlePoint.y;
-            p2.x += middlePoint.x;
-            p2.y += middlePoint.y;
-            rlj.shapes.DrawLineEx(middlePoint, p1, LINE_THICKNESS, LINE_COLOR);
-            rlj.shapes.DrawLineEx(middlePoint, p2, LINE_THICKNESS, LINE_COLOR);
+        if(isDashed) {
+            int nReps = (int)(segmentSize/(2*LINE_DASH_SIZE));
+            float deltaX = LINE_DASH_SIZE*(float)Math.cos(Math.toRadians(theta));
+            float deltaY = -LINE_DASH_SIZE*(float)Math.sin(Math.toRadians(theta));
+            Vector2 begDash = new Vector2(absStart.x, absStart.y);
+            Vector2 endDash = new Vector2(absStart.x+deltaX, absStart.y+deltaY);
+            for(int i = 0; i < nReps; i++) {
+                rlj.shapes.DrawLineEx(begDash, endDash, LINE_THICKNESS, LINE_COLOR);
+                begDash.x += 2*deltaX; begDash.y += 2*deltaY;
+                endDash.x += 2*deltaX; endDash.y += 2*deltaY;
+            }
+        } else {
+            rlj.shapes.DrawLineEx(absStart, absEnd, LINE_THICKNESS, LINE_COLOR);
         }
-    }
-
-    public void render() {
-        Vector2 absStart = new Vector2(simulationScreen.getBegX() + startingPoint.x, simulationScreen.getBegY() + startingPoint.y);
-        Vector2 absEnd = new Vector2(simulationScreen.getBegX() + endingPoint.x, simulationScreen.getBegY() + endingPoint.y);
-        rlj.shapes.DrawLineEx(absStart, absEnd, LINE_THICKNESS, LINE_COLOR);
         if(showArrows) {
             Vector2 p1 = new Vector2(ARROW_SIZE*(float)Math.cos(Math.toRadians(180-ARROW_ANGLE+theta)), 
                                      -ARROW_SIZE*(float)Math.sin(Math.toRadians(180-ARROW_ANGLE+theta)));
