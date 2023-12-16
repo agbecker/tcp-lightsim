@@ -15,8 +15,10 @@ public class LightBeamSegmentTest {
         Raylib rlj = new Raylib(800, 600, "teste");
         SimulationScreen simulationScreen = new SimulationScreen(600, 400, 100, 100, null);
         
-        LightBeamSegment segment = new LightBeamSegment(new Vector2(300, 100), new Vector2(500, 300), simulationScreen, rlj);
-        segment.setIsDashed(true);
+        LightBeamSegment segment1 = new LightBeamSegment(new Vector2(250, 25), new Vector2(350, 75), simulationScreen, rlj);
+        segment1.setIsDashed(true);
+        LightBeamSegment segment2 = new LightBeamSegment(new Vector2(250, 50), new Vector2(350, 100), simulationScreen, rlj);
+        segment2.setShowArrows(false);
 
         ArrayList<LightBeamSegment> segs = new ArrayList<LightBeamSegment>();
 
@@ -44,7 +46,8 @@ public class LightBeamSegmentTest {
             rlj.core.BeginDrawing();
             rlj.core.ClearBackground(Color.BLUE);
             rlj.shapes.DrawRectangleLines(simulationScreen.getBegX(), simulationScreen.getBegY(), simulationScreen.getWidth(), simulationScreen.getHeight(), Color.RAYWHITE);
-            segment.render();
+            segment1.render();
+            segment2.render();
             for(int i = 0; i < segs.size(); i++) {
                 segs.get(i).render();
             }
