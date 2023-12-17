@@ -71,8 +71,16 @@ public class LightBeamSegment extends ObjectToRender {
         this.segmentSize = Math.sqrt(Math.pow(startingPoint.x - endingPoint.x, 2) + Math.pow(startingPoint.y - endingPoint.y, 2));
     }
 
-    public static Vector2 intersection(LightBeamSegment l1, LightBeamSegment l2) {
-        return new Vector2();
+    public Vector2 getStartingPoint() {
+        return startingPoint;
+    }
+
+    public Vector2 getEndingPoint() {
+        return endingPoint;
+    }
+
+    public double getTheta() {
+        return theta;
     }
 
     public void setIsDashed(boolean isDashed) {
@@ -81,6 +89,10 @@ public class LightBeamSegment extends ObjectToRender {
 
     public void setShowArrows(boolean showArrows) {
         this.showArrows = showArrows;
+    }
+
+    public static Vector2 intersection(LightBeamSegment l1, LightBeamSegment l2) {
+        return new Vector2();
     }
 
     public void render() {
