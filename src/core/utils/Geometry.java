@@ -18,4 +18,12 @@ public class Geometry {
         return Math.tan(Math.toRadians(angle));
     }
 
+    public static double getDistance(Vector2 p1, Vector2 p2) {
+        return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
+    }
+
+    public static double getSize(Vector2 v) {
+        return Math.sqrt(Math.pow(v.x, 2) + Math.pow(v.y, 2));
+    }
+
 }

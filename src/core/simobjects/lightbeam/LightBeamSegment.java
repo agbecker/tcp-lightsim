@@ -1,7 +1,6 @@
 package core.simobjects.lightbeam;
 
 import java.util.ArrayList;
-import java.util.Vector;
 import java.lang.Math;
 import static core.utils.Geometry.*;
 
@@ -11,7 +10,6 @@ import com.raylib.java.Raylib;
 
 import core.simobjects.ObjectToRender;
 import core.simscreens.Screen;
-import core.UI.UIElement;
 
 public class LightBeamSegment extends ObjectToRender {
 
@@ -35,7 +33,7 @@ public class LightBeamSegment extends ObjectToRender {
         ObjectToRender.simulationScreen = screen;
         ObjectToRender.rlj = rlj;
         this.theta = getAngle(startingPoint, endingPoint);
-        this.segmentSize = Math.sqrt(Math.pow(startingPoint.x - endingPoint.x, 2) + Math.pow(startingPoint.y - endingPoint.y, 2));
+        this.segmentSize = getDistance(startingPoint, endingPoint);;
     }
 
     public LightBeamSegment(Vector2 startingPoint, double theta, Screen screen, Raylib rlj) {
@@ -68,7 +66,7 @@ public class LightBeamSegment extends ObjectToRender {
 
         ObjectToRender.simulationScreen = screen;
         ObjectToRender.rlj = rlj;
-        this.segmentSize = Math.sqrt(Math.pow(startingPoint.x - endingPoint.x, 2) + Math.pow(startingPoint.y - endingPoint.y, 2));
+        this.segmentSize = getDistance(startingPoint, endingPoint);;
     }
 
     public Vector2 getStartingPoint() {
@@ -77,6 +75,10 @@ public class LightBeamSegment extends ObjectToRender {
 
     public Vector2 getEndingPoint() {
         return endingPoint;
+    }
+
+    public double getSegmentSize() {
+        return segmentSize;
     }
 
     public double getTheta() {
@@ -91,8 +93,51 @@ public class LightBeamSegment extends ObjectToRender {
         this.showArrows = showArrows;
     }
 
-    public static Vector2 intersection(LightBeamSegment l1, LightBeamSegment l2) {
-        return new Vector2();
+    public static Vector2 intersection(LightBeamSegment l1, LightBeamSegment l2, boolean ignoreBounds) {
+        double thetaRad = Math.toRadians(l1.getTheta());
+        double thetaRadPrime = Math.toRadians(l2.getTheta());
+
+        //System.out.printf("theta:      %f, thetaRad:      %f%n", l1.getTheta(), thetaRad);
+        //System.out.printf("thetaPrime: %f, thetaRadPrime: %f%n", l2.getTheta(), thetaRadPrime);
+
+        // r = <x0, y0> + dirMultiple * <cos(theta), sin(theta)>
+        // rPrime = <x0Prime, y0Prime> + dirPrimeMultiple * <cos(thetaPrime), sin(thetaPrime)>
+
+        double x0 = l1.getStartingPoint().x;
+        double x0Prime = l2.getStartingPoint().x;
+        double y0 = -l1.getStartingPoint().y;        // Invert y axis
+        double y0Prime = -l2.getStartingPoint().y;
+
+        Vector2 dir = new Vector2((float)Math.cos(thetaRad), (float)Math.sin(thetaRad));
+        Vector2 dirPrime = new Vector2((float)Math.cos(thetaRadPrime), (float)Math.sin(thetaRadPrime));
+
+        double dirMultiple = y0Prime - y0 - Math.tan(thetaRadPrime)*(x0Prime - x0);
+        dirMultiple /= Math.sin(thetaRad) - Math.cos(thetaRad)*Math.tan(thetaRadPrime);
+
+        double dirPrimeMultiple = y0Prime - y0 - Math.tan(thetaRad)*(x0Prime - x0);
+        dirPrimeMultiple /= Math.cos(thetaRadPrime)*Math.tan(thetaRad) - Math.sin(thetaRadPrime);
+
+        Vector2 dirScaled = new Vector2((float)(dir.x*dirMultiple), 
+                                        (float)(dir.y*dirMultiple));
+        Vector2 dirPrimeScaled = new Vector2((float)(dirPrime.x*dirPrimeMultiple), 
+                                             (float)(dirPrime.y*dirPrimeMultiple));
+
+        //System.out.printf("dir:      (%f, %f), dirScaled:      (%f, %f)%n", dir.x, dir.y, dirScaled.x, dirScaled.y);
+        //System.out.printf("dirPrime: (%f, %f), dirPrimeScaled: (%f, %f)%n", dirPrime.x, dirPrime.y, dirPrimeScaled.x, dirPrimeScaled.y);
+
+        double epsilon = 0.05;
+        boolean returnIntersection = (
+            (Math.abs(thetaRad - thetaRadPrime) > epsilon) &&
+            (dirMultiple > -epsilon && dirPrimeMultiple > -epsilon) && 
+            (ignoreBounds || (getSize(dirScaled) <= l1.getSegmentSize() && getSize(dirPrimeScaled) <= l2.getSegmentSize()))
+        );
+                                     
+
+        if(returnIntersection) {
+            return new Vector2((float)(x0 + dirScaled.x), -(float)(y0 + dirScaled.y));
+        } else {
+            return null;
+        }
     }
 
     public void render() {
