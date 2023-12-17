@@ -1,6 +1,10 @@
 package test.simobjects.lightbeam;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
+
+import org.junit.Test;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
@@ -11,14 +15,34 @@ import core.simscreens.descriptors.SimulationScreen;
 
 public class LightBeamSegmentTest {
     
+    private static SimulationScreen simulationScreen = new SimulationScreen(600, 400, 100, 100, null);
+    private static Raylib rlj = new Raylib(800, 600, "LightBeamSegmentTest");
+
+    @Test
+    public void intersectionTest() {
+        LightBeamSegment lref1 = new LightBeamSegment(new Vector2(300, 100), new Vector2(400, 100), null, null);
+        LightBeamSegment ltst1 = new LightBeamSegment(new Vector2(200, 200), new Vector2(400, 0), null, null);
+        LightBeamSegment ltst2 = new LightBeamSegment(new Vector2(300, 200), new Vector2(400, 0), null, null);
+        LightBeamSegment ltst3 = new LightBeamSegment(new Vector2(400, 200), new Vector2(400, 0), null, null);
+        LightBeamSegment ltst4 = new LightBeamSegment(new Vector2(500, 200), new Vector2(400, 0), null, null);
+        LightBeamSegment ltst5 = new LightBeamSegment(new Vector2(300, 200), new Vector2(400, 200), null, null);
+        assertEquals(300, LightBeamSegment.intersection(lref1, ltst1, false).x, 0.1);
+        assertEquals(100, LightBeamSegment.intersection(lref1, ltst1, false).y, 0.1);
+        assertEquals(350, LightBeamSegment.intersection(lref1, ltst2, false).x, 0.1);
+        assertEquals(100, LightBeamSegment.intersection(lref1, ltst2, false).y, 0.1);
+        assertEquals(400, LightBeamSegment.intersection(lref1, ltst3, false).x, 0.1);
+        assertEquals(100, LightBeamSegment.intersection(lref1, ltst3, false).y, 0.1);
+        assertEquals(null, LightBeamSegment.intersection(lref1, ltst4, false));
+        assertEquals(450, LightBeamSegment.intersection(lref1, ltst4, true).x, 0.1);
+        assertEquals(100, LightBeamSegment.intersection(lref1, ltst4, true).y, 0.1);
+        assertEquals(null, LightBeamSegment.intersection(lref1, ltst5, true));
+    }
     public static void main(String[] args) {
-        Raylib rlj = new Raylib(800, 600, "teste");
-        SimulationScreen simulationScreen = new SimulationScreen(600, 400, 100, 100, null);
         
-        LightBeamSegment segment1 = new LightBeamSegment(new Vector2(250, 25), new Vector2(350, 75), simulationScreen, rlj);
-        segment1.setIsDashed(true);
-        LightBeamSegment segment2 = new LightBeamSegment(new Vector2(250, 50), new Vector2(350, 100), simulationScreen, rlj);
-        segment2.setShowArrows(false);
+        LightBeamSegment segment1 = new LightBeamSegment(new Vector2(300, 100), new Vector2(400, 100), simulationScreen, rlj);
+        LightBeamSegment segment2 = new LightBeamSegment(new Vector2(300, 200), new Vector2(400, 50), simulationScreen, rlj);
+        LightBeamSegment segment3 = new LightBeamSegment(new Vector2(550, 150), new Vector2(450, 220), simulationScreen, rlj);
+        LightBeamSegment segment4 = new LightBeamSegment(new Vector2(550, 300), new Vector2(450, 250), simulationScreen, rlj);
 
         ArrayList<LightBeamSegment> segs = new ArrayList<LightBeamSegment>();
 
@@ -48,6 +72,18 @@ public class LightBeamSegmentTest {
             rlj.shapes.DrawRectangleLines(simulationScreen.getBegX(), simulationScreen.getBegY(), simulationScreen.getWidth(), simulationScreen.getHeight(), Color.RAYWHITE);
             segment1.render();
             segment2.render();
+            Vector2 intersectionPoint1 = LightBeamSegment.intersection(segment1, segment2, false);
+            if(intersectionPoint1 != null) {
+                rlj.shapes.DrawCircle(simulationScreen.getBegX()+(int)intersectionPoint1.x, 
+                                      simulationScreen.getBegY()+(int)intersectionPoint1.y, 3, Color.RED);
+            }
+            segment3.render();
+            segment4.render();
+            Vector2 intersectionPoint2 = LightBeamSegment.intersection(segment3, segment4, true);
+            if(intersectionPoint2 != null) {
+                rlj.shapes.DrawCircle(simulationScreen.getBegX()+(int)intersectionPoint2.x, 
+                                      simulationScreen.getBegY()+(int)intersectionPoint2.y, 3, Color.RED);
+            }
             for(int i = 0; i < segs.size(); i++) {
                 segs.get(i).render();
             }
