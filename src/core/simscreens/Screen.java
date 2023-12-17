@@ -11,8 +11,17 @@ public abstract class Screen {
         this.begY = begY;
     }
 
+    public int getWidth() {
+        return width;
+    }
     public int getHeight() {
         return height;
+    }
+    public int getBegX() {
+        return begX;
+    }
+    public int getBegY() {
+        return begY;
     }
 
     public abstract void render();

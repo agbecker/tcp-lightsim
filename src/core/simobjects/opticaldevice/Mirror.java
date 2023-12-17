@@ -13,7 +13,7 @@ public class Mirror extends OpticalDevice {
         this.isConvex = isConvex;
     }
 
-    public void render() {
+    public void render(int xAbs, int yAbs) {
 
     }
 

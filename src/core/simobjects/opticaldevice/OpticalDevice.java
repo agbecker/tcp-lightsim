@@ -15,9 +15,5 @@ public abstract class OpticalDevice extends ObjectToRender {
         this.vertex = vertex;
         this.displayFocus = displayFocus;
     }
-
-    public void render() {
-
-    }
-
+    
 }
