@@ -66,7 +66,7 @@ public class LightBeamSegment extends ObjectToRender {
 
         ObjectToRender.simulationScreen = screen;
         ObjectToRender.rlj = rlj;
-        this.segmentSize = getDistance(startingPoint, endingPoint);;
+        this.segmentSize = getDistance(startingPoint, endingPoint);
     }
 
     public Vector2 getStartingPoint() {
