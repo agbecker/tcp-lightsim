@@ -10,22 +10,24 @@ import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
 import com.raylib.java.raymath.Vector2;
 
+import core.UI.UIElement;
+import core.simobjects.ObjectToRender;
 import core.simobjects.lightbeam.LightBeamSegment;
 import core.simscreens.descriptors.SimulationScreen;
 
 public class LightBeamSegmentTest {
     
     private static SimulationScreen simulationScreen = new SimulationScreen(600, 400, 100, 100, null);
-    private static Raylib rlj = new Raylib(800, 600, "LightBeamSegmentTest");
+    private static Raylib rlj = UIElement.rlj;
 
     @Test
     public void intersectionTest() {
-        LightBeamSegment lref1 = new LightBeamSegment(new Vector2(300, 100), new Vector2(400, 100), null, null);
-        LightBeamSegment ltst1 = new LightBeamSegment(new Vector2(200, 200), new Vector2(400, 0), null, null);
-        LightBeamSegment ltst2 = new LightBeamSegment(new Vector2(300, 200), new Vector2(400, 0), null, null);
-        LightBeamSegment ltst3 = new LightBeamSegment(new Vector2(400, 200), new Vector2(400, 0), null, null);
-        LightBeamSegment ltst4 = new LightBeamSegment(new Vector2(500, 200), new Vector2(400, 0), null, null);
-        LightBeamSegment ltst5 = new LightBeamSegment(new Vector2(300, 200), new Vector2(400, 200), null, null);
+        LightBeamSegment lref1 = new LightBeamSegment(new Vector2(300, 100), new Vector2(400, 100));
+        LightBeamSegment ltst1 = new LightBeamSegment(new Vector2(200, 200), new Vector2(400, 0));
+        LightBeamSegment ltst2 = new LightBeamSegment(new Vector2(300, 200), new Vector2(400, 0));
+        LightBeamSegment ltst3 = new LightBeamSegment(new Vector2(400, 200), new Vector2(400, 0));
+        LightBeamSegment ltst4 = new LightBeamSegment(new Vector2(500, 200), new Vector2(400, 0));
+        LightBeamSegment ltst5 = new LightBeamSegment(new Vector2(300, 200), new Vector2(400, 200));
         assertEquals(300, LightBeamSegment.intersection(lref1, ltst1, false).x, 0.1);
         assertEquals(100, LightBeamSegment.intersection(lref1, ltst1, false).y, 0.1);
         assertEquals(350, LightBeamSegment.intersection(lref1, ltst2, false).x, 0.1);
@@ -38,33 +40,34 @@ public class LightBeamSegmentTest {
         assertEquals(null, LightBeamSegment.intersection(lref1, ltst5, true));
     }
     public static void main(String[] args) {
-        
-        LightBeamSegment segment1 = new LightBeamSegment(new Vector2(300, 100), new Vector2(400, 100), simulationScreen, rlj);
-        LightBeamSegment segment2 = new LightBeamSegment(new Vector2(300, 200), new Vector2(400, 50), simulationScreen, rlj);
-        LightBeamSegment segment3 = new LightBeamSegment(new Vector2(550, 150), new Vector2(450, 220), simulationScreen, rlj);
-        LightBeamSegment segment4 = new LightBeamSegment(new Vector2(550, 300), new Vector2(450, 250), simulationScreen, rlj);
+        ObjectToRender.setSimulationScreen(simulationScreen);
+
+        LightBeamSegment segment1 = new LightBeamSegment(new Vector2(300, 100), new Vector2(400, 100));
+        LightBeamSegment segment2 = new LightBeamSegment(new Vector2(300, 200), new Vector2(400, 50));
+        LightBeamSegment segment3 = new LightBeamSegment(new Vector2(550, 150), new Vector2(450, 220));
+        LightBeamSegment segment4 = new LightBeamSegment(new Vector2(550, 300), new Vector2(450, 250));
 
         ArrayList<LightBeamSegment> segs = new ArrayList<LightBeamSegment>();
 
         // 1: Ângulo entre canto superior direito e canto superior esquerdo
-        segs.add(new LightBeamSegment(new Vector2(100, 200), 90, simulationScreen, rlj));
-        segs.add(new LightBeamSegment(new Vector2(100, 200), 70, simulationScreen, rlj));
-        segs.add(new LightBeamSegment(new Vector2(100, 200), 100, simulationScreen, rlj));
+        segs.add(new LightBeamSegment(new Vector2(100, 200), 90));
+        segs.add(new LightBeamSegment(new Vector2(100, 200), 70));
+        segs.add(new LightBeamSegment(new Vector2(100, 200), 100));
                 
         // 2: Ângulo entre canto superior esquerdo e canto inferior esquerdo
-        segs.add(new LightBeamSegment(new Vector2(100, 200), 180, simulationScreen, rlj));
-        segs.add(new LightBeamSegment(new Vector2(100, 200), 160, simulationScreen, rlj));
-        segs.add(new LightBeamSegment(new Vector2(100, 200), 190, simulationScreen, rlj));
+        segs.add(new LightBeamSegment(new Vector2(100, 200), 180));
+        segs.add(new LightBeamSegment(new Vector2(100, 200), 160));
+        segs.add(new LightBeamSegment(new Vector2(100, 200), 190));
 
         // 3: Ângulo entre canto inferior esquerdo e canto inferior direito
-        segs.add(new LightBeamSegment(new Vector2(100, 200), 270, simulationScreen, rlj));
-        segs.add(new LightBeamSegment(new Vector2(100, 200), 280, simulationScreen, rlj));
-        segs.add(new LightBeamSegment(new Vector2(100, 200), 250, simulationScreen, rlj));
+        segs.add(new LightBeamSegment(new Vector2(100, 200), 270));
+        segs.add(new LightBeamSegment(new Vector2(100, 200), 280));
+        segs.add(new LightBeamSegment(new Vector2(100, 200), 250));
 
         // 4: Ângulo entre canto inferior direito e canto superior direito
-        segs.add(new LightBeamSegment(new Vector2(100, 200), 0, simulationScreen, rlj));
-        segs.add(new LightBeamSegment(new Vector2(100, 200), 340, simulationScreen, rlj));
-        segs.add(new LightBeamSegment(new Vector2(100, 200), 10, simulationScreen, rlj));
+        segs.add(new LightBeamSegment(new Vector2(100, 200), 0));
+        segs.add(new LightBeamSegment(new Vector2(100, 200), 340));
+        segs.add(new LightBeamSegment(new Vector2(100, 200), 10));
 
         while(!rlj.core.WindowShouldClose()){
             rlj.core.BeginDrawing();

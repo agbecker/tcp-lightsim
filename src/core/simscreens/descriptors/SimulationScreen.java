@@ -2,10 +2,11 @@ package core.simscreens.descriptors;
 
 import java.util.ArrayList;
 
+import core.UI.UIElement;
 import core.simobjects.*;
 import core.simscreens.Screen;
 
-public class SimulationScreen extends Screen {
+public class SimulationScreen extends Screen implements UIElement {
     
     private final int AXIS_HEIGHT = super.getHeight()/2;
     ArrayList<ObjectToRender> objectsToRender;

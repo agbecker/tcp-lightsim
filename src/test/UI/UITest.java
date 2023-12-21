@@ -13,9 +13,9 @@ public class UITest {
 
     // Descomentar caso queira testar elementos da UI
 
-    /*public static void main(String[] args) {
-        Raylib rlj = new Raylib(800, 600, "teste");
-        Slider slider = new Slider(-40, 28, new Vector2(400, 300), 200, rlj);
+    public static void main(String[] args) {
+        Raylib rlj = UIElement.rlj;
+        Slider slider = new Slider(-40, 28, new Vector2(400, 300), 200);
 
         //slider.updateKnobPosition(400);
         
@@ -33,6 +33,6 @@ public class UITest {
             rlj.core.EndDrawing();
         }
         
-    }*/
+    }
     
 }

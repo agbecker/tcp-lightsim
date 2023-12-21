@@ -1,7 +1,5 @@
 package core.simobjects;
 
-import com.raylib.java.Raylib;
-
 import core.simscreens.Screen;
 import core.simscreens.descriptors.StatsScreen;
 import core.simscreens.editors.Updater;
@@ -11,11 +9,25 @@ public abstract class ObjectToRender {
     private static Updater updater;
     private static StatsScreen statsScreen;
 
-    protected static Screen simulationScreen;
-    protected static Raylib rlj;
+    private static Screen simulationScreen;
+    private static boolean enableSetSimulationScreen = true;
 
     public ObjectToRender() {
 
+    }
+
+    public static Screen getSimulationScreen() {
+        return simulationScreen;
+    }
+
+    public static void setSimulationScreen(Screen simulationScreen) {
+        if(enableSetSimulationScreen) {
+            ObjectToRender.simulationScreen = simulationScreen;
+        }
+    }
+    public static void setSimulationScreenPermanently(Screen simulationScreen) {
+        setSimulationScreen(simulationScreen);
+        enableSetSimulationScreen = false;
     }
 
     public static void setUpdater(Updater updater) {
@@ -31,8 +43,6 @@ public abstract class ObjectToRender {
     public StatsScreen getStatsScreen() {
         return statsScreen;
     }
-
-    public abstract void render(int xAbs, int yAbs);
 
     public void toggleUpdate() {
         // Chama setObjectSelected de Updater

@@ -2,29 +2,25 @@ package core.simobjects.lightbeam;
 
 import java.util.ArrayList;
 
-import com.raylib.java.Raylib;
 import com.raylib.java.raymath.Vector2;
 
+import core.UI.UIElement;
 import core.simobjects.ObjectToRender;
-import core.simscreens.descriptors.SimulationScreen;
+import core.simscreens.Screen;
 
-public class LightBeam extends ObjectToRender {
+public class LightBeam extends ObjectToRender implements UIElement {
     
     private ArrayList<LightBeamSegment> segments;
     private Vector2 startingPoint;
 
-    public LightBeam(Vector2 startingPoint, SimulationScreen screen, Raylib rlj) {
+    public LightBeam(Vector2 startingPoint) {
         segments = new ArrayList<LightBeamSegment>();
         this.startingPoint = startingPoint;
-        ObjectToRender.simulationScreen = screen;
-        ObjectToRender.rlj = rlj;
     }
 
-    public LightBeam(Vector2 startingPoint, ArrayList<LightBeamSegment> segments, SimulationScreen screen, Raylib rlj) {
+    public LightBeam(Vector2 startingPoint, ArrayList<LightBeamSegment> segments) {
         this.segments = segments;
         this.startingPoint = startingPoint;
-        ObjectToRender.simulationScreen = screen;
-        ObjectToRender.rlj = rlj;
     }
 
     public void addSegment(LightBeamSegment segment) {
@@ -37,7 +33,7 @@ public class LightBeam extends ObjectToRender {
         } else {
             startingPoint = lastSegment().getEndingPoint();
         } 
-        LightBeamSegment segment = new LightBeamSegment(startingPoint, endingPoint, simulationScreen, rlj);
+        LightBeamSegment segment = new LightBeamSegment(startingPoint, endingPoint);
         segments.add(segment);
     }
     public void addSegment(double theta) {
@@ -47,7 +43,7 @@ public class LightBeam extends ObjectToRender {
         } else {
             startingPoint = lastSegment().getEndingPoint();
         } 
-        LightBeamSegment segment = new LightBeamSegment(startingPoint, theta, simulationScreen, rlj);
+        LightBeamSegment segment = new LightBeamSegment(startingPoint, theta);
         segments.add(segment);
     }
 
@@ -79,6 +75,7 @@ public class LightBeam extends ObjectToRender {
     }
 
     public void render() {
+        Screen simulationScreen = ObjectToRender.getSimulationScreen();
         render(simulationScreen.getBegX(), simulationScreen.getBegY());
     }
 

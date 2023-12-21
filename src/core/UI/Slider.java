@@ -8,7 +8,7 @@ import com.raylib.java.core.Color;
 import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 
-public class Slider {
+public class Slider implements UIElement {
 
     private double minValue;
     private double maxValue;
@@ -22,7 +22,7 @@ public class Slider {
     private double trackRightX;
     private double trackCenterY;
 
-    private static Raylib rlj;
+    private static Raylib rlj = UIElement.rlj;
     private Rectangle rect, shadow;
     private Rectangle track;
 
@@ -38,7 +38,7 @@ public class Slider {
     private static final int LABEL_GAP = 10;
 
 
-    public Slider(double min, double max, Vector2 trackCenterPoint, double trackWidth, Raylib rlj) {
+    public Slider(double min, double max, Vector2 trackCenterPoint, double trackWidth) {
         minValue = min;
         maxValue = max;
         percent = 50;
@@ -50,8 +50,6 @@ public class Slider {
         trackCenterY = trackCenterPoint.getY();
 
         wasBeingHeld = false;
-
-        Slider.rlj = rlj;
 
         int rectX = (int) (trackCenterPoint.getX() - RECT_WIDTH/2);
         int rectY = (int) (trackCenterY + TRACK_HEIGHT/2 - RECT_HEIGHT);
