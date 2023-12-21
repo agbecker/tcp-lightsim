@@ -2,11 +2,12 @@ package core.simscreens.editors;
 
 import java.util.ArrayList;
 
+import core.UI.UIElement;
 import core.simobjects.ObjectToRender;
 import core.simscreens.Screen;
 import core.simscreens.utils.ToolboxButton;
 
-public class ToolboxScreen extends Screen {
+public class ToolboxScreen extends Screen implements UIElement {
     
     ArrayList<ToolboxButton> items;
 

@@ -2,11 +2,12 @@ package core.simobjects.sourceObject;
 
 import com.raylib.java.raymath.Vector2;
 
+import core.UI.UIElement;
 import core.simobjects.ObjectToRender;
 import core.simobjects.lightbeam.LightBeam;
 import core.simobjects.opticaldevice.OpticalDevice;
 
-public class SourceObject extends ObjectToRender {
+public class SourceObject extends ObjectToRender implements UIElement {
 
     // Atributos
     private final double INITIAL_HEIGHT = 10;
@@ -48,6 +49,10 @@ public class SourceObject extends ObjectToRender {
     public SourceObject generateImage() {
         // Método que gera a imagem do objeto
         return new SourceObject(opticalDevice, generatesImage);
+    }
+    
+    public void render() {
+
     }
     
     public void render(int xAbs, int yAbs) {

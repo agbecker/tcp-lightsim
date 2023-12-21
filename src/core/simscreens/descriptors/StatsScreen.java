@@ -1,9 +1,10 @@
 package core.simscreens.descriptors;
 
+import core.UI.UIElement;
 import core.simobjects.ObjectToRender;
 import core.simscreens.Screen;
 
-public class StatsScreen extends Screen {
+public class StatsScreen extends Screen implements UIElement {
     
         // Atributos
     private ObjectToRender objectSelected;

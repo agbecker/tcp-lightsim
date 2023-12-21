@@ -1,9 +1,10 @@
 package core.simscreens.editors;
 
+import core.UI.UIElement;
 import core.simobjects.ObjectToRender;
 import core.simscreens.Screen;
 
-public class Updater extends Screen {
+public class Updater extends Screen implements UIElement {
     
     // Atributos
     private ObjectToRender objectSelected;

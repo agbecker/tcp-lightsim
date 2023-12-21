@@ -8,10 +8,11 @@ import com.raylib.java.core.Color;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.Raylib;
 
+import core.UI.UIElement;
 import core.simobjects.ObjectToRender;
 import core.simscreens.Screen;
 
-public class LightBeamSegment extends ObjectToRender {
+public class LightBeamSegment extends ObjectToRender implements UIElement {
 
     private Vector2 startingPoint, endingPoint;
     private double theta;
@@ -25,22 +26,22 @@ public class LightBeamSegment extends ObjectToRender {
     private final int LINE_THICKNESS = 2;
     private final Color LINE_COLOR = Color.RAYWHITE;
 
-    public LightBeamSegment(Vector2 startingPoint, Vector2 endingPoint, Screen screen, Raylib rlj) {
+    public LightBeamSegment(Vector2 startingPoint, Vector2 endingPoint) {
         this.startingPoint = startingPoint;
         this.endingPoint = endingPoint;
         this.showArrows = true;
         this.isDashed = false;
-        ObjectToRender.simulationScreen = screen;
-        ObjectToRender.rlj = rlj;
         this.theta = getAngle(startingPoint, endingPoint);
-        this.segmentSize = getDistance(startingPoint, endingPoint);;
+        this.segmentSize = getDistance(startingPoint, endingPoint);
     }
 
-    public LightBeamSegment(Vector2 startingPoint, double theta, Screen screen, Raylib rlj) {
+    public LightBeamSegment(Vector2 startingPoint, double theta) {
         this.startingPoint = startingPoint;
         this.theta = theta;
         this.showArrows = true;
         this.isDashed = false;
+
+        Screen screen = ObjectToRender.getSimulationScreen();
 
         ArrayList<Double> cornerAngles = new ArrayList<Double>();
         cornerAngles.add(getAngle(startingPoint, new Vector2(screen.getWidth(), 0                 )));
@@ -63,9 +64,6 @@ public class LightBeamSegment extends ObjectToRender {
             double y = (screen.getWidth() - startingPoint.x)*getSlope(360-theta) + startingPoint.y;
             this.endingPoint = new Vector2((float)screen.getWidth(), (float)y);
         }
-
-        ObjectToRender.simulationScreen = screen;
-        ObjectToRender.rlj = rlj;
         this.segmentSize = getDistance(startingPoint, endingPoint);
     }
 
@@ -141,10 +139,12 @@ public class LightBeamSegment extends ObjectToRender {
     }
 
     public void render() {
-        render(simulationScreen.getBegX(), simulationScreen.getBegY());
+        Screen screen = ObjectToRender.getSimulationScreen();
+        render(screen.getBegX(), screen.getBegY());
     }
 
     public void render(int xAbs, int yAbs) {
+        Raylib rlj = UIElement.rlj;
         Vector2 absStart = new Vector2(xAbs + startingPoint.x, yAbs + startingPoint.y);
         Vector2 absEnd = new Vector2(xAbs + endingPoint.x, yAbs + endingPoint.y);
         if(isDashed) {
