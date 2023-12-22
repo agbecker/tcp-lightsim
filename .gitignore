@@ -1,2 +1,3 @@
-
-*.jar
+.vscode/
+lib/
+bin/
