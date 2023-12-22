@@ -12,6 +12,10 @@ public interface UIElement {
     public final static Color BG_BLUE = new Color(14, 137, 230, 255);
     public final Color WHITE = Color.RAYWHITE;
 
+    public final static int FONT_SIZE = 30;
+
+    public final static int SCREEN_BORDER_WIDTH = 3;
+
     public final Raylib rlj = new Raylib(1200, 700, "LightSim");
     public abstract void render();
 }

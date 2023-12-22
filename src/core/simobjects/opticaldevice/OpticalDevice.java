@@ -20,5 +20,9 @@ public abstract class OpticalDevice extends ObjectToRender implements UIElement 
     public void render() {
 
     }
+
+    public Vector2 getVertex() {
+        return this.vertex;
+    }
     
 }
