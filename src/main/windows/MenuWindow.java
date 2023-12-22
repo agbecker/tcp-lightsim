@@ -12,7 +12,7 @@ public class MenuWindow extends Window {
     private void assignButtons() {
         simButton = new WindowButton(
             UIElement.RLJ_WIDTH/2, 100, 200, 100, new String("Simular!"),
-            super.getManager(), this
+            super.getManager(), new SimulationWindow(super.getManager(), this)
         );
         manualButton = new WindowButton(
             UIElement.RLJ_WIDTH/2, 250, 200, 100, new String("Como Usar"),
