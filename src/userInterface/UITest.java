@@ -10,6 +10,7 @@ import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_BUTTON_LEFT;
 public class UITest {
 
     public static void main(String[] args) {
+
         Raylib rlj = new Raylib(800, 600, "teste");
         Button but = new MenuButton(250, 150, 300, 60, "Simular", rlj);
         Button but2 = new MenuButton(250, 250, 300, 60, "Como usar", rlj);
@@ -18,14 +19,19 @@ public class UITest {
 
         while(!rlj.core.WindowShouldClose()){
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
             rlj.core.BeginDrawing();
             rlj.core.ClearBackground(Button.BG_BLUE);
 
             for(Button b : buttons) {
+<<<<<<< Updated upstream
                 
+=======
+>>>>>>> Stashed changes
                 b.render();
-
             }
 
             rlj.core.EndDrawing();

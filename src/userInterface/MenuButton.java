@@ -15,21 +15,34 @@ public class MenuButton extends Button{
         super(x,y,width,height,texture,rlj);
     }
 
-    public void function() {
 
+<<<<<<< Updated upstream
+=======
+    /* Função de teste puramente, mudar depois*/
+    @Override
+    public void function() {
+>>>>>>> Stashed changes
         int intLabel;
 
         try {
             intLabel = Integer.parseInt(label);
         }
 
+<<<<<<< Updated upstream
         catch (Exception e) {
             intLabel = 1;
             label = Integer.toString(intLabel);
+=======
+        catch (NumberFormatException e){
+            label = "1";
+>>>>>>> Stashed changes
             return;
         };
 
         label = Integer.toString(intLabel+1);
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     }
 }
