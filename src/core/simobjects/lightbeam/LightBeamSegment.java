@@ -24,7 +24,7 @@ public class LightBeamSegment extends ObjectToRender implements UIElement {
     private final int ARROW_SIZE = 10;
     private final int ARROW_ANGLE = 30;
     private final int LINE_THICKNESS = 2;
-    private final Color LINE_COLOR = Color.RAYWHITE;
+    private final Color LINE_COLOR = UIElement.WHITE;
 
     public LightBeamSegment(Vector2 startingPoint, Vector2 endingPoint) {
         this.startingPoint = startingPoint;

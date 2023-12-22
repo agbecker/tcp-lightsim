@@ -26,9 +26,9 @@ public class Slider implements UIElement {
     private Rectangle rect, shadow;
     private Rectangle track;
 
-    public static final Color LIGHT_PURPLE = new Color(102,44,246,255);
-    public static final Color DARK_PURPLE = new Color(61,7,194,255);
-    public static final Color TRACK_BLUE = new Color(0,116,203,255);
+    private static final Color LIGHT_PURPLE = UIElement.LIGHT_PURPLE;
+    private static final Color DARK_PURPLE = UIElement.DARK_PURPLE;
+    private static final Color TRACK_BLUE = UIElement.TRACK_BLUE;
     
     private static final int RECT_WIDTH = 24*2;
     private static final int RECT_HEIGHT = 12*2;
