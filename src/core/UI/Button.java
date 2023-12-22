@@ -15,12 +15,12 @@ import com.raylib.java.text.rText.FontType;
 import com.raylib.java.text.Font;
 //import com.raylib.java.Raylib;
 
-public abstract class Button implements UIElement{
+public abstract class Button implements UIElement {
     protected int begX, begY, width, height;
     protected String label;
     protected Texture2D texture;
     protected boolean isBeingPressed;
-    protected static Raylib rlj;
+    protected static Raylib rlj = UIElement.rlj;
 
     protected Rectangle rect, shadow;
 
@@ -33,27 +33,25 @@ public abstract class Button implements UIElement{
     protected final static int FONT_SIZE = 30;
 
 
-    public Button(int x, int y, int width, int height, String label, Raylib rlj) {
+    public Button(int x, int y, int width, int height, String label) {
         this.begX = x;
         this.begY = y;
         this.width = width;
         this.height = height;
         this.label = label;
         this.texture = null;
-        Button.rlj = rlj;
 
         this.rect = new Rectangle(x-SHADOW_OFFSET, y-SHADOW_OFFSET, width, height);
         this.shadow = new Rectangle(x, y, width, height);
     }
 
-    public Button(int x, int y, int width, int height, Texture2D texture, Raylib rlj) {
+    public Button(int x, int y, int width, int height, Texture2D texture) {
         this.begX = x;
         this.begY = y;
         this.width = width;
         this.height = height;
         this.texture = texture;
         this.label = null;
-        Button.rlj = rlj;
 
         this.rect = new Rectangle(x-SHADOW_OFFSET, y-SHADOW_OFFSET, width, height);
         this.shadow = new Rectangle(x, y, width, height);
