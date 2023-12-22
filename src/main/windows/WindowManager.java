@@ -4,8 +4,8 @@ public class WindowManager {
     
     private Window currWindow;
 
-    public WindowManager(Window currWindow) {
-        this.currWindow = currWindow;
+    public WindowManager(Window initialWindow) {
+        this.currWindow = initialWindow;
     }
  
     protected void setCurrWindow(Window window) {

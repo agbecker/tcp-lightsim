@@ -5,16 +5,16 @@ import core.UI.Button;
 public class WindowButton extends Button {
 
     private WindowManager manager;
-    private Window myWindow;
+    private Window toWindow;
 
-    public WindowButton(int x, int y, int width, int height, String label, WindowManager manager, Window myWindow) {
+    public WindowButton(int x, int y, int width, int height, String label, WindowManager manager, Window toWindow) {
         super(x,y,width,height,label);
         this.manager = manager;
-        this.myWindow = myWindow;
+        this.toWindow = toWindow;
     }
 
     @Override
     public void function() {
-        manager.setCurrWindow(myWindow);
+        manager.setCurrWindow(toWindow);
     }
 }
