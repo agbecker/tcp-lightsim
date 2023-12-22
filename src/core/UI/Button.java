@@ -1,4 +1,4 @@
-package userInterface;
+package core.UI;
 import com.raylib.java.core.Color;
 import com.raylib.java.core.rCore;
 import com.raylib.java.core.ray.Ray;
@@ -15,7 +15,7 @@ import com.raylib.java.text.rText.FontType;
 import com.raylib.java.text.Font;
 //import com.raylib.java.Raylib;
 
-public abstract class Button {
+public abstract class Button implements UIElement{
     protected int begX, begY, width, height;
     protected String label;
     protected Texture2D texture;
@@ -24,10 +24,10 @@ public abstract class Button {
 
     protected Rectangle rect, shadow;
 
-    public final static Color MEDIUM_BLUE = new Color(0, 146, 255, 255);
-    public final static Color DARK_BLUE = new Color(0, 116, 203, 255);
-    public final static Color LIGHT_BLUE = new Color(128, 200, 255, 255);
-    public final static Color BG_BLUE = new Color(14, 137, 230, 255);
+    protected final static Color MEDIUM_BLUE = UIElement.MEDIUM_BLUE;
+    protected final static Color DARK_BLUE = UIElement.DARK_BLUE;
+    protected final static Color LIGHT_BLUE = UIElement.LIGHT_BLUE;
+    protected final static Color BG_BLUE = UIElement.BG_BLUE;
     protected final static int SHADOW_OFFSET = 5;
     protected final static int BORDER_OFFSET = 5;
     protected final static int FONT_SIZE = 30;
