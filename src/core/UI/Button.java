@@ -45,7 +45,7 @@ public abstract class Button implements UIElement {
         this.shadow = new Rectangle(x, y, width, height);
     }
 
-    public Button(int x, int y, int width, int height, Texture2D texture, Raylib rlj) {
+    public Button(int x, int y, int width, int height, Texture2D texture) {
         this.begX = x;
         this.begY = y;
         this.width = width;
