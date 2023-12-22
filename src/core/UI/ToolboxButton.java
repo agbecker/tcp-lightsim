@@ -1,4 +1,4 @@
-package userInterface;
+package core.UI;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.textures.Texture2D;
