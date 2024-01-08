@@ -85,4 +85,6 @@ public class LightBeam extends ObjectToRender implements UIElement {
         }
     }
 
+    public void unloadTexture() {}
+
 }

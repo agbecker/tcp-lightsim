@@ -23,4 +23,8 @@ public class Mirror extends OpticalDevice implements UIElement {
 
     }
 
+    public void unloadTexture() {
+        
+    }
+
 }
