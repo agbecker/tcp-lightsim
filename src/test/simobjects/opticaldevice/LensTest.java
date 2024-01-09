@@ -19,7 +19,7 @@ public class LensTest {
         SimulationScreen simulationScreen = new SimulationScreen(new ArrayList<ObjectToRender>());
         ObjectToRender.setSimulationScreen(simulationScreen);
 
-        Lens lens = new Lens(50.0, new Vector2(simulationScreen.getWidth()/2, simulationScreen.getAxisHeight()), true, true);
+        Lens lens = new Lens(50.0, new Vector2(simulationScreen.getWidth()/2, simulationScreen.getAxisHeight()), true);
         simulationScreen.addObject(lens);
 
         Raylib rlj = UIElement.rlj;
