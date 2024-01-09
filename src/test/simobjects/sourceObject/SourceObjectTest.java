@@ -21,9 +21,9 @@ public class SourceObjectTest {
         SimulationScreen simulationScreen = new SimulationScreen(new ArrayList<ObjectToRender>());
         ObjectToRender.setSimulationScreen(simulationScreen);
 
-        SourceObject sourceObject = new SourceObject(new Vector2(100, simulationScreen.getAxisHeight()));
+        SourceObject sourceObject = new SourceObject(new Vector2(500, simulationScreen.getAxisHeight()));
         //Lens lens = new Lens(100.0, new Vector2(simulationScreen.getWidth()/2, simulationScreen.getAxisHeight()), true);
-        Mirror mirror = new Mirror(-100.0, new Vector2(simulationScreen.getWidth()/2, simulationScreen.getAxisHeight()), true);
+        Mirror mirror = new Mirror(100.0, new Vector2(simulationScreen.getWidth()/2, simulationScreen.getAxisHeight()), true);
 
         simulationScreen.addObject(sourceObject);
         simulationScreen.addObject(mirror);

@@ -83,10 +83,10 @@ public class SourceObject extends ObjectToRender implements UIElement {
         // Se o foco é positivo, o raio (real) segue o foco. 
         // Caso contrário, o prolongamento do raio (virtual) segue o foco.
         if(opticalDevice.getFocus() > 0) {
-            double theta = getAngle(new Vector2(opticalDevice.getVertex().x, lightSource.y), opticalDevice.getFocalPoint());
+            double theta = getAngle(new Vector2(opticalDevice.getVertex().x, lightSource.y), opticalDevice.getFocalPoint(this.vertex));
             beamParallel.addSegment(theta);
         } else {
-            double theta = getAngle(new Vector2(opticalDevice.getVertex().x, lightSource.y), opticalDevice.getFocalPoint());
+            double theta = getAngle(new Vector2(opticalDevice.getVertex().x, lightSource.y), opticalDevice.getFocalPoint(this.vertex));
             beamParallel.addSegment((theta+180)%360);
         }
 

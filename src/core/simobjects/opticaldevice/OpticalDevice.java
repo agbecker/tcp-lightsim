@@ -32,6 +32,6 @@ public abstract class OpticalDevice extends ObjectToRender implements UIElement 
         return vertex;
     }
 
-    public abstract Vector2 getFocalPoint();
+    public abstract Vector2 getFocalPoint(Vector2 sourceVertex);
 
 }

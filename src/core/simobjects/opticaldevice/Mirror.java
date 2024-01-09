@@ -31,7 +31,7 @@ public class Mirror extends OpticalDevice implements UIElement {
         Raylib rlj = UIElement.rlj;
         rlj.shapes.DrawRectangle(xAbs+(int)vertex.x-WIDTH_DEF/2, yAbs+(int)vertex.y-HEIGHT_DEF/2, WIDTH_DEF, HEIGHT_DEF, WHITE);
         
-        // Se o foco é menor que zero, o espelho é convexo, e o seu foco encontra-se à sua direita
+        // Se o foco é menor que zero, o espelho é convexo, e o seu foco encontra-se do lado oposto ao objeto
         if(focus < 0) {
             rlj.textures.DrawTexture(convexTexture, xAbs+(int)vertex.x, yAbs+(int)vertex.y, WHITE);
         } else {
@@ -40,11 +40,22 @@ public class Mirror extends OpticalDevice implements UIElement {
         if(displayFocus) {
             rlj.shapes.DrawCircle(xAbs+(int)vertex.x-(int)focus, yAbs+(int)vertex.y, 5, WHITE);
             rlj.text.DrawText("F", xAbs+(int)vertex.x-(int)focus-3, yAbs+(int)vertex.y + 7, 10, WHITE);
+            // F': foco para objetos que se encontram à direita do espelho
+            rlj.shapes.DrawCircle(xAbs+(int)vertex.x+(int)focus, yAbs+(int)vertex.y, 5, WHITE);
+            rlj.text.DrawText("F'", xAbs+(int)vertex.x+(int)focus-5, yAbs+(int)vertex.y + 7, 10, WHITE);
+            // F': foco para objetos que se encontram à esquerda do espelho
         }
     }
 
-    public Vector2 getFocalPoint() {
-        return new Vector2((float)(vertex.x-focus), (float)vertex.y);
+    public Vector2 getFocalPoint(Vector2 sourceVertex) {
+        Vector2 focalPoint;
+        // Accounts for objects placed on both sides of the device
+        if(sourceVertex.x < vertex.x) {
+            focalPoint = new Vector2((float)(vertex.x-focus), (float)vertex.y);
+        } else {
+            focalPoint = new Vector2((float)(vertex.x+focus), (float)vertex.y);
+        }
+        return focalPoint;
     }
 
     public void unloadTexture() {

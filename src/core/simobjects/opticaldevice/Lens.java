@@ -31,7 +31,7 @@ public class Lens extends OpticalDevice implements UIElement {
         Raylib rlj = UIElement.rlj;
         rlj.shapes.DrawRectangle(xAbs+(int)vertex.x-WIDTH_DEF/2, yAbs+(int)vertex.y-HEIGHT_DEF/2, WIDTH_DEF, HEIGHT_DEF, WHITE);
         
-        // Se o foco é negativo, a lente é divergente, e o foco encontra-se à sua esquerda
+        // Se o foco é negativo, a lente é divergente, e o foco encontra-se do mesmo lado do objeto
         if(focus < 0) {
             rlj.textures.DrawTexture(divergentTexture, xAbs+(int)vertex.x, yAbs+(int)vertex.y, WHITE);
         } else {
@@ -40,11 +40,22 @@ public class Lens extends OpticalDevice implements UIElement {
         if(displayFocus) {
             rlj.shapes.DrawCircle(xAbs+(int)vertex.x+(int)focus, yAbs+(int)vertex.y, 5, WHITE);
             rlj.text.DrawText("F", xAbs+(int)vertex.x+(int)focus-3, yAbs+(int)vertex.y + 7, 10, WHITE);
+            // F: foco para objetos que se encontram à esquerda da lente
+            rlj.shapes.DrawCircle(xAbs+(int)vertex.x-(int)focus, yAbs+(int)vertex.y, 5, WHITE);
+            rlj.text.DrawText("F'", xAbs+(int)vertex.x-(int)focus-5, yAbs+(int)vertex.y + 7, 10, WHITE);
+            // F': foco para objetos que se encontram à direita da lente
         }
     }
 
-    public Vector2 getFocalPoint() {
-        return new Vector2((float)(vertex.x+focus), (float)vertex.y);
+    public Vector2 getFocalPoint(Vector2 sourceVertex) {
+        Vector2 focalPoint;
+        // Accounts for objects placed on both sides of the device
+        if(sourceVertex.x < vertex.x) {
+            focalPoint = new Vector2((float)(vertex.x+focus), (float)vertex.y);
+        } else {
+            focalPoint = new Vector2((float)(vertex.x-focus), (float)vertex.y);
+        }
+        return focalPoint;
     }
 
     public void unloadTexture() {
