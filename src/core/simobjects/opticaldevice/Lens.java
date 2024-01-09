@@ -23,4 +23,8 @@ public class Lens extends OpticalDevice implements UIElement {
 
     }
 
+    public void unloadTexture() {
+        
+    }
+
 }

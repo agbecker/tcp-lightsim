@@ -54,4 +54,6 @@ public abstract class ObjectToRender {
 
     public abstract void render();
 
+    public abstract void unloadTexture();
+
 }

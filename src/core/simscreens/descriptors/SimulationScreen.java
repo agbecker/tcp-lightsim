@@ -2,6 +2,8 @@ package core.simscreens.descriptors;
 
 import java.util.ArrayList;
 
+import com.raylib.java.raymath.Vector2;
+
 import core.UI.UIElement;
 import core.simobjects.*;
 import core.simscreens.Screen;
@@ -16,17 +18,25 @@ public class SimulationScreen extends Screen implements UIElement {
     private int axisHeight;
     ArrayList<ObjectToRender> objectsToRender;
 
-    public SimulationScreen(ArrayList<ObjectToRender> objectToRenders) {
-        this(WIDTH_DEF, HEIGHT_DEF, BEGX_DEF, BEGY_DEF, objectToRenders);
+    public SimulationScreen(ArrayList<ObjectToRender> objectsToRender) {
+        this(WIDTH_DEF, HEIGHT_DEF, BEGX_DEF, BEGY_DEF, objectsToRender);
     }
 
-    public SimulationScreen(int width, int height, int begX, int begY, ArrayList<ObjectToRender> objectToRenders) {
+    public SimulationScreen(int width, int height, int begX, int begY, ArrayList<ObjectToRender> objectsToRender) {
         super(width, height, begX, begY);
-        this.objectsToRender = objectToRenders;
+        this.objectsToRender = objectsToRender;
         axisHeight = super.getHeight()/2;
     }
 
-    private void renderObjects() {
+    public int getAxisHeight() {
+        return axisHeight;
+    }
+
+    public void addObject(ObjectToRender object) {
+        objectsToRender.add(object);
+    } 
+
+    public void renderObjects() {
         if(objectsToRender != null) {
             for(ObjectToRender object : objectsToRender) {
                 object.render();
@@ -34,12 +44,21 @@ public class SimulationScreen extends Screen implements UIElement {
         }
     }
 
+    public void unloadTextures() {
+        if(objectsToRender != null) {
+            for(ObjectToRender object : objectsToRender) {
+                object.unloadTexture();
+            }
+        }
+    }
+
     public void render() {
-        render(BEGX_DEF, BEGY_DEF);
+        render(super.getBegX(), super.getBegY());
     }
     public void render(int xAbs, int yAbs) {
-        rlj.shapes.DrawRectangleLines(xAbs, yAbs, WIDTH_DEF, HEIGHT_DEF, UIElement.WHITE);
-        rlj.shapes.DrawRectangle(xAbs, yAbs, WIDTH_DEF, HEIGHT_DEF, UIElement.DARK_BLUE);
+        rlj.shapes.DrawRectangle(xAbs, yAbs, super.getWidth(), super.getHeight(), UIElement.DARK_BLUE);
+        rlj.shapes.DrawRectangleLines(xAbs, yAbs, super.getWidth(), super.getHeight(), UIElement.WHITE);
+        rlj.shapes.DrawLineEx(new Vector2(xAbs, yAbs+axisHeight), new Vector2(xAbs+super.getWidth(), yAbs+axisHeight), 1, UIElement.WHITE);
         renderObjects();
     }
 

@@ -176,4 +176,6 @@ public class LightBeamSegment extends ObjectToRender implements UIElement {
         }
     }
 
+    public void unloadTexture() {}
+
 }
