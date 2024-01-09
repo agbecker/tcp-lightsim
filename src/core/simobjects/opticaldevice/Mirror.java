@@ -13,13 +13,11 @@ public class Mirror extends OpticalDevice implements UIElement {
 
     final private static String CONCAVE_TEXTURE = "../../../../resources/textures/concave-mirror.png";
     final private static String CONVEX_TEXTURE = "../../../../resources/textures/convex-mirror.png";
-    private boolean isConvex;
     private Texture2D concaveTexture;
     private Texture2D convexTexture;
 
-    public Mirror(double focus, Vector2 vertex, boolean displayFocus, boolean isConvex) {
+    public Mirror(double focus, Vector2 vertex, boolean displayFocus) {
         super(focus, vertex, displayFocus);
-        this.isConvex = isConvex;
         this.concaveTexture = rTextures.LoadTexture(CONCAVE_TEXTURE);
         this.convexTexture = rTextures.LoadTexture(CONVEX_TEXTURE);
     }
@@ -32,16 +30,21 @@ public class Mirror extends OpticalDevice implements UIElement {
     public void render(int xAbs, int yAbs) {
         Raylib rlj = UIElement.rlj;
         rlj.shapes.DrawRectangle(xAbs+(int)vertex.x-WIDTH_DEF/2, yAbs+(int)vertex.y-HEIGHT_DEF/2, WIDTH_DEF, HEIGHT_DEF, WHITE);
-        if(isConvex) {
+        
+        // Se o foco é menor que zero, o espelho é convexo, e o seu foco encontra-se à sua direita
+        if(focus < 0) {
             rlj.textures.DrawTexture(convexTexture, xAbs+(int)vertex.x, yAbs+(int)vertex.y, WHITE);
         } else {
             rlj.textures.DrawTexture(concaveTexture, xAbs+(int)vertex.x, yAbs+(int)vertex.y, WHITE);
         }
         if(displayFocus) {
-            int sign = isConvex ? -1 : 1;
-            rlj.shapes.DrawCircle(xAbs+(int)vertex.x+sign*(int)focus, yAbs+(int)vertex.y, 5, WHITE);
-            rlj.text.DrawText("F", xAbs+(int)vertex.x+sign*(int)focus-3, yAbs+(int)vertex.y + 7, 10, WHITE);
+            rlj.shapes.DrawCircle(xAbs+(int)vertex.x-(int)focus, yAbs+(int)vertex.y, 5, WHITE);
+            rlj.text.DrawText("F", xAbs+(int)vertex.x-(int)focus-3, yAbs+(int)vertex.y + 7, 10, WHITE);
         }
+    }
+
+    public Vector2 getFocalPoint() {
+        return new Vector2((float)(vertex.x-focus), (float)vertex.y);
     }
 
     public void unloadTexture() {

@@ -10,6 +10,8 @@ import com.raylib.java.textures.rTextures;
 
 import core.UI.UIElement;
 import core.simobjects.ObjectToRender;
+import core.simobjects.opticaldevice.Lens;
+import core.simobjects.opticaldevice.Mirror;
 import core.simobjects.sourceObject.SourceObject;
 import core.simscreens.descriptors.SimulationScreen;
 
@@ -20,7 +22,14 @@ public class SourceObjectTest {
         ObjectToRender.setSimulationScreen(simulationScreen);
 
         SourceObject sourceObject = new SourceObject(new Vector2(100, simulationScreen.getAxisHeight()));
+        //Lens lens = new Lens(100.0, new Vector2(simulationScreen.getWidth()/2, simulationScreen.getAxisHeight()), true);
+        Mirror mirror = new Mirror(-100.0, new Vector2(simulationScreen.getWidth()/2, simulationScreen.getAxisHeight()), true);
+
         simulationScreen.addObject(sourceObject);
+        simulationScreen.addObject(mirror);
+
+        SourceObject image = sourceObject.generateImage(mirror);
+        if(image != null) simulationScreen.addObject(image);
 
         Raylib rlj = UIElement.rlj;
 

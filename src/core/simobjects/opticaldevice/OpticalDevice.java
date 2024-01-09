@@ -24,4 +24,14 @@ public abstract class OpticalDevice extends ObjectToRender implements UIElement 
         this.displayFocus = displayFocus;
     }
 
+    public double getFocus() {
+        return focus;
+    }
+
+    public Vector2 getVertex() {
+        return vertex;
+    }
+
+    public abstract Vector2 getFocalPoint();
+
 }
