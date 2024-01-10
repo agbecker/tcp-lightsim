@@ -52,4 +52,8 @@ public abstract class ObjectToRender {
         // Chama setObjectSelected de StatsScreen
     }
 
+    public abstract void render();
+
+    public abstract void unloadTexture();
+
 }
