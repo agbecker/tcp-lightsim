@@ -1,5 +1,8 @@
 package core.simobjects;
 
+import com.raylib.java.raymath.Vector2;
+import com.raylib.java.shapes.Rectangle;
+
 import core.simscreens.Screen;
 import core.simscreens.descriptors.StatsScreen;
 import core.simscreens.editors.Updater;
@@ -12,8 +15,19 @@ public abstract class ObjectToRender {
     private static Screen simulationScreen;
     private static boolean enableSetSimulationScreen = true;
 
-    public ObjectToRender() {
+    private Rectangle hitbox;
+    private boolean isClickable;
 
+    public ObjectToRender(Rectangle hitbox, boolean isClickable) {
+        this.hitbox = hitbox;
+        this.isClickable = isClickable;
+    }
+
+    public int getObjectWidth() {
+        return (int)hitbox.width;
+    }
+    public int getObjectHeight() {
+        return (int)hitbox.height;
     }
 
     public static Screen getSimulationScreen() {

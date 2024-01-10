@@ -29,7 +29,13 @@ public class Lens extends OpticalDevice implements UIElement {
 
     public void render(int xAbs, int yAbs) {
         Raylib rlj = UIElement.rlj;
-        rlj.shapes.DrawRectangle(xAbs+(int)vertex.x-WIDTH_DEF/2, yAbs+(int)vertex.y-HEIGHT_DEF/2, WIDTH_DEF, HEIGHT_DEF, WHITE);
+        rlj.shapes.DrawRectangle(
+            xAbs+(int)vertex.x-this.getObjectWidth()/2, 
+            yAbs+(int)vertex.y-this.getObjectHeight()/2, 
+            this.getObjectWidth(), 
+            this.getObjectHeight(), 
+            WHITE
+        );
         
         // Se o foco é negativo, a lente é divergente, e o foco encontra-se à sua esquerda
         if(focus < 0) {

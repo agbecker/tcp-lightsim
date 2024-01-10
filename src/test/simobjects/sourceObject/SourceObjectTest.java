@@ -25,10 +25,13 @@ public class SourceObjectTest {
         //Lens lens = new Lens(100.0, new Vector2(simulationScreen.getWidth()/2, simulationScreen.getAxisHeight()), true);
         Mirror mirror = new Mirror(-100.0, new Vector2(simulationScreen.getWidth()/2, simulationScreen.getAxisHeight()), true);
 
+        //sourceObject.setOpticalDevice(lens);
+        sourceObject.setOpticalDevice(mirror);
+
         simulationScreen.addObject(sourceObject);
         simulationScreen.addObject(mirror);
 
-        SourceObject image = sourceObject.generateImage(mirror);
+        SourceObject image = sourceObject.generateImage();
         if(image != null) simulationScreen.addObject(image);
 
         Raylib rlj = UIElement.rlj;

@@ -29,7 +29,13 @@ public class Mirror extends OpticalDevice implements UIElement {
 
     public void render(int xAbs, int yAbs) {
         Raylib rlj = UIElement.rlj;
-        rlj.shapes.DrawRectangle(xAbs+(int)vertex.x-WIDTH_DEF/2, yAbs+(int)vertex.y-HEIGHT_DEF/2, WIDTH_DEF, HEIGHT_DEF, WHITE);
+        rlj.shapes.DrawRectangle(
+            xAbs+(int)vertex.x-this.getObjectWidth()/2, 
+            yAbs+(int)vertex.y-this.getObjectHeight()/2, 
+            this.getObjectWidth(), 
+            this.getObjectHeight(), 
+            WHITE
+        );
         
         // Se o foco é menor que zero, o espelho é convexo, e o seu foco encontra-se à sua direita
         if(focus < 0) {
