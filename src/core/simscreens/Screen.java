@@ -1,6 +1,8 @@
 package core.simscreens;
 
-public abstract class Screen {
+import core.UI.UIElement;
+
+public abstract class Screen implements UIElement {
     
     private int width, height, begX, begY;
 
