@@ -14,6 +14,8 @@ public interface UIElement {
 
     public final int RLJ_WIDTH = 1200;
     public final int RLJ_HEIGHT = 700;
+    public final int SCREEN_BORDER_WIDTH = 10;
+
     public final Raylib rlj = new Raylib(RLJ_WIDTH, RLJ_HEIGHT, "LightSim");
 
     public abstract void render();

@@ -214,4 +214,8 @@ public class SourceObject extends ObjectToRender implements UIElement {
         return deviceVertex.getX() - this.vertex.getX();
     }
 
+    public boolean isImage() {
+        return !this.generatesImage;
+    }
+
 }
