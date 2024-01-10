@@ -23,7 +23,7 @@ public class SourceObject extends ObjectToRender implements UIElement {
     // Atributos
     private static final double INITIAL_HEIGHT = 100;
     private static final double WIDTH_HEIGHT_RATIO = 30.0/100;
-    private static final String TEXTURE_DEFAULT = "../../../../resources/textures/arrow.png";
+    private static final String TEXTURE_DEFAULT = "../../../../resources/arrow.png";
     private static final Vector2 VERTEX_DEFAULT = new Vector2(100,225);
 
     private Texture2D texture;

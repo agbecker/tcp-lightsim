@@ -18,20 +18,23 @@ import core.simscreens.descriptors.SimulationScreen;
 public class SourceObjectTest {
     
     public static void main(String[] args) {
+        
+        Raylib rlj = UIElement.rlj;
+
         SimulationScreen simulationScreen = new SimulationScreen(new ArrayList<ObjectToRender>());
         ObjectToRender.setSimulationScreen(simulationScreen);
 
         SourceObject sourceObject = new SourceObject(new Vector2(500, simulationScreen.getAxisHeight()));
-        //Lens lens = new Lens(100.0, new Vector2(simulationScreen.getWidth()/2, simulationScreen.getAxisHeight()), true);
-        Mirror mirror = new Mirror(100.0, new Vector2(simulationScreen.getWidth()/2, simulationScreen.getAxisHeight()), true);
+        Lens lens = new Lens(-100.0, new Vector2(simulationScreen.getWidth()/2, simulationScreen.getAxisHeight()), true);
+        //Mirror mirror = new Mirror(100.0, new Vector2(simulationScreen.getWidth()/2, simulationScreen.getAxisHeight()), true);
 
         simulationScreen.addObject(sourceObject);
-        simulationScreen.addObject(mirror);
+        simulationScreen.addObject(lens);
+        //simulationScreen.addObject(mirror);
 
-        SourceObject image = sourceObject.generateImage(mirror);
+        SourceObject image = sourceObject.generateImage(lens);
+        //SourceObject image = sourceObject.generateImage(mirror);
         if(image != null) simulationScreen.addObject(image);
-
-        Raylib rlj = UIElement.rlj;
 
         //Texture2D texture = rTextures.LoadTexture("arrow.png");
 

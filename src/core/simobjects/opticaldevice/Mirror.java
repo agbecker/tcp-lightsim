@@ -2,6 +2,7 @@ package core.simobjects.opticaldevice;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.raymath.Vector2;
+import com.raylib.java.textures.Image;
 import com.raylib.java.textures.Texture2D;
 import com.raylib.java.textures.rTextures;
 
@@ -9,10 +10,10 @@ import core.UI.UIElement;
 import core.simobjects.ObjectToRender;
 import core.simscreens.Screen;
 
-public class Mirror extends OpticalDevice implements UIElement {
+public class Mirror extends OpticalDevice {
 
-    final private static String CONCAVE_TEXTURE = "../../../../resources/textures/concave-mirror.png";
-    final private static String CONVEX_TEXTURE = "../../../../resources/textures/convex-mirror.png";
+    final private static String CONCAVE_TEXTURE = "./../../../../resources/concave-mirror.png";
+    final private static String CONVEX_TEXTURE = "./../../../../resources/convex-mirror.png";
     private Texture2D concaveTexture;
     private Texture2D convexTexture;
 

@@ -2,6 +2,7 @@ package core.simobjects.opticaldevice;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.raymath.Vector2;
+import com.raylib.java.textures.Image;
 import com.raylib.java.textures.Texture2D;
 import com.raylib.java.textures.rTextures;
 
@@ -9,10 +10,10 @@ import core.UI.UIElement;
 import core.simobjects.ObjectToRender;
 import core.simscreens.Screen;
 
-public class Lens extends OpticalDevice implements UIElement {
+public class Lens extends OpticalDevice {
 
-    final private static String CONVERGENT_TEXTURE = "../../../../resources/textures/convergent-lens.png";
-    final private static String DIVERGENT_TEXTURE = "../../../../resources/textures/divergent-lens.png";
+    final private static String CONVERGENT_TEXTURE = "../../../../resources/convergent-lens.png";
+    final private static String DIVERGENT_TEXTURE = "../../../../resources/divergent-lens.png";
     private Texture2D convergentTexture;
     private Texture2D divergentTexture;
 
