@@ -158,4 +158,60 @@ public class SourceObject extends ObjectToRender implements UIElement {
         rlj.textures.UnloadTexture(texture);
     }
 
+    public String toString() {
+        String text =   "OBJETO FONTE" + 
+                        "\nAltura: " + String.format("%.2f", this.height) + " cm" +
+                        "\nDistância ao vértice: " + String.format("%.2f", Math.abs(this.getDistanceToDevice())) + " cm\n";
+
+        String image;
+        if(!generatesImage)
+            image = "Não gera imagem";
+
+        else
+            image = getImageStats();
+
+        return text + image;
+    }
+
+    private String getImageStats() {
+        String textTypeOfImage, textHeight, textDistance;
+
+        SourceObject image = generateImage();
+
+        double distance = image.getDistanceToDevice();
+        double height = image.getHeight();
+
+        // Acha se a imagem é real ou virtual
+        // Se as duas distâncias tiverem o mesmo sinal, então a imagem é virtual
+        if(distance * this.getDistanceToDevice() >= 0)
+            textTypeOfImage = "Imagem Virtual";
+        
+        else
+            textTypeOfImage = "Imagem Real";
+
+        // Acha a altura da imagem e se está invertida
+        textHeight = "\nAltura da imagem: " + String.format("%.2f", height) + " cm ";
+
+        if(height > 0)
+            textHeight += "(Direita)";
+        else
+            textHeight += "(Invertida)";
+
+        // Acha a distância ao vértice
+        textDistance = "\nDistância da imagem ao vértice: " + String.format("%.2f", Math.abs(image.getDistanceToDevice())) + " cm";
+
+        return textTypeOfImage + textHeight + textDistance;
+
+    }
+
+    public double getHeight() {
+        return this.height;
+    }
+
+    public double getDistanceToDevice() {
+        Vector2 deviceVertex = this.opticalDevice.getVertex();
+
+        return deviceVertex.getX() - this.vertex.getX();
+    }
+
 }
