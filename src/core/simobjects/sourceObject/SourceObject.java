@@ -176,8 +176,6 @@ public class SourceObject extends ObjectToRender implements UIElement {
     private String getImageStats() {
         String textTypeOfImage, textHeight, textDistance;
 
-        SourceObject image = generateImage();
-
         double distance = image.getDistanceToDevice();
         double height = image.getHeight();
 
