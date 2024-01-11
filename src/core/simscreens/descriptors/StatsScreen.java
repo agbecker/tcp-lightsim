@@ -46,7 +46,7 @@ public class StatsScreen extends Screen {
     }
 
     public void setObjectSelected(ObjectToRender objectSelected) {
-        System.out.println("Objeto alterado na StatsScreen");
+        //System.out.println("Objeto alterado na StatsScreen");
         this.objectSelected = objectSelected;
     }
 
@@ -70,24 +70,22 @@ public class StatsScreen extends Screen {
         }
 
         // Imprime informações na janela
-        //rlj.text.DrawText(infoText, (int)background.getX(), (int)background.getY(), FONT_SIZE, WHITE);
+        rlj.text.DrawText(infoText, (int)background.getX(), (int)background.getY(), FONT_SIZE, WHITE);
 
     }
 
     private String getGeneralStats() {
 
-        //int numSource = SimulationScreen.getNumSourceObjects();
-        //int numLenses = SimulationScreen.getNumLenses();
-        //int numMirrors = SimulationScreen.getNumMirrors();
-        //int numImages = SimulationScreen.getNumImages();
+        int numSource = SimulationScreen.getNumSourceObjects();
+        int numLenses = SimulationScreen.getNumLenses();
+        int numMirrors = SimulationScreen.getNumMirrors();
+        int numImages = SimulationScreen.getNumImages();
 
-        //return  "DETALHES DA SIMULAÇÃO" + 
-        //        "\nNúmero de objetos fonte: " + numSource + 
-        //        "\nNúmero de lentes: " + numLenses +
-        //        "\nNúmero de espelhos: " + numMirrors +
-        //        "\nNúmero de imagens geradas: " + numImages;
-
-        return "";
+        return  "DETALHES DA SIMULAÇÃO" + 
+                "\nNúmero de objetos fonte: " + numSource + 
+                "\nNúmero de lentes: " + numLenses +
+                "\nNúmero de espelhos: " + numMirrors +
+                "\nNúmero de imagens geradas: " + numImages;
 
     }
 

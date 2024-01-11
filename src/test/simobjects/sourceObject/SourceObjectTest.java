@@ -14,12 +14,19 @@ import core.simobjects.opticaldevice.Lens;
 import core.simobjects.opticaldevice.Mirror;
 import core.simobjects.sourceObject.SourceObject;
 import core.simscreens.descriptors.SimulationScreen;
+import core.simscreens.descriptors.StatsScreen;
+import core.simscreens.editors.Updater;
 
 public class SourceObjectTest {
     
     public static void main(String[] args) {
         SimulationScreen simulationScreen = new SimulationScreen(new ArrayList<ObjectToRender>());
+        Updater updater = new Updater();
+        StatsScreen statsScreen = new StatsScreen();
+
         ObjectToRender.setSimulationScreen(simulationScreen);
+        ObjectToRender.setUpdater(updater);
+        ObjectToRender.setStatsScreen(statsScreen);
 
         SourceObject sourceObject = new SourceObject(new Vector2(100, simulationScreen.getAxisHeight()));
         //Lens lens = new Lens(100.0, new Vector2(simulationScreen.getWidth()/2, simulationScreen.getAxisHeight()), true);

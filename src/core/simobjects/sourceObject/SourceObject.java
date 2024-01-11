@@ -163,7 +163,7 @@ public class SourceObject extends ObjectToRender {
     }
     
     public void render(int xAbs, int yAbs) {
-        super.checkSelection();
+        super.checkSelection(xAbs, yAbs);
         Raylib rlj = UIElement.rlj;
         if(height < 0) {
             rlj.shapes.DrawRectangle(xAbs+(int)vertex.x, yAbs+(int)vertex.y, (int)width, -(int)height, WHITE);

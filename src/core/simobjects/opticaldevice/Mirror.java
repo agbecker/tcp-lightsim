@@ -28,7 +28,7 @@ public class Mirror extends OpticalDevice {
     }
 
     public void render(int xAbs, int yAbs) {
-        super.checkSelection();
+        super.checkSelection(xAbs, yAbs);
         Raylib rlj = UIElement.rlj;
         rlj.shapes.DrawRectangle(
             xAbs+(int)vertex.x-this.getObjectWidth()/2, 

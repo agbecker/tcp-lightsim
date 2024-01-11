@@ -3,6 +3,7 @@ package core.simobjects;
 import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_BUTTON_LEFT;
 
 import com.raylib.java.Raylib;
+import com.raylib.java.core.Color;
 import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
@@ -63,10 +64,11 @@ public abstract class ObjectToRender implements UIElement {
         return statsScreen;
     }
 
-    public void checkSelection() {
+    public void checkSelection(int xAbs, int yAbs) {
         Raylib rlj = UIElement.rlj;
         Vector2 cursor = rCore.GetMousePosition();
-        if(isClickable && rlj.shapes.CheckCollisionPointRec(cursor, hitbox) && rlj.core.IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+        Rectangle hitboxAbs = new Rectangle(hitbox.x+xAbs, hitbox.y+yAbs, hitbox.width, hitbox.height);
+        if(isClickable && rlj.shapes.CheckCollisionPointRec(cursor, hitboxAbs) && rlj.core.IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
             toggleUpdate(this);
             toggleStats(this);
         }

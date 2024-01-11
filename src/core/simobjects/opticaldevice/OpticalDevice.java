@@ -18,7 +18,7 @@ public abstract class OpticalDevice extends ObjectToRender {
     public OpticalDevice(double focus, Vector2 vertex, boolean displayFocus) {
         // O vértice do dispositivo é o seu ponto central, 
         // enquanto o vértice da hitbox é o canto superior esquerdo
-        super(new Rectangle(vertex.x-WIDTH_DEF/2, vertex.y-WIDTH_DEF/2, WIDTH_DEF, HEIGHT_DEF), true);
+        super(new Rectangle(vertex.x-WIDTH_DEF/2, vertex.y-HEIGHT_DEF/2, WIDTH_DEF, HEIGHT_DEF), true);
         this.focus = focus;
         this.vertex = vertex;
         this.displayFocus = displayFocus;
