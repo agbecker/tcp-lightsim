@@ -1,13 +1,18 @@
 package core.simobjects;
 
+import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_BUTTON_LEFT;
+
+import com.raylib.java.Raylib;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 
+import core.UI.UIElement;
 import core.simscreens.Screen;
 import core.simscreens.descriptors.StatsScreen;
 import core.simscreens.editors.Updater;
 
-public abstract class ObjectToRender {
+public abstract class ObjectToRender implements UIElement {
 
     private static Updater updater;
     private static StatsScreen statsScreen;
@@ -58,12 +63,21 @@ public abstract class ObjectToRender {
         return statsScreen;
     }
 
-    public void toggleUpdate() {
-        // Chama setObjectSelected de Updater
+    public void checkSelection() {
+        Raylib rlj = UIElement.rlj;
+        Vector2 cursor = rCore.GetMousePosition();
+        if(isClickable && rlj.shapes.CheckCollisionPointRec(cursor, hitbox) && rlj.core.IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+            toggleUpdate(this);
+            toggleStats(this);
+        }
     }
 
-    public void toggleStats() {
-        // Chama setObjectSelected de StatsScreen
+    public void toggleUpdate(ObjectToRender object) {
+        updater.setObjectSelected(object);
+    }
+
+    public void toggleStats(ObjectToRender object) {
+        statsScreen.setObjectSelected(object);
     }
 
     public abstract void render();

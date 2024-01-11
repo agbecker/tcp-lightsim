@@ -9,7 +9,7 @@ import core.UI.UIElement;
 import core.simobjects.ObjectToRender;
 import core.simscreens.Screen;
 
-public class LightBeam extends ObjectToRender implements UIElement {
+public class LightBeam extends ObjectToRender {
     
     private ArrayList<LightBeamSegment> segments;
     private Vector2 startingPoint;

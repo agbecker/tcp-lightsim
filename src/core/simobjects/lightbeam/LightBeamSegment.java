@@ -13,7 +13,7 @@ import core.UI.UIElement;
 import core.simobjects.ObjectToRender;
 import core.simscreens.Screen;
 
-public class LightBeamSegment extends ObjectToRender implements UIElement {
+public class LightBeamSegment extends ObjectToRender {
 
     private Vector2 startingPoint, endingPoint;
     private double theta;

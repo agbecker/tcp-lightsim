@@ -6,7 +6,7 @@ import core.simobjects.ObjectToRender;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 
-public abstract class OpticalDevice extends ObjectToRender implements UIElement {
+public abstract class OpticalDevice extends ObjectToRender {
 
     final protected static int HEIGHT_DEF = 200;
     final protected static int WIDTH_DEF = 30;

@@ -22,8 +22,8 @@ public class StatsScreen extends Screen {
     private static final int WIDTH_DEF = 390;
     private static final int HEIGHT_DEF = 450;
 
-    private static final int BORDER_WIDTH = UIElement.SCREEN_BORDER_WIDTH;
-
+    //private static final int BORDER_WIDTH = UIElement.SCREEN_BORDER_WIDTH;
+    private static final int BORDER_WIDTH = 0;
 
     // Atributos
     private ObjectToRender objectSelected;
@@ -44,8 +44,9 @@ public class StatsScreen extends Screen {
         border = new Rectangle(begX-BORDER_WIDTH, begY-BORDER_WIDTH, width+2*BORDER_WIDTH, height+2*BORDER_WIDTH);
     }
 
-    void setObjectSelected(ObjectToRender objectSelected) {
-        
+    public void setObjectSelected(ObjectToRender objectSelected) {
+        System.out.println("Objeto alterado na StatsScreen");
+        this.objectSelected = objectSelected;
     }
 
     void updateParameters() {
@@ -68,22 +69,24 @@ public class StatsScreen extends Screen {
         }
 
         // Imprime informações na janela
-        rlj.text.DrawText(infoText, (int)background.getX(), (int)background.getY(), FONT_SIZE, WHITE);
+        //rlj.text.DrawText(infoText, (int)background.getX(), (int)background.getY(), FONT_SIZE, WHITE);
 
     }
 
     private String getGeneralStats() {
 
-        int numSource = SimulationScreen.getNumSourceObjects();
-        int numLenses = SimulationScreen.getNumLenses();
-        int numMirrors = SimulationScreen.getNumMirrors();
-        int numImages = SimulationScreen.getNumImages();
+        //int numSource = SimulationScreen.getNumSourceObjects();
+        //int numLenses = SimulationScreen.getNumLenses();
+        //int numMirrors = SimulationScreen.getNumMirrors();
+        //int numImages = SimulationScreen.getNumImages();
 
-        return  "DETALHES DA SIMULAÇÃO" + 
-                "\nNúmero de objetos fonte: " + numSource + 
-                "\nNúmero de lentes: " + numLenses +
-                "\nNúmero de espelhos: " + numMirrors +
-                "\nNúmero de imagens geradas: " + numImages;
+        //return  "DETALHES DA SIMULAÇÃO" + 
+        //        "\nNúmero de objetos fonte: " + numSource + 
+        //        "\nNúmero de lentes: " + numLenses +
+        //        "\nNúmero de espelhos: " + numMirrors +
+        //        "\nNúmero de imagens geradas: " + numImages;
+
+        return "";
 
     }
 

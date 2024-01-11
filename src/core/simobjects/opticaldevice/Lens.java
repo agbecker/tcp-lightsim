@@ -9,7 +9,7 @@ import core.UI.UIElement;
 import core.simobjects.ObjectToRender;
 import core.simscreens.Screen;
 
-public class Lens extends OpticalDevice implements UIElement {
+public class Lens extends OpticalDevice {
 
     final private static String CONVERGENT_TEXTURE = "../../../../resources/textures/convergent-lens.png";
     final private static String DIVERGENT_TEXTURE = "../../../../resources/textures/divergent-lens.png";
@@ -28,6 +28,7 @@ public class Lens extends OpticalDevice implements UIElement {
     }
 
     public void render(int xAbs, int yAbs) {
+        super.checkSelection();
         Raylib rlj = UIElement.rlj;
         rlj.shapes.DrawRectangle(
             xAbs+(int)vertex.x-this.getObjectWidth()/2, 

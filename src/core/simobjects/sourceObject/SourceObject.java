@@ -19,7 +19,7 @@ import core.simobjects.opticaldevice.Mirror;
 import core.simobjects.opticaldevice.OpticalDevice;
 import core.simscreens.Screen;
 
-public class SourceObject extends ObjectToRender implements UIElement {
+public class SourceObject extends ObjectToRender {
 
     // Atributos
     private static final double INITIAL_HEIGHT = 100;
@@ -163,6 +163,7 @@ public class SourceObject extends ObjectToRender implements UIElement {
     }
     
     public void render(int xAbs, int yAbs) {
+        super.checkSelection();
         Raylib rlj = UIElement.rlj;
         if(height < 0) {
             rlj.shapes.DrawRectangle(xAbs+(int)vertex.x, yAbs+(int)vertex.y, (int)width, -(int)height, WHITE);

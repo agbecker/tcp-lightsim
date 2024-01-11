@@ -9,7 +9,7 @@ import core.UI.UIElement;
 import core.simobjects.ObjectToRender;
 import core.simscreens.Screen;
 
-public class Mirror extends OpticalDevice implements UIElement {
+public class Mirror extends OpticalDevice {
 
     final private static String CONCAVE_TEXTURE = "../../../../resources/textures/concave-mirror.png";
     final private static String CONVEX_TEXTURE = "../../../../resources/textures/convex-mirror.png";
@@ -28,6 +28,7 @@ public class Mirror extends OpticalDevice implements UIElement {
     }
 
     public void render(int xAbs, int yAbs) {
+        super.checkSelection();
         Raylib rlj = UIElement.rlj;
         rlj.shapes.DrawRectangle(
             xAbs+(int)vertex.x-this.getObjectWidth()/2, 

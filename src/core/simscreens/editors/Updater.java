@@ -24,8 +24,9 @@ public class Updater extends Screen implements UIElement {
         displayUpdaterDescription = true;
     }
 
-    void setObjectSelected(ObjectToRender objectSelected) {
-
+    public void setObjectSelected(ObjectToRender objectSelected) {
+        System.out.println("Objeto alterado no updater");
+        this.objectSelected = objectSelected;
     }
 
     void updateParameters() {
