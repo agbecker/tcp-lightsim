@@ -3,22 +3,25 @@ package core.simobjects.lightbeam;
 import java.util.ArrayList;
 
 import com.raylib.java.raymath.Vector2;
+import com.raylib.java.shapes.Rectangle;
 
 import core.UI.UIElement;
 import core.simobjects.ObjectToRender;
 import core.simscreens.Screen;
 
-public class LightBeam extends ObjectToRender implements UIElement {
+public class LightBeam extends ObjectToRender {
     
     private ArrayList<LightBeamSegment> segments;
     private Vector2 startingPoint;
 
     public LightBeam(Vector2 startingPoint) {
+        super(new Rectangle(), false);
         segments = new ArrayList<LightBeamSegment>();
         this.startingPoint = startingPoint;
     }
 
     public LightBeam(Vector2 startingPoint, ArrayList<LightBeamSegment> segments) {
+        super(new Rectangle(), false);
         this.segments = segments;
         this.startingPoint = startingPoint;
     }

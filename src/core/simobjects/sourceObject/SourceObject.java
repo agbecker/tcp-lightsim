@@ -4,6 +4,7 @@ import static core.utils.Geometry.*;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.raymath.Vector2;
+import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.textures.Image;
 import com.raylib.java.textures.Texture2D;
 import com.raylib.java.textures.rTextures;
@@ -18,7 +19,7 @@ import core.simobjects.opticaldevice.Mirror;
 import core.simobjects.opticaldevice.OpticalDevice;
 import core.simscreens.Screen;
 
-public class SourceObject extends ObjectToRender implements UIElement {
+public class SourceObject extends ObjectToRender {
 
     // Atributos
     private static final double INITIAL_HEIGHT = 100;
@@ -34,21 +35,37 @@ public class SourceObject extends ObjectToRender implements UIElement {
     private Vector2 lightSource; // Ponto no objeto de onde originam os raios de luz
     private LightBeam beamParallel, beamVertex, beamFocus;
     private SourceObject image;
+    private OpticalDevice opticalDevice;
 
     // Construtor
     public SourceObject() {
-        this(false, TEXTURE_DEFAULT, VERTEX_DEFAULT, INITIAL_HEIGHT);
+        this(false, TEXTURE_DEFAULT, VERTEX_DEFAULT, INITIAL_HEIGHT, null, true);
     }
 
     public SourceObject(Vector2 vertex) {
-        this(false, TEXTURE_DEFAULT, vertex, INITIAL_HEIGHT);
+        this(false, TEXTURE_DEFAULT, vertex, INITIAL_HEIGHT, null, true);
     }
 
-    public SourceObject(Vector2 vertex, double height) {
-        this(false, TEXTURE_DEFAULT, vertex, height);
+    public SourceObject(Vector2 vertex, OpticalDevice opticalDevice) {
+        this(false, TEXTURE_DEFAULT, vertex, INITIAL_HEIGHT, opticalDevice, true);
     }
 
-    public SourceObject(boolean generatesImage, String texturePath, Vector2 vertex, double height) {
+    public SourceObject(Vector2 vertex, double height, boolean isClickable) {
+        this(false, TEXTURE_DEFAULT, vertex, height, null, isClickable);
+    }
+
+    public SourceObject(boolean generatesImage, String texturePath, Vector2 vertex, double height, OpticalDevice opticalDevice, boolean isClickable) {
+        // O vértice é o ponto inferior direito,
+        // enquanto o ponto utilizado pela hitbox é o canto superior esquerdo
+        super(
+            new Rectangle(
+                (int)(vertex.x),
+                (int)(height < 0 ? vertex.y : vertex.y - height),
+                (int)(Math.abs(height)*WIDTH_HEIGHT_RATIO),
+                (int)height
+            ), 
+            isClickable
+        );
         this.generatesImage = generatesImage;
         Image textureImage = rTextures.LoadImage(texturePath);
         this.texture = rTextures.LoadTextureFromImage(textureImage);
@@ -60,23 +77,28 @@ public class SourceObject extends ObjectToRender implements UIElement {
         this.beamParallel = new LightBeam(lightSource);
         this.beamVertex = new LightBeam(lightSource);
         this.beamFocus = new LightBeam(lightSource);
+        this.opticalDevice = opticalDevice;
     }
 
     // Métodos
-    public void setGeneratesImage(boolean generatesImage) {
+    /*public void setGeneratesImage(boolean generatesImage) {
         this.generatesImage = generatesImage;
+    }*/
+
+    public void setOpticalDevice(OpticalDevice opticalDevice) {
+        this.opticalDevice = opticalDevice;
     }
 
-    public void setHeight(double height){
+    /*public void setHeight(double height){
         this.height = height;
         //this.lightSource.setCoords(this.position.getX(), this.position.getY() + height);
     }
 
     public void adjustHeight(double delta){
         this.setHeight(this.height + delta);
-    }
+    }*/
 
-    public SourceObject generateImage(OpticalDevice opticalDevice) {
+    public SourceObject generateImage() {
         generatesImage = true;
         beamParallel.addSegment(new Vector2(opticalDevice.getVertex().x, lightSource.y));
 
@@ -103,8 +125,9 @@ public class SourceObject extends ObjectToRender implements UIElement {
             //System.out.printf("%f %f%n", imagePoint.x, imagePoint.y);
             double estimatedHeight = this.vertex.y-imagePoint.y;
             double estimatedWidth = Math.abs(estimatedHeight)*WIDTH_HEIGHT_RATIO;
-            image = new SourceObject(new Vector2(imagePoint.x-(float)estimatedWidth/2, this.vertex.y), estimatedHeight);
+            image = new SourceObject(new Vector2(imagePoint.x-(float)estimatedWidth/2, this.vertex.y), estimatedHeight, false);
             // Accounts for the size of the object
+            // IMAGENS NÃO SÃO CLICÁVEIS (modificar quando for possível utilizar uma imagem como fonte para outras imagens)
         } else {
             // Imagem é virtual, devem ser gerados os prolongamentos
             LightBeamSegment beamParallelVirtual = new LightBeamSegment(
@@ -125,7 +148,7 @@ public class SourceObject extends ObjectToRender implements UIElement {
                 beamVertex.addSegment(beamVertexVirtual);
                 double estimatedHeight = this.vertex.y-virtualIntersection.y;
                 double estimatedWidth = Math.abs(estimatedHeight)*WIDTH_HEIGHT_RATIO;
-                image = new SourceObject(new Vector2(virtualIntersection.x-(float)estimatedWidth/2, this.vertex.y), estimatedHeight);
+                image = new SourceObject(new Vector2(virtualIntersection.x-(float)estimatedWidth/2, this.vertex.y), estimatedHeight, false);
             } else {
                 return null;
             }
@@ -140,6 +163,7 @@ public class SourceObject extends ObjectToRender implements UIElement {
     }
     
     public void render(int xAbs, int yAbs) {
+        super.checkSelection(xAbs, yAbs);
         Raylib rlj = UIElement.rlj;
         if(height < 0) {
             rlj.shapes.DrawRectangle(xAbs+(int)vertex.x, yAbs+(int)vertex.y, (int)width, -(int)height, WHITE);

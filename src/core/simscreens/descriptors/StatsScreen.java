@@ -45,8 +45,9 @@ public class StatsScreen extends Screen {
         border = new Rectangle(begX-BORDER_WIDTH, begY-BORDER_WIDTH, width+2*BORDER_WIDTH, height+2*BORDER_WIDTH);
     }
 
-    void setObjectSelected(ObjectToRender objectSelected) {
-        
+    public void setObjectSelected(ObjectToRender objectSelected) {
+        //System.out.println("Objeto alterado na StatsScreen");
+        this.objectSelected = objectSelected;
     }
 
     void updateParameters() {

@@ -6,13 +6,14 @@ import static core.utils.Geometry.*;
 
 import com.raylib.java.core.Color;
 import com.raylib.java.raymath.Vector2;
+import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.Raylib;
 
 import core.UI.UIElement;
 import core.simobjects.ObjectToRender;
 import core.simscreens.Screen;
 
-public class LightBeamSegment extends ObjectToRender implements UIElement {
+public class LightBeamSegment extends ObjectToRender {
 
     private Vector2 startingPoint, endingPoint;
     private double theta;
@@ -27,6 +28,7 @@ public class LightBeamSegment extends ObjectToRender implements UIElement {
     private final Color LINE_COLOR = UIElement.WHITE;
 
     public LightBeamSegment(Vector2 startingPoint, Vector2 endingPoint) {
+        super(new Rectangle(), false);
         this.startingPoint = startingPoint;
         this.endingPoint = endingPoint;
         this.showArrows = true;
@@ -36,6 +38,7 @@ public class LightBeamSegment extends ObjectToRender implements UIElement {
     }
 
     public LightBeamSegment(Vector2 startingPoint, double theta) {
+        super(new Rectangle(), false);
         this.startingPoint = startingPoint;
         this.theta = theta;
         this.showArrows = true;
