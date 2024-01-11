@@ -22,8 +22,9 @@ public class StatsScreen extends Screen {
     private static final int WIDTH_DEF = 390;
     private static final int HEIGHT_DEF = 450;
 
-    //private static final int BORDER_WIDTH = UIElement.SCREEN_BORDER_WIDTH;
-    private static final int BORDER_WIDTH = 0;
+    private static final int BORDER_WIDTH = SCREEN_BORDER_WIDTH;
+    private static final int FONT_SIZE = 12;
+
 
     // Atributos
     private ObjectToRender objectSelected;

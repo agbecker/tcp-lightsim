@@ -6,14 +6,21 @@ import com.raylib.java.raymath.Vector2;
 
 import core.UI.UIElement;
 import core.simobjects.*;
+import core.simobjects.opticaldevice.*;
+import core.simobjects.sourceObject.SourceObject;
 import core.simscreens.Screen;
 
-public class SimulationScreen extends Screen implements UIElement {
+public class SimulationScreen extends Screen {
     
     private static final int BEGX_DEF = 20;
     private static final int BEGY_DEF = 20;
     private static final int WIDTH_DEF = 750;
     private static final int HEIGHT_DEF = 450;
+
+    private static int numSource;
+    private static int numLenses;
+    private static int numMirrors;
+    private static int numImages;
 
     private int axisHeight;
     ArrayList<ObjectToRender> objectsToRender;
@@ -34,6 +41,26 @@ public class SimulationScreen extends Screen implements UIElement {
 
     public void addObject(ObjectToRender object) {
         objectsToRender.add(object);
+
+        // Atualiza contadores de instância de objeto
+        numSource = 0;
+        numLenses = 0;
+        numMirrors = 0;
+        numImages = 0;
+        for(ObjectToRender o : this.objectsToRender) {
+            if(o instanceof SourceObject) {
+                if(((SourceObject) o).isImage())
+                    numImages++;
+                else
+                    numSource++;
+            }
+                
+            if(o instanceof Lens)
+                numLenses++;
+            if(o instanceof Mirror)
+                numMirrors++;
+
+        }
     } 
 
     public void renderObjects() {
@@ -60,6 +87,22 @@ public class SimulationScreen extends Screen implements UIElement {
         rlj.shapes.DrawRectangleLines(xAbs, yAbs, super.getWidth(), super.getHeight(), UIElement.WHITE);
         rlj.shapes.DrawLineEx(new Vector2(xAbs, yAbs+axisHeight), new Vector2(xAbs+super.getWidth(), yAbs+axisHeight), 1, UIElement.WHITE);
         renderObjects();
+    }
+
+    public static int getNumSourceObjects() {
+        return numSource;
+    }
+
+    public static int getNumImages() {
+        return numImages;
+    }
+
+    public static int getNumLenses() {
+        return numLenses;
+    }
+
+    public static int getNumMirrors() {
+        return numMirrors;
     }
 
 }

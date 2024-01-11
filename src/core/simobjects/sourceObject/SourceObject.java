@@ -236,4 +236,8 @@ public class SourceObject extends ObjectToRender {
         return deviceVertex.getX() - this.vertex.getX();
     }
 
+    public boolean isImage() {
+        return !this.generatesImage;
+    }
+
 }
