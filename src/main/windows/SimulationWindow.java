@@ -59,7 +59,7 @@ public class SimulationWindow extends Window {
         //toolbox.render();
         updater.render();
         menuButton.render();
-        toolboxButton.render();
+        //toolboxButton.render();
     }
 
 }

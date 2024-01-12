@@ -12,20 +12,18 @@ import core.simscreens.Screen;
 
 public class Updater extends Screen {
     
-    private static final int BEGX_DEF = 220;
+    private static final int BEGX_DEF = 20;
     private static final int BEGY_DEF = 500;
-    private static final int WIDTH_DEF = 690;  
+    private static final int WIDTH_DEF = 880;  
     private static final int HEIGHT_DEF = 180;
 
     private static final int BORDER_WIDTH = SCREEN_BORDER_WIDTH;
 
-    private static final int BUTTON_WIDTH = 400;
-    private static final int BUTTON_HEIGHT = 60;
-    private static final int BUTTON_OFFSET = 20;
+    private static final int BUTTON_OFFSET = 12;
 
+    private UpdaterButton buttonConcave, buttonConvex, buttonConvergent, buttonDivergent;
 
-    private UpdaterButton addDeviceButtons[];
-    private Button testButton;
+    private UpdaterButton activeButton;
 
     // Atributos
     private ObjectToRender objectSelected;
@@ -47,16 +45,14 @@ public class Updater extends Screen {
 
         
         // Cria botões de adicionar dispositivo
-        String labels[] = {"Espelho Côncavo", "Espelho Convexo", "Lente Convergente", "Lente Divergente"};
+        this.buttonConcave = new UpdaterButton(begX+BUTTON_OFFSET, begY + BUTTON_OFFSET, "Espelho Côncavo", this);
+        this.buttonConvex = new UpdaterButton(begX+BUTTON_OFFSET, begY + BUTTON_OFFSET*2 + UpdaterButton.HEIGHT, "Espelho Convexo", this);
+        this.buttonConvergent = new UpdaterButton(begX+BUTTON_OFFSET, begY + BUTTON_OFFSET*3 + UpdaterButton.HEIGHT*2, "Lente Convergente", this);
+        this.buttonDivergent = new UpdaterButton(begX+BUTTON_OFFSET, begY + BUTTON_OFFSET*4 + UpdaterButton.HEIGHT*3, "Lente Divergente", this);
 
-        /*for(int i = 0; i<4; i++) {
-            //System.out.println(i);
-            //addDeviceButtons[i] = new UpdaterButton(begX+BUTTON_OFFSET, begY+(i+1)*BUTTON_OFFSET, BUTTON_WIDTH, BUTTON_HEIGHT, labels[i], this);
-            addDeviceButtons[i] = new UpdaterButton(begX, begY, BUTTON_WIDTH, BUTTON_HEIGHT, labels[i], this);
-            System.err.println("Fez botão");
-        }*/
-
-        this.testButton = new UpdaterButton(begX, begY, BUTTON_WIDTH, BUTTON_HEIGHT, "Espelho Convexo", this);
+        // Por default, usa um espelho côncavo
+        this.activeButton = buttonConcave;
+        setActiveButton(activeButton);
     }
 
     public void setObjectSelected(ObjectToRender objectSelected) {
@@ -79,13 +75,23 @@ public class Updater extends Screen {
             button.render();
         }*/
 
-        this.testButton.render();
+        this.buttonConcave.render();
+        this.buttonConvex.render();
+        this.buttonConvergent.render();
+        this.buttonDivergent.render();
 
     }
 
     // Temporário
     public void setOpticalDevice(OpticalDevice device) {
         this.objectSelected = device;
+        
+    }
+
+    public void setActiveButton(UpdaterButton button) {
+        this.activeButton.setActive(false);
+        this.activeButton = button;
+        this.activeButton.setActive(true);
     }
 
     public static int getFocus() {
