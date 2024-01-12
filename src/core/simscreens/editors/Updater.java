@@ -5,7 +5,10 @@ import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.shapes.rShapes;
 
 import core.UI.Button;
+import core.UI.Slider;
 import core.UI.UIElement;
+import core.simobjects.opticaldevice.OpticalDevice;
+import core.simobjects.sourceObject.SourceObject;
 import core.simscreens.Screen;
 import core.simscreens.descriptors.SimulationScreen;
 
@@ -17,15 +20,22 @@ public class Updater extends Screen {
     private static final int HEIGHT_DEF = 180;
 
     private static final int BORDER_WIDTH = SCREEN_BORDER_WIDTH;
-
     private static final int BUTTON_OFFSET = 12;
 
-    private UpdaterButton buttonConcave, buttonConvex, buttonConvergent, buttonDivergent;
+    private static final int SLIDER_WIDTH = 240;
+    private static final int SLIDER_BEGX = WIDTH_DEF*3/4;
+    private static final int SLIDER_OFFSET = 30;
 
+    private static final int MIN_SOURCE_X = 100;
+    private static final int MAX_SOURCE_X = 500;
+
+
+    private UpdaterButton buttonConcave, buttonConvex, buttonConvergent, buttonDivergent;
     private UpdaterButton activeButton;
 
+    private Slider sliderDistance, sliderHeight, sliderFocus;
+
     // Atributos
-    private boolean displayUpdaterDescription;
     private SimulationScreen simScreen;
     private Rectangle background, border;
 
@@ -36,7 +46,6 @@ public class Updater extends Screen {
 
     public Updater(int width, int height, int begX, int begY, SimulationScreen simScreen) {
         super(width, height, begX, begY);
-        displayUpdaterDescription = true;
         this.simScreen = simScreen;
 
         // Cria caixa do updater
@@ -49,6 +58,15 @@ public class Updater extends Screen {
         this.buttonConvex = new UpdaterButton(begX+BUTTON_OFFSET, begY + BUTTON_OFFSET*2 + UpdaterButton.HEIGHT, "Espelho Convexo", this);
         this.buttonConvergent = new UpdaterButton(begX+BUTTON_OFFSET, begY + BUTTON_OFFSET*3 + UpdaterButton.HEIGHT*2, "Lente Convergente", this);
         this.buttonDivergent = new UpdaterButton(begX+BUTTON_OFFSET, begY + BUTTON_OFFSET*4 + UpdaterButton.HEIGHT*3, "Lente Divergente", this);
+
+        OpticalDevice device = simScreen.getDevice();
+        SourceObject source = simScreen.getSource();
+
+        // Cria sliders
+        this.sliderDistance = new Slider(MIN_SOURCE_X, MAX_SOURCE_X, new Vector2(SLIDER_BEGX, BEGY_DEF + SLIDER_OFFSET), SLIDER_WIDTH, "Posição da fonte");
+        this.sliderDistance.setCurrentValue(source.getX());
+        this.sliderHeight = new Slider(0, 100, new Vector2(SLIDER_BEGX, BEGY_DEF + 3*SLIDER_OFFSET), SLIDER_WIDTH, "Altura da fonte");
+        this.sliderFocus = new Slider(0, 100, new Vector2(SLIDER_BEGX, BEGY_DEF + 5*SLIDER_OFFSET), SLIDER_WIDTH, "Foco do dispositivo");
 
         // Por default, usa um espelho côncavo
         this.activeButton = buttonConcave;
@@ -67,14 +85,14 @@ public class Updater extends Screen {
         rShapes.DrawRectangleRec(border, DARK_BLUE);
         rShapes.DrawRectangleRec(background, BG_BLUE);
 
-        /*for(UpdaterButton button : this.addDeviceButtons) {
-            button.render();
-        }*/
-
         this.buttonConcave.render();
         this.buttonConvex.render();
         this.buttonConvergent.render();
         this.buttonDivergent.render();
+
+        this.sliderDistance.render();
+        this.sliderHeight.render();
+        this.sliderFocus.render();
 
     }
 

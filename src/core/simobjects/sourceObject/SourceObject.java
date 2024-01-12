@@ -218,4 +218,11 @@ public class SourceObject implements UIElement {
         return deviceVertex.getX() - this.vertex.getX();
     }
 
+    public double getX() {
+        return this.vertex.x;
+    }
+
+    public void setX(int x) {
+        this.vertex.setX(x);
+    }
 }
