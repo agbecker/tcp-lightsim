@@ -4,7 +4,6 @@ import static core.utils.Geometry.*;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.raymath.Vector2;
-import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.textures.Image;
 import com.raylib.java.textures.Texture2D;
 import com.raylib.java.textures.rTextures;
@@ -37,22 +36,22 @@ public class SourceObject implements UIElement {
 
     // Construtor
     public SourceObject() {
-        this(TEXTURE_DEFAULT, VERTEX_DEFAULT, INITIAL_HEIGHT, null, true);
+        this(TEXTURE_DEFAULT, VERTEX_DEFAULT, INITIAL_HEIGHT, null);
     }
 
     public SourceObject(Vector2 vertex) {
-        this(TEXTURE_DEFAULT, vertex, INITIAL_HEIGHT, null, true);
+        this(TEXTURE_DEFAULT, vertex, INITIAL_HEIGHT, null);
     }
 
     public SourceObject(Vector2 vertex, OpticalDevice opticalDevice) {
-        this(TEXTURE_DEFAULT, vertex, INITIAL_HEIGHT, opticalDevice, true);
+        this(TEXTURE_DEFAULT, vertex, INITIAL_HEIGHT, opticalDevice);
     }
 
-    public SourceObject(Vector2 vertex, double height, boolean isClickable) {
-        this(TEXTURE_DEFAULT, vertex, height, null, isClickable);
+    public SourceObject(Vector2 vertex, double height) {
+        this(TEXTURE_DEFAULT, vertex, height, null);
     }
 
-    public SourceObject(String texturePath, Vector2 vertex, double height, OpticalDevice opticalDevice, boolean isClickable) {
+    public SourceObject(String texturePath, Vector2 vertex, double height, OpticalDevice opticalDevice) {
         // O vértice é o ponto inferior direito,
         // enquanto o ponto utilizado pela hitbox é o canto superior esquerdo
         Image textureImage = rTextures.LoadImage(texturePath);
@@ -73,15 +72,6 @@ public class SourceObject implements UIElement {
         this.opticalDevice = opticalDevice;
     }
 
-    /*public void setHeight(double height){
-        this.height = height;
-        //this.lightSource.setCoords(this.position.getX(), this.position.getY() + height);
-    }
-
-    public void adjustHeight(double delta){
-        this.setHeight(this.height + delta);
-    }*/
-
     public SourceObject generateImage() {
 
         this.beamParallel = new LightBeam(lightSource);
@@ -91,7 +81,6 @@ public class SourceObject implements UIElement {
         Vector2 point = new Vector2(opticalDevice.getVertex().x, lightSource.y);
         beamParallel.addSegment(point);
         
-
         // Se o foco é positivo, o raio (real) segue o foco. 
         // Caso contrário, o prolongamento do raio (virtual) segue o foco.
         if(opticalDevice.getFocus() > 0) {
@@ -112,10 +101,9 @@ public class SourceObject implements UIElement {
 
         Vector2 imagePoint = LightBeam.findImagePoint(beamParallel, beamVertex);
         if(imagePoint != null) {
-            //System.out.printf("%f %f%n", imagePoint.x, imagePoint.y);
             double estimatedHeight = this.vertex.y-imagePoint.y;
             double estimatedWidth = Math.abs(estimatedHeight)*WIDTH_HEIGHT_RATIO;
-            image = new SourceObject(new Vector2(imagePoint.x-(float)estimatedWidth/2, this.vertex.y), estimatedHeight, false);
+            image = new SourceObject(new Vector2(imagePoint.x-(float)estimatedWidth/2, this.vertex.y), estimatedHeight);
             // Accounts for the size of the object
         } else {
             // Imagem é virtual, devem ser gerados os prolongamentos
@@ -137,7 +125,7 @@ public class SourceObject implements UIElement {
                 beamVertex.addSegment(beamVertexVirtual);
                 double estimatedHeight = this.vertex.y-virtualIntersection.y;
                 double estimatedWidth = Math.abs(estimatedHeight)*WIDTH_HEIGHT_RATIO;
-                image = new SourceObject(new Vector2(virtualIntersection.x-(float)estimatedWidth/2, this.vertex.y), estimatedHeight, false);
+                image = new SourceObject(new Vector2(virtualIntersection.x-(float)estimatedWidth/2, this.vertex.y), estimatedHeight);
             } else {
                 return null;
             }

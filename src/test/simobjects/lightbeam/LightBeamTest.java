@@ -15,7 +15,6 @@ import core.simscreens.descriptors.SimulationScreen;
 
 public class LightBeamTest {
     
-    private static SimulationScreen simulationScreen = new SimulationScreen();
     private static Raylib rlj = UIElement.rlj;
 
     @Test

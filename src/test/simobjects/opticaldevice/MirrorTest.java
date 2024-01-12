@@ -1,7 +1,5 @@
 package test.simobjects.opticaldevice;
 
-import java.util.ArrayList;
-
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
 import com.raylib.java.raymath.Vector2;
@@ -19,19 +17,15 @@ public class MirrorTest {
 
         Raylib rlj = UIElement.rlj;
 
-        //Texture2D texture = rTextures.LoadTexture("arrow.png");
-
         while(!rlj.core.WindowShouldClose()){
             rlj.core.BeginDrawing();
             rlj.core.ClearBackground(Color.BLUE);
             simulationScreen.render();
             simulationScreen.renderObjects();
-            //rlj.textures.DrawTexture(texture, 200, 200, Color.BLUE);
             rlj.core.EndDrawing();
         }
 
         simulationScreen.unloadTextures();
-        //rlj.textures.UnloadTexture(texture);
 
     }
 

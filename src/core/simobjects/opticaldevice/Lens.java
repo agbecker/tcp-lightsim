@@ -28,10 +28,10 @@ public class Lens extends OpticalDevice {
     public void render(int xAbs, int yAbs) {
         Raylib rlj = UIElement.rlj;
         rlj.shapes.DrawRectangle(
-            xAbs+(int)vertex.x-this.getObjectWidth()/2, 
-            yAbs+(int)vertex.y-this.getObjectHeight()/2, 
-            this.getObjectWidth(), 
-            this.getObjectHeight(), 
+            xAbs+(int)vertex.x-this.getWidth()/2, 
+            yAbs+(int)vertex.y-this.getHeight()/2, 
+            this.getWidth(), 
+            this.getHeight(), 
             WHITE
         );
         
