@@ -23,7 +23,8 @@ public class StatsScreen extends Screen {
     private static final int HEIGHT_DEF = 450;
 
     private static final int BORDER_WIDTH = SCREEN_BORDER_WIDTH;
-    private static final int FONT_SIZE = 12;
+    private static final int FONT_SIZE = 18;
+    private static final int TEXT_OFFSET_FROM_BORDER = 10;
 
 
     // Atributos
@@ -70,7 +71,7 @@ public class StatsScreen extends Screen {
         }
 
         // Imprime informações na janela
-        rlj.text.DrawText(infoText, (int)background.getX(), (int)background.getY(), FONT_SIZE, WHITE);
+        rlj.text.DrawText(infoText, (int)background.getX() + TEXT_OFFSET_FROM_BORDER, (int)background.getY() + TEXT_OFFSET_FROM_BORDER, FONT_SIZE, WHITE);
 
     }
 
