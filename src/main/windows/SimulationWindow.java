@@ -5,7 +5,6 @@ import com.raylib.java.Raylib;
 import core.UI.UIElement;
 import core.simscreens.descriptors.SimulationScreen;
 import core.simscreens.descriptors.StatsScreen;
-import core.simscreens.editors.ToolboxScreen;
 import core.simscreens.editors.Updater;
 
 public class SimulationWindow extends Window {
@@ -13,10 +12,8 @@ public class SimulationWindow extends Window {
     private Raylib rlj = UIElement.rlj;
     private SimulationScreen simScreen = new SimulationScreen(null);
     private StatsScreen statsScreen = new StatsScreen();
-    //private ToolboxScreen toolbox = new ToolboxScreen(null);
     private Updater updater = new Updater();
     private WindowButton menuButton;
-    private WindowButton toolboxButton;
 
     private void assignButtons() {
         assignButtons(new MenuWindow(super.getManager()));
@@ -26,10 +23,6 @@ public class SimulationWindow extends Window {
         menuButton = new WindowButton(
             930, 500, 250, 180, new String("Menu"),
             super.getManager(), origin
-        );
-        toolboxButton = new WindowButton(
-            20, 500, 180, 180, new String("Toolbox"),
-            super.getManager(), new ToolboxWindow(super.getManager(), this)
         );
     }
 
@@ -56,10 +49,8 @@ public class SimulationWindow extends Window {
         rlj.text.DrawText("LightSim", UIElement.RLJ_WIDTH/2, 50, 20, UIElement.WHITE);
         simScreen.render();
         statsScreen.render();
-        //toolbox.render();
         updater.render();
         menuButton.render();
-        toolboxButton.render();
     }
 
 }
