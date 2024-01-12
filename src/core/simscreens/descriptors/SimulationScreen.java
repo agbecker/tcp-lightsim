@@ -1,37 +1,36 @@
 package core.simscreens.descriptors;
 
-import java.util.ArrayList;
-
 import com.raylib.java.raymath.Vector2;
 
 import core.UI.UIElement;
-import core.simobjects.*;
 import core.simobjects.opticaldevice.*;
 import core.simobjects.sourceObject.SourceObject;
 import core.simscreens.Screen;
 
 public class SimulationScreen extends Screen {
     
-    private static final int BEGX_DEF = 20;
-    private static final int BEGY_DEF = 20;
-    private static final int WIDTH_DEF = 750;
-    private static final int HEIGHT_DEF = 450;
-
-    private static int numSource;
-    private static int numLenses;
-    private static int numMirrors;
-    private static int numImages;
+    public static final int BEGX_DEF = 20;
+    public static final int BEGY_DEF = 20;
+    public static final int WIDTH_DEF = 750;
+    public static final int HEIGHT_DEF = 450;
 
     private int axisHeight;
-    ArrayList<ObjectToRender> objectsToRender;
+    private SourceObject source, image;
+    private OpticalDevice device;
 
-    public SimulationScreen(ArrayList<ObjectToRender> objectsToRender) {
-        this(WIDTH_DEF, HEIGHT_DEF, BEGX_DEF, BEGY_DEF, objectsToRender);
+    private final Vector2 SOURCE_DEFAULT_POSITION = new Vector2(100, HEIGHT_DEF/2);
+    private final Vector2 DEVICE_DEFAULT_POSITION = new Vector2(WIDTH_DEF/2, HEIGHT_DEF/2);
+    private final double DEVICE_DEFAULT_FOCUS = 100;
+
+    public SimulationScreen() {
+        this(WIDTH_DEF, HEIGHT_DEF, BEGX_DEF, BEGY_DEF);
     }
 
-    public SimulationScreen(int width, int height, int begX, int begY, ArrayList<ObjectToRender> objectsToRender) {
+    public SimulationScreen(int width, int height, int begX, int begY) {
         super(width, height, begX, begY);
-        this.objectsToRender = objectsToRender;
+        this.source = new SourceObject(SOURCE_DEFAULT_POSITION);
+        this.device = new Mirror(DEVICE_DEFAULT_FOCUS, DEVICE_DEFAULT_POSITION, true);
+        this.image = null;
         axisHeight = super.getHeight()/2;
     }
 
@@ -39,44 +38,17 @@ public class SimulationScreen extends Screen {
         return axisHeight;
     }
 
-    public void addObject(ObjectToRender object) {
-        objectsToRender.add(object);
-
-        // Atualiza contadores de instância de objeto
-        numSource = 0;
-        numLenses = 0;
-        numMirrors = 0;
-        numImages = 0;
-        for(ObjectToRender o : this.objectsToRender) {
-            if(o instanceof SourceObject) {
-                /*if(((SourceObject) o).isImage())
-                    numImages++;
-                else
-                    numSource++;*/
-            }
-                
-            if(o instanceof Lens)
-                numLenses++;
-            if(o instanceof Mirror)
-                numMirrors++;
-
-        }
-    } 
-
     public void renderObjects() {
-        if(objectsToRender != null) {
-            for(ObjectToRender object : objectsToRender) {
-                object.render();
-            }
-        }
+        this.source.render();
+        this.device.render();
+        image = source.generateImage();
+        if(image != null) this.image.render();
     }
 
     public void unloadTextures() {
-        if(objectsToRender != null) {
-            for(ObjectToRender object : objectsToRender) {
-                object.unloadTexture();
-            }
-        }
+        this.source.unloadTexture();
+        this.device.unloadTexture();
+        if(image != null) this.image.unloadTexture();
     }
 
     public void render() {
@@ -89,20 +61,24 @@ public class SimulationScreen extends Screen {
         renderObjects();
     }
 
-    public static int getNumSourceObjects() {
-        return numSource;
+    public SourceObject getSource() {
+        return source;
     }
 
-    public static int getNumImages() {
-        return numImages;
+    public SourceObject getImage() {
+        return image;
     }
 
-    public static int getNumLenses() {
-        return numLenses;
+    public OpticalDevice getDevice() {
+        return device;
     }
 
-    public static int getNumMirrors() {
-        return numMirrors;
+    public void setSource(SourceObject source) {
+        this.source = source;
+    }
+
+    public void setDevice(OpticalDevice device) {
+        this.device = device;
     }
 
 }

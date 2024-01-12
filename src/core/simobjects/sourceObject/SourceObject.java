@@ -11,15 +11,15 @@ import com.raylib.java.textures.rTextures;
 import java.lang.Math;
 
 import core.UI.UIElement;
-import core.simobjects.ObjectToRender;
 import core.simobjects.lightbeam.LightBeam;
 import core.simobjects.lightbeam.LightBeamSegment;
 import core.simobjects.opticaldevice.Lens;
 import core.simobjects.opticaldevice.Mirror;
 import core.simobjects.opticaldevice.OpticalDevice;
 import core.simscreens.Screen;
+import core.simscreens.descriptors.SimulationScreen;
 
-public class SourceObject extends ObjectToRender {
+public class SourceObject implements UIElement {
 
     // Atributos
     private static final double INITIAL_HEIGHT = 100;
@@ -35,6 +35,7 @@ public class SourceObject extends ObjectToRender {
     private LightBeam beamParallel, beamVertex, beamFocus;
     private SourceObject image;
     private OpticalDevice opticalDevice;
+    private SimulationScreen simScreen;
 
     // Construtor
     public SourceObject() {
@@ -56,15 +57,6 @@ public class SourceObject extends ObjectToRender {
     public SourceObject(String texturePath, Vector2 vertex, double height, OpticalDevice opticalDevice, boolean isClickable) {
         // O vértice é o ponto inferior direito,
         // enquanto o ponto utilizado pela hitbox é o canto superior esquerdo
-        super(
-            new Rectangle(
-                (int)(vertex.x),
-                (int)(height < 0 ? vertex.y : vertex.y - height),
-                (int)(Math.abs(height)*WIDTH_HEIGHT_RATIO),
-                (int)height
-            ), 
-            isClickable
-        );
         Image textureImage = rTextures.LoadImage(texturePath);
         this.texture = rTextures.LoadTextureFromImage(textureImage);
         rTextures.UnloadImage(textureImage);
@@ -151,12 +143,10 @@ public class SourceObject extends ObjectToRender {
     }
     
     public void render() {
-        Screen simulationScreen = ObjectToRender.getSimulationScreen();
-        render(simulationScreen.getBegX(), simulationScreen.getBegY());
+        render(SimulationScreen.BEGX_DEF, SimulationScreen.BEGY_DEF);
     }
     
     public void render(int xAbs, int yAbs) {
-        super.checkSelection(xAbs, yAbs);
         Raylib rlj = UIElement.rlj;
         if(height < 0) {
             rlj.shapes.DrawRectangle(xAbs+(int)vertex.x, yAbs+(int)vertex.y, (int)width, -(int)height, WHITE);

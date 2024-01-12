@@ -10,9 +10,9 @@ import core.simscreens.editors.Updater;
 public class SimulationWindow extends Window {
     
     private Raylib rlj = UIElement.rlj;
-    private SimulationScreen simScreen = new SimulationScreen(null);
-    private StatsScreen statsScreen = new StatsScreen();
-    private Updater updater = new Updater();
+    private SimulationScreen simScreen = new SimulationScreen();
+    private StatsScreen statsScreen = new StatsScreen(simScreen);
+    private Updater updater = new Updater(simScreen);
     private WindowButton menuButton;
 
     private void assignButtons() {
