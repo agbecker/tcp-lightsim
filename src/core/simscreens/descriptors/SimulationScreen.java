@@ -25,6 +25,8 @@ public class SimulationScreen extends Screen {
     private int axisHeight;
     ArrayList<ObjectToRender> objectsToRender;
 
+    private OpticalDevice device;
+
     public SimulationScreen(ArrayList<ObjectToRender> objectsToRender) {
         this(WIDTH_DEF, HEIGHT_DEF, BEGX_DEF, BEGY_DEF, objectsToRender);
     }
@@ -103,6 +105,10 @@ public class SimulationScreen extends Screen {
 
     public static int getNumMirrors() {
         return numMirrors;
+    }
+
+    public void setOpticalDevice(OpticalDevice device) {
+        this.device = device;
     }
 
 }

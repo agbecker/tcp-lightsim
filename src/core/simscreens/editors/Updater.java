@@ -109,4 +109,8 @@ public class Updater extends Screen {
         throw new UnsupportedOperationException("Unimplemented method 'getDisplayFocus'");
     }
 
+    public void setOpticalDevice(OpticalDevice device) {
+        simulationscreen.setOpticalDevice(device);
+    }
+
 }

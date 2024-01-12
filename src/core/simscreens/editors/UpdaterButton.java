@@ -68,35 +68,24 @@ public class UpdaterButton extends Button {
 
     @Override
     public void function() {
-
         updater.setActiveButton(this);
 
-        //System.out.println(this.label);
+        OpticalDevice device;
 
-        /*
-         * 
-         * OpticalDevice device;
-         * 
-         * double focus = Math.abs(Updater.getFocus());
-         * Vector2 vertex = Updater.getDeviceVertex();
-         * boolean displayFocus = Updater.getDisplayFocus();
-         * 
-         * // Se for côncavo ou divergente, o foco é negativo
-         * if(label.matches(".*(Côncavo|Divergente).*")) {
-         * focus = -focus;
-         * }
-         * 
-         * // Cria o dispositivo a usar
-         * if(label.matches(".*Espelho.*"))
-         * device = new Mirror(focus, vertex, displayFocus);
-         * 
-         * else
-         * device = new Lens(focus, vertex, displayFocus);
-         * 
-         * // Envia para o Updater
-         * updater.setOpticalDevice(device);
-         */
+        double focus = Math.abs(Updater.getFocus());
+        Vector2 vertex = Updater.getDeviceVertex();
+        boolean displayFocus = Updater.getDisplayFocus();
 
+        if(label.matches(".*(Côncavo|Divergente).*")) {
+            focus = -focus;
+        }
+
+        if(label.matches(".*Espelho.*"))
+            device = new Mirror(focus, vertex, displayFocus);
+        else
+            device = new Lens(focus, vertex, displayFocus);
+
+        updater.setOpticalDevice(device);
     }
 
     public void setActive(boolean active) {
