@@ -85,4 +85,8 @@ public class SimulationScreen extends Screen {
         this.device = device;
     }
 
+    public OpticalDevice getOpticalDevice() {
+        return this.device;
+    }
+
 }

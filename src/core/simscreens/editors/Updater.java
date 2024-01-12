@@ -78,4 +78,18 @@ public class Updater extends Screen {
 
     }
 
+    public void setActiveButton(UpdaterButton button) {
+        this.activeButton.setActive(false);
+        this.activeButton = button;
+        this.activeButton.setActive(true);
+    }
+
+    public OpticalDevice getOpticalDevice() {
+        return simScreen.getOpticalDevice();
+    }
+
+    public void setOpticalDevice(OpticalDevice device) {
+        simScreen.setOpticalDevice(device);
+    }
+
 }
