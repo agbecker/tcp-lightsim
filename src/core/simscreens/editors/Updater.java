@@ -1,32 +1,23 @@
 package core.simscreens.editors;
 
 import core.UI.UIElement;
-import core.simobjects.ObjectToRender;
-import core.simscreens.Screen;
 
-public class Updater extends Screen implements UIElement {
+import core.simscreens.descriptors.SimulationScreen;
+
+public class Updater implements UIElement {
     
-    private static final int BEGX_DEF = 220;
-    private static final int BEGY_DEF = 500;
-    private static final int WIDTH_DEF = 690;  
-    private static final int HEIGHT_DEF = 180;
+    public static final int BEGX_DEF = 220;
+    public static final int BEGY_DEF = 500;
+    public static final int WIDTH_DEF = 690;  
+    public static final int HEIGHT_DEF = 180;
 
     // Atributos
-    private ObjectToRender objectSelected;
     private boolean displayUpdaterDescription;
+    private SimulationScreen simScreen;
 
-    public Updater() {
-        this(WIDTH_DEF, HEIGHT_DEF, BEGX_DEF, BEGY_DEF);
-    }
-
-    public Updater(int width, int height, int begX, int begY) {
-        super(width, height, begX, begY);
+    public Updater(SimulationScreen simScreen) {
         displayUpdaterDescription = true;
-    }
-
-    public void setObjectSelected(ObjectToRender objectSelected) {
-        //System.out.println("Objeto alterado no updater");
-        this.objectSelected = objectSelected;
+        this.simScreen = simScreen;
     }
 
     void updateParameters() {

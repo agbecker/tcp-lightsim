@@ -3,25 +3,21 @@ package core.simobjects.lightbeam;
 import java.util.ArrayList;
 
 import com.raylib.java.raymath.Vector2;
-import com.raylib.java.shapes.Rectangle;
 
 import core.UI.UIElement;
-import core.simobjects.ObjectToRender;
-import core.simscreens.Screen;
+import core.simscreens.descriptors.SimulationScreen;
 
-public class LightBeam extends ObjectToRender {
+public class LightBeam implements UIElement {
     
     private ArrayList<LightBeamSegment> segments;
     private Vector2 startingPoint;
 
     public LightBeam(Vector2 startingPoint) {
-        super(new Rectangle(), false);
         segments = new ArrayList<LightBeamSegment>();
         this.startingPoint = startingPoint;
     }
 
     public LightBeam(Vector2 startingPoint, ArrayList<LightBeamSegment> segments) {
-        super(new Rectangle(), false);
         this.segments = segments;
         this.startingPoint = startingPoint;
     }
@@ -30,6 +26,7 @@ public class LightBeam extends ObjectToRender {
         segments.add(segment);
     }
     public void addSegment(Vector2 endingPoint) {
+
         Vector2 startingPoint;
         if(segments.size() == 0) {
             startingPoint = this.startingPoint;
@@ -59,27 +56,12 @@ public class LightBeam extends ObjectToRender {
         if(realIntersection != null) {
             return realIntersection;
         } else {
-            // Implementação do código que encontra a imagem virtual.
-            // Essa funcionalidade deve ser transferida a SourceObject para que ele consiga fazer a distinção de a imagem ser real ou virtual.
-            /*LightBeamSegment beam1Virtual = new LightBeamSegment(beam1.lastSegment().getStartingPoint(), 
-                                                                (beam1.lastSegment().getTheta()+180)%360, simulationScreen, rlj);
-            LightBeamSegment beam2Virtual = new LightBeamSegment(beam2.lastSegment().getStartingPoint(), 
-                                                                (beam2.lastSegment().getTheta()+180)%360, simulationScreen, rlj);
-            Vector2 virtualIntersection = LightBeamSegment.intersection(beam1Virtual, beam2Virtual, true);
-            if(virtualIntersection != null) {
-                beam1Virtual.setIsDashed(true); beam1.add(beam1Virtual);
-                beam2Virtual.setIsDashed(true); beam2.add(beam2Virtual);
-                return virtualIntersection;
-            } else {
-                return null;
-            }*/
             return null;
         }
     }
 
     public void render() {
-        Screen simulationScreen = ObjectToRender.getSimulationScreen();
-        render(simulationScreen.getBegX(), simulationScreen.getBegY());
+        render(SimulationScreen.BEGX_DEF, SimulationScreen.BEGY_DEF);
     }
 
     public void render(int xAbs, int yAbs) {
@@ -87,7 +69,5 @@ public class LightBeam extends ObjectToRender {
             segments.get(i).render(xAbs, yAbs);
         }
     }
-
-    public void unloadTexture() {}
 
 }

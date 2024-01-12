@@ -6,14 +6,12 @@ import static core.utils.Geometry.*;
 
 import com.raylib.java.core.Color;
 import com.raylib.java.raymath.Vector2;
-import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.Raylib;
 
 import core.UI.UIElement;
-import core.simobjects.ObjectToRender;
-import core.simscreens.Screen;
+import core.simscreens.descriptors.SimulationScreen;
 
-public class LightBeamSegment extends ObjectToRender {
+public class LightBeamSegment implements UIElement {
 
     private Vector2 startingPoint, endingPoint;
     private double theta;
@@ -28,7 +26,6 @@ public class LightBeamSegment extends ObjectToRender {
     private final Color LINE_COLOR = UIElement.WHITE;
 
     public LightBeamSegment(Vector2 startingPoint, Vector2 endingPoint) {
-        super(new Rectangle(), false);
         this.startingPoint = startingPoint;
         this.endingPoint = endingPoint;
         this.showArrows = true;
@@ -38,21 +35,17 @@ public class LightBeamSegment extends ObjectToRender {
     }
 
     public LightBeamSegment(Vector2 startingPoint, double theta) {
-        super(new Rectangle(), false);
         this.startingPoint = startingPoint;
         this.theta = theta;
         this.showArrows = true;
         this.isDashed = false;
 
-        Screen screen = ObjectToRender.getSimulationScreen();
 
         ArrayList<Double> cornerAngles = new ArrayList<Double>();
-        cornerAngles.add(getAngle(startingPoint, new Vector2(screen.getWidth(), 0                 )));
+        cornerAngles.add(getAngle(startingPoint, new Vector2(SimulationScreen.WIDTH_DEF, 0                 )));
         cornerAngles.add(getAngle(startingPoint, new Vector2(0                , 0                 )));
-        cornerAngles.add(getAngle(startingPoint, new Vector2(0                , screen.getHeight())));
-        cornerAngles.add(getAngle(startingPoint, new Vector2(screen.getWidth(), screen.getHeight())));
-
-        //System.out.printf("%f %f %f %f%n", cornerAngles.get(0), cornerAngles.get(1), cornerAngles.get(2), cornerAngles.get(3));
+        cornerAngles.add(getAngle(startingPoint, new Vector2(0                , SimulationScreen.HEIGHT_DEF)));
+        cornerAngles.add(getAngle(startingPoint, new Vector2(SimulationScreen.WIDTH_DEF, SimulationScreen.HEIGHT_DEF)));
 
         if(cornerAngles.get(0) < this.theta && this.theta <= cornerAngles.get(1)) {
             double x = (startingPoint.y - 0) / getSlope(theta) + startingPoint.x;
@@ -61,11 +54,11 @@ public class LightBeamSegment extends ObjectToRender {
             double y = (0 - startingPoint.x)*getSlope(180-theta) + startingPoint.y;
             this.endingPoint = new Vector2((float)0, (float)y);
         } else if(cornerAngles.get(2) < this.theta && this.theta <= cornerAngles.get(3)) {
-            double x = (startingPoint.y - screen.getHeight()) * getSlope(270-theta) + startingPoint.x;
-            this.endingPoint = new Vector2((float)x, (float)screen.getHeight());
+            double x = (startingPoint.y - SimulationScreen.HEIGHT_DEF) * getSlope(270-theta) + startingPoint.x;
+            this.endingPoint = new Vector2((float)x, (float)SimulationScreen.HEIGHT_DEF);
         } else {
-            double y = (screen.getWidth() - startingPoint.x)*getSlope(360-theta) + startingPoint.y;
-            this.endingPoint = new Vector2((float)screen.getWidth(), (float)y);
+            double y = (SimulationScreen.WIDTH_DEF - startingPoint.x)*getSlope(360-theta) + startingPoint.y;
+            this.endingPoint = new Vector2((float)SimulationScreen.WIDTH_DEF, (float)y);
         }
         this.segmentSize = getDistance(startingPoint, endingPoint);
     }
@@ -142,8 +135,7 @@ public class LightBeamSegment extends ObjectToRender {
     }
 
     public void render() {
-        Screen screen = ObjectToRender.getSimulationScreen();
-        render(screen.getBegX(), screen.getBegY());
+        render(SimulationScreen.BEGX_DEF, SimulationScreen.BEGY_DEF);
     }
 
     public void render(int xAbs, int yAbs) {
@@ -179,6 +171,8 @@ public class LightBeamSegment extends ObjectToRender {
         }
     }
 
-    public void unloadTexture() {}
+    public boolean getIsDashed() {
+        return this.isDashed;
+    }
 
 }
