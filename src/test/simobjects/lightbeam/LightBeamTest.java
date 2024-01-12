@@ -10,13 +10,12 @@ import com.raylib.java.core.Color;
 import com.raylib.java.raymath.Vector2;
 
 import core.UI.UIElement;
-import core.simobjects.ObjectToRender;
 import core.simobjects.lightbeam.*;
 import core.simscreens.descriptors.SimulationScreen;
 
 public class LightBeamTest {
     
-    private static SimulationScreen simulationScreen = new SimulationScreen(600, 400, 100, 100, null);
+    private static SimulationScreen simulationScreen = new SimulationScreen();
     private static Raylib rlj = UIElement.rlj;
 
     @Test
@@ -39,8 +38,6 @@ public class LightBeamTest {
     }
 
     public static void main(String[] args) {
-        ObjectToRender.setSimulationScreen(simulationScreen);
-
         LightBeam beam1 = new LightBeam(new Vector2(200, 100)); 
         beam1.addSegment(new Vector2(400, 100));
         beam1.addSegment(getAngle(new Vector2(400, 100), new Vector2(600, 300)));

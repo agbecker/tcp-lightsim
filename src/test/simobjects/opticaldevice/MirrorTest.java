@@ -7,17 +7,15 @@ import com.raylib.java.core.Color;
 import com.raylib.java.raymath.Vector2;
 
 import core.UI.UIElement;
-import core.simobjects.ObjectToRender;
 import core.simobjects.opticaldevice.Mirror;
 import core.simscreens.descriptors.SimulationScreen;
 
 public class MirrorTest {
     public static void main(String[] args) {
-        SimulationScreen simulationScreen = new SimulationScreen(new ArrayList<ObjectToRender>());
-        ObjectToRender.setSimulationScreen(simulationScreen);
+        SimulationScreen simulationScreen = new SimulationScreen();
 
         Mirror mirror = new Mirror(50.0, new Vector2(simulationScreen.getWidth()/2, simulationScreen.getAxisHeight()), true);
-        simulationScreen.addObject(mirror);
+        simulationScreen.setDevice(mirror);
 
         Raylib rlj = UIElement.rlj;
 

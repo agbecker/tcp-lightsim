@@ -11,13 +11,12 @@ import com.raylib.java.core.Color;
 import com.raylib.java.raymath.Vector2;
 
 import core.UI.UIElement;
-import core.simobjects.ObjectToRender;
 import core.simobjects.lightbeam.LightBeamSegment;
 import core.simscreens.descriptors.SimulationScreen;
 
 public class LightBeamSegmentTest {
     
-    private static SimulationScreen simulationScreen = new SimulationScreen(600, 400, 100, 100, null);
+    private static SimulationScreen simulationScreen = new SimulationScreen();
     private static Raylib rlj = UIElement.rlj;
 
     @Test
@@ -40,7 +39,6 @@ public class LightBeamSegmentTest {
         assertEquals(null, LightBeamSegment.intersection(lref1, ltst5, true));
     }
     public static void main(String[] args) {
-        ObjectToRender.setSimulationScreen(simulationScreen);
 
         LightBeamSegment segment1 = new LightBeamSegment(new Vector2(300, 100), new Vector2(400, 100));
         LightBeamSegment segment2 = new LightBeamSegment(new Vector2(300, 200), new Vector2(400, 50));
