@@ -49,10 +49,10 @@ public class SimulationScreen extends Screen {
         numImages = 0;
         for(ObjectToRender o : this.objectsToRender) {
             if(o instanceof SourceObject) {
-                if(((SourceObject) o).isImage())
+                /*if(((SourceObject) o).isImage())
                     numImages++;
                 else
-                    numSource++;
+                    numSource++;*/
             }
                 
             if(o instanceof Lens)

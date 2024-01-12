@@ -29,7 +29,6 @@ public class SourceObject extends ObjectToRender {
 
     private Texture2D texture;
     private Vector2 vertex;
-    private boolean generatesImage;
     private double height; // Altura do objeto
     private double width;
     private Vector2 lightSource; // Ponto no objeto de onde originam os raios de luz
@@ -39,22 +38,22 @@ public class SourceObject extends ObjectToRender {
 
     // Construtor
     public SourceObject() {
-        this(false, TEXTURE_DEFAULT, VERTEX_DEFAULT, INITIAL_HEIGHT, null, true);
+        this(TEXTURE_DEFAULT, VERTEX_DEFAULT, INITIAL_HEIGHT, null, true);
     }
 
     public SourceObject(Vector2 vertex) {
-        this(false, TEXTURE_DEFAULT, vertex, INITIAL_HEIGHT, null, true);
+        this(TEXTURE_DEFAULT, vertex, INITIAL_HEIGHT, null, true);
     }
 
     public SourceObject(Vector2 vertex, OpticalDevice opticalDevice) {
-        this(false, TEXTURE_DEFAULT, vertex, INITIAL_HEIGHT, opticalDevice, true);
+        this(TEXTURE_DEFAULT, vertex, INITIAL_HEIGHT, opticalDevice, true);
     }
 
     public SourceObject(Vector2 vertex, double height, boolean isClickable) {
-        this(false, TEXTURE_DEFAULT, vertex, height, null, isClickable);
+        this(TEXTURE_DEFAULT, vertex, height, null, isClickable);
     }
 
-    public SourceObject(boolean generatesImage, String texturePath, Vector2 vertex, double height, OpticalDevice opticalDevice, boolean isClickable) {
+    public SourceObject(String texturePath, Vector2 vertex, double height, OpticalDevice opticalDevice, boolean isClickable) {
         // O vértice é o ponto inferior direito,
         // enquanto o ponto utilizado pela hitbox é o canto superior esquerdo
         super(
@@ -66,7 +65,6 @@ public class SourceObject extends ObjectToRender {
             ), 
             isClickable
         );
-        this.generatesImage = generatesImage;
         Image textureImage = rTextures.LoadImage(texturePath);
         this.texture = rTextures.LoadTextureFromImage(textureImage);
         rTextures.UnloadImage(textureImage);
@@ -81,10 +79,6 @@ public class SourceObject extends ObjectToRender {
     }
 
     // Métodos
-    /*public void setGeneratesImage(boolean generatesImage) {
-        this.generatesImage = generatesImage;
-    }*/
-
     public void setOpticalDevice(OpticalDevice opticalDevice) {
         this.opticalDevice = opticalDevice;
     }
@@ -99,7 +93,6 @@ public class SourceObject extends ObjectToRender {
     }*/
 
     public SourceObject generateImage() {
-        generatesImage = true;
         beamParallel.addSegment(new Vector2(opticalDevice.getVertex().x, lightSource.y));
 
         // Se o foco é positivo, o raio (real) segue o foco. 
@@ -171,11 +164,9 @@ public class SourceObject extends ObjectToRender {
             rlj.shapes.DrawRectangle(xAbs+(int)vertex.x, yAbs+(int)vertex.y-(int)height, (int)width, (int)height, WHITE);
         }
         rlj.textures.DrawTexture(texture, xAbs+(int)vertex.x, yAbs+(int)vertex.y, WHITE);
-        if(generatesImage) {
-            if(beamParallel != null) beamParallel.render(xAbs, yAbs);
-            if(beamVertex != null) beamVertex.render();
-            if(beamFocus != null) beamFocus.render();
-        }
+        if(beamParallel != null) beamParallel.render(xAbs, yAbs);
+        if(beamVertex != null) beamVertex.render();
+        if(beamFocus != null) beamFocus.render();
     }
 
     public void unloadTexture() {
@@ -188,11 +179,7 @@ public class SourceObject extends ObjectToRender {
                         "\nDistância ao vértice: " + String.format("%.2f", Math.abs(this.getDistanceToDevice())) + " cm\n";
 
         String image;
-        if(!generatesImage)
-            image = "Não gera imagem";
-
-        else
-            image = getImageStats();
+        image = getImageStats();
 
         return text + image;
     }
@@ -234,10 +221,6 @@ public class SourceObject extends ObjectToRender {
         Vector2 deviceVertex = this.opticalDevice.getVertex();
 
         return deviceVertex.getX() - this.vertex.getX();
-    }
-
-    public boolean isImage() {
-        return !this.generatesImage;
     }
 
 }
