@@ -28,6 +28,10 @@ public class Updater extends Screen {
 
     private static final int MIN_SOURCE_X = 100;
     private static final int MAX_SOURCE_X = 500;
+    private static final int MIN_SOURCE_HEIGHT = 50;
+    private static final int MAX_SOURCE_HEIGHT = 150;
+    private static final int MIN_FOCUS = 0;
+    private static final int MAX_FOCUS = 200;
 
 
     private UpdaterButton buttonConcave, buttonConvex, buttonConvergent, buttonDivergent;
@@ -65,8 +69,10 @@ public class Updater extends Screen {
         // Cria sliders
         this.sliderDistance = new Slider(MIN_SOURCE_X, MAX_SOURCE_X, new Vector2(SLIDER_BEGX, BEGY_DEF + SLIDER_OFFSET), SLIDER_WIDTH, "Posição da fonte");
         this.sliderDistance.setCurrentValue(source.getX());
-        this.sliderHeight = new Slider(0, 100, new Vector2(SLIDER_BEGX, BEGY_DEF + 3*SLIDER_OFFSET), SLIDER_WIDTH, "Altura da fonte");
-        this.sliderFocus = new Slider(0, 100, new Vector2(SLIDER_BEGX, BEGY_DEF + 5*SLIDER_OFFSET), SLIDER_WIDTH, "Foco do dispositivo");
+        this.sliderHeight = new Slider(MIN_SOURCE_HEIGHT, MAX_SOURCE_HEIGHT, new Vector2(SLIDER_BEGX, BEGY_DEF + 3*SLIDER_OFFSET), SLIDER_WIDTH, "Altura da fonte");
+        this.sliderHeight.setCurrentValue(source.getHeight());
+        this.sliderFocus = new Slider(-MAX_FOCUS, -MIN_FOCUS, new Vector2(SLIDER_BEGX, BEGY_DEF + 5*SLIDER_OFFSET), SLIDER_WIDTH, "Foco do dispositivo");
+        this.sliderFocus.setCurrentValue(device.getFocus());
 
         // Por default, usa um espelho côncavo
         this.activeButton = buttonConcave;

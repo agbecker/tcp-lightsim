@@ -154,4 +154,12 @@ public class Slider implements UIElement {
             wasBeingHeld = false;
         }   
     }
+
+    public void invertLimits() {
+        double current = getCurrentValue();
+        double aux = minValue;
+        this.minValue = -maxValue;
+        this.maxValue = aux;
+        this.setCurrentValue(-current);
+    }
 }

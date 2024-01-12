@@ -20,7 +20,7 @@ public class SimulationScreen extends Screen {
 
     private final Vector2 SOURCE_DEFAULT_POSITION = new Vector2(100, HEIGHT_DEF/2);
     private final Vector2 DEVICE_DEFAULT_POSITION = new Vector2(WIDTH_DEF/2, HEIGHT_DEF/2);
-    private final double DEVICE_DEFAULT_FOCUS = -100;
+    private final double DEVICE_DEFAULT_FOCUS = -50;
 
     public SimulationScreen() {
         this(WIDTH_DEF, HEIGHT_DEF, BEGX_DEF, BEGY_DEF);

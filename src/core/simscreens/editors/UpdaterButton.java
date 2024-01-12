@@ -5,6 +5,7 @@ import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.shapes.rShapes;
 
 import core.UI.Button;
+import core.UI.Slider;
 import core.simobjects.opticaldevice.*;
 
 public class UpdaterButton extends Button {
@@ -68,8 +69,6 @@ public class UpdaterButton extends Button {
 
     @Override
     public void function() {
-        updater.setActiveButton(this);
-
         OpticalDevice deviceCurrent, deviceNew;
 
         deviceCurrent = updater.getOpticalDevice();
@@ -88,9 +87,13 @@ public class UpdaterButton extends Button {
             deviceNew = new Lens(focus, vertex, displayFocus);
 
         updater.setOpticalDevice(deviceNew);
+
+        updater.setActiveButton(this);
     }
 
     public void setActive(boolean active) {
         this.isActive = active;
     }
+
+
 }
