@@ -28,6 +28,7 @@ public class LightBeam {
         segments.add(segment);
     }
     public void addSegment(Vector2 endingPoint) {
+
         Vector2 startingPoint;
         if(segments.size() == 0) {
             startingPoint = this.startingPoint;

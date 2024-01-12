@@ -177,4 +177,8 @@ public class LightBeamSegment {
 
     public void unloadTexture() {}
 
+    public boolean getIsDashed() {
+        return this.isDashed;
+    }
+
 }

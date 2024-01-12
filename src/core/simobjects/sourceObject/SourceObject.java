@@ -35,7 +35,6 @@ public class SourceObject implements UIElement {
     private LightBeam beamParallel, beamVertex, beamFocus;
     private SourceObject image;
     private OpticalDevice opticalDevice;
-    private SimulationScreen simScreen;
 
     // Construtor
     public SourceObject() {
@@ -85,7 +84,14 @@ public class SourceObject implements UIElement {
     }*/
 
     public SourceObject generateImage() {
-        beamParallel.addSegment(new Vector2(opticalDevice.getVertex().x, lightSource.y));
+
+        this.beamParallel = new LightBeam(lightSource);
+        this.beamVertex = new LightBeam(lightSource);
+        this.beamFocus = new LightBeam(lightSource);
+
+        Vector2 point = new Vector2(opticalDevice.getVertex().x, lightSource.y);
+        beamParallel.addSegment(point);
+        
 
         // Se o foco é positivo, o raio (real) segue o foco. 
         // Caso contrário, o prolongamento do raio (virtual) segue o foco.
@@ -112,7 +118,6 @@ public class SourceObject implements UIElement {
             double estimatedWidth = Math.abs(estimatedHeight)*WIDTH_HEIGHT_RATIO;
             image = new SourceObject(new Vector2(imagePoint.x-(float)estimatedWidth/2, this.vertex.y), estimatedHeight, false);
             // Accounts for the size of the object
-            // IMAGENS NÃO SÃO CLICÁVEIS (modificar quando for possível utilizar uma imagem como fonte para outras imagens)
         } else {
             // Imagem é virtual, devem ser gerados os prolongamentos
             LightBeamSegment beamParallelVirtual = new LightBeamSegment(
