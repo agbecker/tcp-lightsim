@@ -81,4 +81,8 @@ public class SimulationScreen extends Screen {
         this.device = device;
     }
 
+    public void setOpticalDevice(OpticalDevice device) {
+        this.device = device;
+    }
+
 }
