@@ -22,7 +22,8 @@ public class StatsScreen extends Screen {
     private static final int HEIGHT_DEF = 450;
 
     private static final int BORDER_WIDTH = SCREEN_BORDER_WIDTH;
-    private static final int FONT_SIZE = 12;
+    private static final int FONT_SIZE = 18;
+    private static final int TEXT_OFFSET_FROM_BORDER = 10;
 
 
     // Atributos
