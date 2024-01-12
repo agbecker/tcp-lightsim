@@ -70,20 +70,20 @@ public class LightBeamSegmentTest {
         while(!rlj.core.WindowShouldClose()){
             rlj.core.BeginDrawing();
             rlj.core.ClearBackground(Color.BLUE);
-            rlj.shapes.DrawRectangleLines(simulationScreen.getBegX(), simulationScreen.getBegY(), simulationScreen.getWidth(), simulationScreen.getHeight(), Color.RAYWHITE);
+            rlj.shapes.DrawRectangleLines(SimulationScreen.BEGX_DEF, SimulationScreen.BEGY_DEF, SimulationScreen.WIDTH_DEF, SimulationScreen.HEIGHT_DEF, Color.RAYWHITE);
             segment1.render();
             segment2.render();
             Vector2 intersectionPoint1 = LightBeamSegment.intersection(segment1, segment2, false);
             if(intersectionPoint1 != null) {
-                rlj.shapes.DrawCircle(simulationScreen.getBegX()+(int)intersectionPoint1.x, 
-                                      simulationScreen.getBegY()+(int)intersectionPoint1.y, 3, Color.RED);
+                rlj.shapes.DrawCircle(SimulationScreen.BEGX_DEF+(int)intersectionPoint1.x, 
+                                      SimulationScreen.BEGY_DEF+(int)intersectionPoint1.y, 3, Color.RED);
             }
             segment3.render();
             segment4.render();
             Vector2 intersectionPoint2 = LightBeamSegment.intersection(segment3, segment4, true);
             if(intersectionPoint2 != null) {
-                rlj.shapes.DrawCircle(simulationScreen.getBegX()+(int)intersectionPoint2.x, 
-                                      simulationScreen.getBegY()+(int)intersectionPoint2.y, 3, Color.RED);
+                rlj.shapes.DrawCircle(SimulationScreen.BEGX_DEF+(int)intersectionPoint2.x, 
+                                      SimulationScreen.BEGY_DEF+(int)intersectionPoint2.y, 3, Color.RED);
             }
             for(int i = 0; i < segs.size(); i++) {
                 segs.get(i).render();

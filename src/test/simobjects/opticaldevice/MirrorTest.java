@@ -14,7 +14,7 @@ public class MirrorTest {
     public static void main(String[] args) {
         SimulationScreen simulationScreen = new SimulationScreen();
 
-        Mirror mirror = new Mirror(50.0, new Vector2(simulationScreen.getWidth()/2, simulationScreen.getAxisHeight()), true);
+        Mirror mirror = new Mirror(50.0, new Vector2(SimulationScreen.WIDTH_DEF/2, simulationScreen.getAxisHeight()), true);
         simulationScreen.setDevice(mirror);
 
         Raylib rlj = UIElement.rlj;

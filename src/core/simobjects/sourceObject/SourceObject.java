@@ -16,7 +16,6 @@ import core.simobjects.lightbeam.LightBeamSegment;
 import core.simobjects.opticaldevice.Lens;
 import core.simobjects.opticaldevice.Mirror;
 import core.simobjects.opticaldevice.OpticalDevice;
-import core.simscreens.Screen;
 import core.simscreens.descriptors.SimulationScreen;
 
 public class SourceObject implements UIElement {

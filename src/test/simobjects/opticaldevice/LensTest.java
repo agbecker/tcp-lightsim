@@ -17,7 +17,7 @@ public class LensTest {
     public static void main(String[] args) {
         SimulationScreen simulationScreen = new SimulationScreen();
 
-        Lens lens = new Lens(50.0, new Vector2(simulationScreen.getWidth()/2, simulationScreen.getAxisHeight()), true);
+        Lens lens = new Lens(50.0, new Vector2(SimulationScreen.WIDTH_DEF/2, simulationScreen.getAxisHeight()), true);
         simulationScreen.setDevice(lens);
 
         Raylib rlj = UIElement.rlj;

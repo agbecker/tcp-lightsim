@@ -10,10 +10,9 @@ import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.Raylib;
 
 import core.UI.UIElement;
-import core.simscreens.Screen;
 import core.simscreens.descriptors.SimulationScreen;
 
-public class LightBeamSegment {
+public class LightBeamSegment implements UIElement {
 
     private Vector2 startingPoint, endingPoint;
     private double theta;

@@ -48,13 +48,13 @@ public class LightBeamTest {
         while(!rlj.core.WindowShouldClose()){
             rlj.core.BeginDrawing();
             rlj.core.ClearBackground(Color.BLUE);
-            rlj.shapes.DrawRectangleLines(simulationScreen.getBegX(), simulationScreen.getBegY(), simulationScreen.getWidth(), simulationScreen.getHeight(), Color.RAYWHITE);
+            rlj.shapes.DrawRectangleLines(SimulationScreen.BEGX_DEF, SimulationScreen.BEGY_DEF, SimulationScreen.WIDTH_DEF, SimulationScreen.HEIGHT_DEF, Color.RAYWHITE);
             beam1.render();
             beam2.render();
             Vector2 intersectionPoint = LightBeam.findImagePoint(beam1, beam2);
             if(intersectionPoint != null) {
-                rlj.shapes.DrawCircle(simulationScreen.getBegX()+(int)intersectionPoint.x, 
-                                      simulationScreen.getBegY()+(int)intersectionPoint.y, 3, Color.RED);
+                rlj.shapes.DrawCircle(SimulationScreen.BEGX_DEF+(int)intersectionPoint.x, 
+                                      SimulationScreen.BEGY_DEF+(int)intersectionPoint.y, 3, Color.RED);
             }
             rlj.core.EndDrawing();
         }

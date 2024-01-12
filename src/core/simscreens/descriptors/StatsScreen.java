@@ -8,22 +8,20 @@ import core.UI.UIElement;
 import core.simobjects.opticaldevice.Lens;
 import core.simobjects.opticaldevice.Mirror;
 import core.simobjects.sourceObject.SourceObject;
-import core.simscreens.Screen;
 
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.shapes.rShapes;
 import com.raylib.java.text.rText;
 
-public class StatsScreen extends Screen {
+public class StatsScreen implements UIElement {
     
-    private static final int BEGX_DEF = 790;
-    private static final int BEGY_DEF = 20;
-    private static final int WIDTH_DEF = 390;
-    private static final int HEIGHT_DEF = 450;
+    public static final int BEGX_DEF = 790;
+    public static final int BEGY_DEF = 20;
+    public static final int WIDTH_DEF = 390;
+    public static final int HEIGHT_DEF = 450;
 
     private static final int BORDER_WIDTH = SCREEN_BORDER_WIDTH;
     private static final int FONT_SIZE = 12;
-
 
     // Atributos
     private String infoText;
@@ -32,14 +30,8 @@ public class StatsScreen extends Screen {
     private Rectangle border, background;
 
     public StatsScreen(SimulationScreen simScreen) {
-        this(WIDTH_DEF, HEIGHT_DEF, BEGX_DEF, BEGY_DEF, simScreen);
-    }
-
-    public StatsScreen(int width, int height, int begX, int begY, SimulationScreen simScreen) {
-        super(width, height, begX, begY);
-
-        background = new Rectangle(begX, begY, width, height);
-        border = new Rectangle(begX-BORDER_WIDTH, begY-BORDER_WIDTH, width+2*BORDER_WIDTH, height+2*BORDER_WIDTH);
+        background = new Rectangle(BEGX_DEF, BEGY_DEF, WIDTH_DEF, HEIGHT_DEF);
+        border = new Rectangle(BEGX_DEF-BORDER_WIDTH, BEGY_DEF-BORDER_WIDTH, WIDTH_DEF+2*BORDER_WIDTH, HEIGHT_DEF+2*BORDER_WIDTH);
         this.simScreen = simScreen;
     }
 

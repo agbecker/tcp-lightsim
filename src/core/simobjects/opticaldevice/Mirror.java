@@ -6,7 +6,6 @@ import com.raylib.java.textures.Texture2D;
 import com.raylib.java.textures.rTextures;
 
 import core.UI.UIElement;
-import core.simscreens.Screen;
 import core.simscreens.descriptors.SimulationScreen;
 
 public class Mirror extends OpticalDevice {

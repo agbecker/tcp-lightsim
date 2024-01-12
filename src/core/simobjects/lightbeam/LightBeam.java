@@ -6,10 +6,9 @@ import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 
 import core.UI.UIElement;
-import core.simscreens.Screen;
 import core.simscreens.descriptors.SimulationScreen;
 
-public class LightBeam {
+public class LightBeam implements UIElement {
     
     private ArrayList<LightBeamSegment> segments;
     private Vector2 startingPoint;

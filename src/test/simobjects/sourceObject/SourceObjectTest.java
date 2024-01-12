@@ -24,8 +24,8 @@ public class SourceObjectTest {
         StatsScreen statsScreen = new StatsScreen(simulationScreen);
 
         SourceObject sourceObject = new SourceObject(new Vector2(100, simulationScreen.getAxisHeight()));
-        //Lens lens = new Lens(100.0, new Vector2(simulationScreen.getWidth()/2, simulationScreen.getAxisHeight()), true);
-        Mirror mirror = new Mirror(-100.0, new Vector2(simulationScreen.getWidth()/2, simulationScreen.getAxisHeight()), true);
+        //Lens lens = new Lens(100.0, new Vector2(SimulationScreen.WIDTH_DEF/2, simulationScreen.getAxisHeight()), true);
+        Mirror mirror = new Mirror(-100.0, new Vector2(SimulationScreen.WIDTH_DEF/2, simulationScreen.getAxisHeight()), true);
 
         //sourceObject.setOpticalDevice(lens);
         sourceObject.setOpticalDevice(mirror);
