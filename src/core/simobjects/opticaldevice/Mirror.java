@@ -6,8 +6,8 @@ import com.raylib.java.textures.Texture2D;
 import com.raylib.java.textures.rTextures;
 
 import core.UI.UIElement;
-import core.simobjects.ObjectToRender;
 import core.simscreens.Screen;
+import core.simscreens.descriptors.SimulationScreen;
 
 public class Mirror extends OpticalDevice {
 
@@ -23,12 +23,10 @@ public class Mirror extends OpticalDevice {
     }
 
     public void render() {
-        Screen simulationScreen = ObjectToRender.getSimulationScreen();
-        render(simulationScreen.getBegX(), simulationScreen.getBegY());
+        render(SimulationScreen.BEGX_DEF, SimulationScreen.BEGY_DEF);
     }
 
     public void render(int xAbs, int yAbs) {
-        super.checkSelection(xAbs, yAbs);
         Raylib rlj = UIElement.rlj;
         rlj.shapes.DrawRectangle(
             xAbs+(int)vertex.x-this.getObjectWidth()/2, 

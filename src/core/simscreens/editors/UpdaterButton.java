@@ -5,6 +5,7 @@ import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.shapes.rShapes;
 
 import core.UI.Button;
+import core.UI.Slider;
 import core.simobjects.opticaldevice.*;
 
 public class UpdaterButton extends Button {
@@ -68,27 +69,31 @@ public class UpdaterButton extends Button {
 
     @Override
     public void function() {
-        updater.setActiveButton(this);
+        OpticalDevice deviceCurrent, deviceNew;
 
-        OpticalDevice device;
+        deviceCurrent = updater.getOpticalDevice();
 
-        double focus = Math.abs(Updater.getFocus());
-        Vector2 vertex = Updater.getDeviceVertex();
-        boolean displayFocus = Updater.getDisplayFocus();
+        double focus = Math.abs(deviceCurrent.getFocus());
+        Vector2 vertex = deviceCurrent.getVertex();
+        boolean displayFocus = deviceCurrent.showsFocus();
 
         if(label.matches(".*(Côncavo|Divergente).*")) {
             focus = -focus;
         }
 
         if(label.matches(".*Espelho.*"))
-            device = new Mirror(focus, vertex, displayFocus);
+            deviceNew = new Mirror(focus, vertex, displayFocus);
         else
-            device = new Lens(focus, vertex, displayFocus);
+            deviceNew = new Lens(focus, vertex, displayFocus);
 
-        updater.setOpticalDevice(device);
+        updater.setOpticalDevice(deviceNew);
+
+        updater.setActiveButton(this);
     }
 
     public void setActive(boolean active) {
         this.isActive = active;
     }
+
+
 }
