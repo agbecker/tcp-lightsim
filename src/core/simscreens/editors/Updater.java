@@ -4,22 +4,20 @@ import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.shapes.rShapes;
 
-import core.UI.Button;
 import core.UI.Slider;
 import core.UI.UIElement;
 import core.simobjects.opticaldevice.OpticalDevice;
 import core.simobjects.sourceObject.SourceObject;
-import core.simscreens.Screen;
 import core.simscreens.descriptors.SimulationScreen;
 
-public class Updater extends Screen {
+public class Updater implements UIElement {
     
     private static final int BEGX_DEF = 20;
     private static final int BEGY_DEF = 500;
     private static final int WIDTH_DEF = 880;  
     private static final int HEIGHT_DEF = 180;
 
-    private static final int BORDER_WIDTH = SCREEN_BORDER_WIDTH;
+    private static final int BORDER_WIDTH = 10;
     private static final int BUTTON_OFFSET = 12;
 
     private static final int SLIDER_WIDTH = 240;
@@ -44,24 +42,18 @@ public class Updater extends Screen {
     private Rectangle background, border;
 
     public Updater(SimulationScreen simScreen) {
-        this(WIDTH_DEF, HEIGHT_DEF, BEGX_DEF, BEGY_DEF, simScreen);
-    }    
-
-
-    public Updater(int width, int height, int begX, int begY, SimulationScreen simScreen) {
-        super(width, height, begX, begY);
         this.simScreen = simScreen;
 
         // Cria caixa do updater
-        background = new Rectangle(begX, begY, width, height);
-        border = new Rectangle(begX-BORDER_WIDTH, begY-BORDER_WIDTH, width+2*BORDER_WIDTH, height+2*BORDER_WIDTH);
+        background = new Rectangle(BEGX_DEF, BEGY_DEF, WIDTH_DEF, HEIGHT_DEF);
+        border = new Rectangle(BEGX_DEF-BORDER_WIDTH, BEGY_DEF-BORDER_WIDTH, WIDTH_DEF+2*BORDER_WIDTH, HEIGHT_DEF+2*BORDER_WIDTH);
 
         
         // Cria botões de adicionar dispositivo
-        this.buttonConcave = new UpdaterButton(begX+BUTTON_OFFSET, begY + BUTTON_OFFSET, "Espelho Côncavo", this);
-        this.buttonConvex = new UpdaterButton(begX+BUTTON_OFFSET, begY + BUTTON_OFFSET*2 + UpdaterButton.HEIGHT, "Espelho Convexo", this);
-        this.buttonConvergent = new UpdaterButton(begX+BUTTON_OFFSET, begY + BUTTON_OFFSET*3 + UpdaterButton.HEIGHT*2, "Lente Convergente", this);
-        this.buttonDivergent = new UpdaterButton(begX+BUTTON_OFFSET, begY + BUTTON_OFFSET*4 + UpdaterButton.HEIGHT*3, "Lente Divergente", this);
+        this.buttonConcave = new UpdaterButton(BEGX_DEF+BUTTON_OFFSET, BEGY_DEF + BUTTON_OFFSET, "Espelho Côncavo", this);
+        this.buttonConvex = new UpdaterButton(BEGX_DEF+BUTTON_OFFSET, BEGY_DEF + BUTTON_OFFSET*2 + UpdaterButton.HEIGHT, "Espelho Convexo", this);
+        this.buttonConvergent = new UpdaterButton(BEGX_DEF+BUTTON_OFFSET, BEGY_DEF + BUTTON_OFFSET*3 + UpdaterButton.HEIGHT*2, "Lente Convergente", this);
+        this.buttonDivergent = new UpdaterButton(BEGX_DEF+BUTTON_OFFSET, BEGY_DEF + BUTTON_OFFSET*4 + UpdaterButton.HEIGHT*3, "Lente Divergente", this);
 
         OpticalDevice device = simScreen.getDevice();
         SourceObject source = simScreen.getSource();

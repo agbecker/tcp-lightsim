@@ -3,13 +3,11 @@ package core.simobjects.lightbeam;
 import java.util.ArrayList;
 
 import com.raylib.java.raymath.Vector2;
-import com.raylib.java.shapes.Rectangle;
 
 import core.UI.UIElement;
-import core.simscreens.Screen;
 import core.simscreens.descriptors.SimulationScreen;
 
-public class LightBeam {
+public class LightBeam implements UIElement {
     
     private ArrayList<LightBeamSegment> segments;
     private Vector2 startingPoint;
@@ -58,20 +56,6 @@ public class LightBeam {
         if(realIntersection != null) {
             return realIntersection;
         } else {
-            // Implementação do código que encontra a imagem virtual.
-            // Essa funcionalidade deve ser transferida a SourceObject para que ele consiga fazer a distinção de a imagem ser real ou virtual.
-            /*LightBeamSegment beam1Virtual = new LightBeamSegment(beam1.lastSegment().getStartingPoint(), 
-                                                                (beam1.lastSegment().getTheta()+180)%360, simulationScreen, rlj);
-            LightBeamSegment beam2Virtual = new LightBeamSegment(beam2.lastSegment().getStartingPoint(), 
-                                                                (beam2.lastSegment().getTheta()+180)%360, simulationScreen, rlj);
-            Vector2 virtualIntersection = LightBeamSegment.intersection(beam1Virtual, beam2Virtual, true);
-            if(virtualIntersection != null) {
-                beam1Virtual.setIsDashed(true); beam1.add(beam1Virtual);
-                beam2Virtual.setIsDashed(true); beam2.add(beam2Virtual);
-                return virtualIntersection;
-            } else {
-                return null;
-            }*/
             return null;
         }
     }
@@ -85,7 +69,5 @@ public class LightBeam {
             segments.get(i).render(xAbs, yAbs);
         }
     }
-
-    public void unloadTexture() {}
 
 }

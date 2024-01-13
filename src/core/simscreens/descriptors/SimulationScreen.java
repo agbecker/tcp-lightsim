@@ -5,33 +5,27 @@ import com.raylib.java.raymath.Vector2;
 import core.UI.UIElement;
 import core.simobjects.opticaldevice.*;
 import core.simobjects.sourceObject.SourceObject;
-import core.simscreens.Screen;
 
-public class SimulationScreen extends Screen {
+public class SimulationScreen implements UIElement {
     
     public static final int BEGX_DEF = 20;
     public static final int BEGY_DEF = 20;
     public static final int WIDTH_DEF = 750;
     public static final int HEIGHT_DEF = 450;
 
-    private int axisHeight;
-    private SourceObject source, image;
-    private OpticalDevice device;
-
     private final Vector2 SOURCE_DEFAULT_POSITION = new Vector2(100, HEIGHT_DEF/2);
     private final Vector2 DEVICE_DEFAULT_POSITION = new Vector2(WIDTH_DEF/2, HEIGHT_DEF/2);
     private final double DEVICE_DEFAULT_FOCUS = -50;
 
-    public SimulationScreen() {
-        this(WIDTH_DEF, HEIGHT_DEF, BEGX_DEF, BEGY_DEF);
-    }
+    private int axisHeight;
+    private SourceObject source, image;
+    private OpticalDevice device;
 
-    public SimulationScreen(int width, int height, int begX, int begY) {
-        super(width, height, begX, begY);
+    public SimulationScreen() {
         this.device = new Mirror(DEVICE_DEFAULT_FOCUS, DEVICE_DEFAULT_POSITION, true);
         this.source = new SourceObject(SOURCE_DEFAULT_POSITION, this.device);
         this.image = null;
-        axisHeight = super.getHeight()/2;
+        axisHeight = HEIGHT_DEF/2;
     }
 
     public int getAxisHeight() {
@@ -52,12 +46,12 @@ public class SimulationScreen extends Screen {
     }
 
     public void render() {
-        render(super.getBegX(), super.getBegY());
+        render(BEGX_DEF, BEGY_DEF);
     }
     public void render(int xAbs, int yAbs) {
-        rlj.shapes.DrawRectangle(xAbs, yAbs, super.getWidth(), super.getHeight(), UIElement.DARK_BLUE);
-        rlj.shapes.DrawRectangleLines(xAbs, yAbs, super.getWidth(), super.getHeight(), UIElement.WHITE);
-        rlj.shapes.DrawLineEx(new Vector2(xAbs, yAbs+axisHeight), new Vector2(xAbs+super.getWidth(), yAbs+axisHeight), 1, UIElement.WHITE);
+        rlj.shapes.DrawRectangle(xAbs, yAbs, WIDTH_DEF, HEIGHT_DEF, UIElement.DARK_BLUE);
+        rlj.shapes.DrawRectangleLines(xAbs, yAbs, WIDTH_DEF, HEIGHT_DEF, UIElement.WHITE);
+        rlj.shapes.DrawLineEx(new Vector2(xAbs, yAbs+axisHeight), new Vector2(xAbs+WIDTH_DEF, yAbs+axisHeight), 1, UIElement.WHITE);
         renderObjects();
     }
 

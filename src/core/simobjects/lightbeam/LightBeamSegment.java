@@ -6,14 +6,12 @@ import static core.utils.Geometry.*;
 
 import com.raylib.java.core.Color;
 import com.raylib.java.raymath.Vector2;
-import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.Raylib;
 
 import core.UI.UIElement;
-import core.simscreens.Screen;
 import core.simscreens.descriptors.SimulationScreen;
 
-public class LightBeamSegment {
+public class LightBeamSegment implements UIElement {
 
     private Vector2 startingPoint, endingPoint;
     private double theta;
@@ -48,8 +46,6 @@ public class LightBeamSegment {
         cornerAngles.add(getAngle(startingPoint, new Vector2(0                , 0                 )));
         cornerAngles.add(getAngle(startingPoint, new Vector2(0                , SimulationScreen.HEIGHT_DEF)));
         cornerAngles.add(getAngle(startingPoint, new Vector2(SimulationScreen.WIDTH_DEF, SimulationScreen.HEIGHT_DEF)));
-
-        //System.out.printf("%f %f %f %f%n", cornerAngles.get(0), cornerAngles.get(1), cornerAngles.get(2), cornerAngles.get(3));
 
         if(cornerAngles.get(0) < this.theta && this.theta <= cornerAngles.get(1)) {
             double x = (startingPoint.y - 0) / getSlope(theta) + startingPoint.x;
@@ -174,8 +170,6 @@ public class LightBeamSegment {
             rlj.shapes.DrawLineEx(middlePoint, p2, LINE_THICKNESS, LINE_COLOR);
         }
     }
-
-    public void unloadTexture() {}
 
     public boolean getIsDashed() {
         return this.isDashed;

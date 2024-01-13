@@ -13,22 +13,22 @@ public abstract class OpticalDevice implements UIElement {
     protected double focus;
     protected Vector2 vertex;
     protected boolean displayFocus;      
-    protected Rectangle hitbox;
+    protected Rectangle bounds;
 
     public OpticalDevice(double focus, Vector2 vertex, boolean displayFocus) {
         // O vértice do dispositivo é o seu ponto central, 
-        // enquanto o vértice da hitbox é o canto superior esquerdo
-        this.hitbox = new Rectangle(vertex.x-WIDTH_DEF/2, vertex.y-HEIGHT_DEF/2, WIDTH_DEF, HEIGHT_DEF);
+        // enquanto o vértice da bounds é o canto superior esquerdo
+        this.bounds = new Rectangle(vertex.x-WIDTH_DEF/2, vertex.y-HEIGHT_DEF/2, WIDTH_DEF, HEIGHT_DEF);
         this.focus = focus;
         this.vertex = vertex;
         this.displayFocus = displayFocus;
     }
 
-    public int getObjectWidth() {
-        return (int)hitbox.width;
+    public int getWidth() {
+        return (int)bounds.width;
     }
-    public int getObjectHeight() {
-        return (int)hitbox.height;
+    public int getHeight() {
+        return (int)bounds.height;
     }
 
     public void setDisplayFocus(boolean displayFocus) {
