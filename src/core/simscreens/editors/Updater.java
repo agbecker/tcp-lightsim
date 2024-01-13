@@ -13,21 +13,21 @@ public class Updater implements UIElement {
     
     private static final int BEGX_DEF = 20;
     private static final int BEGY_DEF = 500;
-    private static final int WIDTH_DEF = 880;  
+    private static final int WIDTH_DEF = 930;  
     private static final int HEIGHT_DEF = 180;
 
     private static final int BORDER_WIDTH = 10;
     private static final int BUTTON_OFFSET = 12;
 
     private static final int SLIDER_WIDTH = 240;
-    private static final int SLIDER_BEGX = WIDTH_DEF*3/4;
+    private static final int SLIDER_BEGX = (int) (WIDTH_DEF*3.9/5);
     private static final int SLIDER_OFFSET = 30;
 
-    private static final int MIN_SOURCE_X = 50;
+    private static final int MIN_SOURCE_X = 0;
     private static final int MAX_SOURCE_X = 300;
     private static final int MIN_SOURCE_HEIGHT = 50;
-    private static final int MAX_SOURCE_HEIGHT = 150;
-    private static final int MIN_FOCUS = 0;
+    private static final int MAX_SOURCE_HEIGHT = 200;
+    private static final int MIN_FOCUS = 5;
     private static final int MAX_FOCUS = 200;
 
 

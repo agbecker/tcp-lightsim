@@ -1,7 +1,6 @@
 package core.UI;
 import com.raylib.java.core.Color;
 import com.raylib.java.core.rCore;
-import com.raylib.java.core.ray.Ray;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.shapes.rShapes;
@@ -10,9 +9,6 @@ import com.raylib.java.textures.*;
 import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_BUTTON_LEFT;
 
 import com.raylib.java.Raylib;
-import com.raylib.java.text.rText;
-import com.raylib.java.text.rText.FontType;
-import com.raylib.java.text.Font;
 //import com.raylib.java.Raylib;
 
 public abstract class Button implements UIElement {
