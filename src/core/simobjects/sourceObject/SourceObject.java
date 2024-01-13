@@ -222,4 +222,8 @@ public class SourceObject implements UIElement {
         vertex.setX((float) x);
         lightSource.setX((float) x);
     }
+
+    public SourceObject getImage() {
+        return this.image;
+    }
 }

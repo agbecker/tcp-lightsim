@@ -21,7 +21,7 @@ public class SimulationWindow extends Window {
 
     private void assignButtons(Window origin) {
         menuButton = new WindowButton(
-            930, 500, 250, 180, new String("Menu"),
+            980, 500, 200, 180, new String("Menu"),
             super.getManager(), origin
         );
     }

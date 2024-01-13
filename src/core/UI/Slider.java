@@ -4,10 +4,6 @@ import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_BUTTON_LEFT;
 import com.raylib.java.Raylib;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.shapes.rShapes;
-
-import core.simscreens.editors.Updater;
-
-import com.raylib.java.core.Color;
 import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 
@@ -36,7 +32,7 @@ public class Slider implements UIElement {
     private static final int TRACK_HEIGHT = 4*2;
     private static final int FONT_SIZE = RECT_HEIGHT;
     private static final int LABEL_GAP = 10;
-    private static final int TEXT_OFFSET_LEFT = 280;
+    private static final int TEXT_OFFSET_LEFT = 335;
 
     private String settingLabel;
 
@@ -77,13 +73,15 @@ public class Slider implements UIElement {
         rlj.text.DrawText(minLabel, minLabelX, labelY, FONT_SIZE, DARK_PURPLE);
         rlj.text.DrawText(maxLabel, maxLabelX, labelY, FONT_SIZE, DARK_PURPLE);
 
+        /* // Funcionalidade removida
         String currentValueLabel = String.format("%.1f", getCurrentValue());
         int currentLabelWidth = rlj.text.MeasureText(currentValueLabel, FONT_SIZE);
         int currentLabelX = (int) rect.getX() + (RECT_WIDTH - currentLabelWidth)/2;
         int currentLabelY = (int) shadow.getY() + SHADOW_HEIGHT + LABEL_GAP;
         rlj.text.DrawText(currentValueLabel, currentLabelX, currentLabelY, FONT_SIZE, DARK_PURPLE);
+         */
 
-        rlj.text.DrawText(this.settingLabel, (int) (trackLeftX - TEXT_OFFSET_LEFT), (int) trackCenterY - FONT_SIZE/2, FONT_SIZE, WHITE);
+        rlj.text.DrawText(this.settingLabel, (int) (trackLeftX - TEXT_OFFSET_LEFT), (int) trackCenterY - FONT_SIZE/2, FONT_SIZE, DARK_PURPLE);
     }
 
     public double getCurrentValue() {
@@ -164,8 +162,6 @@ public class Slider implements UIElement {
         // Verifica se precisa mudar
         if (sign > 0 && this.maxValue > 0 ||
                 sign < 0 && this.minValue < 0) {
-
-            System.out.println("Sign: "+sign+"| Comparação: "+maxValue+" ou "+minValue);
             return;
         }
 
@@ -180,8 +176,8 @@ public class Slider implements UIElement {
     }
 
     public void setLabels() {
-        this.minLabel = Double.toString(minValue);
-        this.maxLabel = Double.toString(maxValue);
+        this.minLabel = String.format("%.2f", (double) (minValue/100)) + " m";
+        this.maxLabel = String.format("%.2f", (double) (maxValue/100)) + " m";
     }
 
     public void setHasChanged(boolean state) {

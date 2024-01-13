@@ -1,17 +1,13 @@
 package core.simscreens.descriptors;
 
-import java.util.ArrayList;
-
-import javax.management.InvalidAttributeValueException;
-
 import core.UI.UIElement;
 import core.simobjects.opticaldevice.Lens;
 import core.simobjects.opticaldevice.Mirror;
+import core.simobjects.opticaldevice.OpticalDevice;
 import core.simobjects.sourceObject.SourceObject;
 
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.shapes.rShapes;
-import com.raylib.java.text.rText;
 
 public class StatsScreen implements UIElement {
     
@@ -21,11 +17,13 @@ public class StatsScreen implements UIElement {
     public static final int HEIGHT_DEF = 450;
 
     private static final int BORDER_WIDTH = SCREEN_BORDER_WIDTH;
+    private static final int TITLE_FONT_SIZE = 28;
     private static final int FONT_SIZE = 18;
     private static final int TEXT_OFFSET_FROM_BORDER = 10;
 
+    public static final double CONVERSION_RATE = 0.01; // 1 m/10 pixels
+
     // Atributos
-    private String infoText;
     private SimulationScreen simScreen;
 
     private Rectangle border, background;
@@ -42,25 +40,93 @@ public class StatsScreen implements UIElement {
         rShapes.DrawRectangleRec(border, LIGHT_BLUE);
         rShapes.DrawRectangleRec(background, DARK_BLUE);
 
-        //getGeneralStats();
+        // Escreve o título
+        int offsetY = TEXT_OFFSET_FROM_BORDER;
+        rlj.text.DrawText("Informações da simulação", BEGX_DEF + TEXT_OFFSET_FROM_BORDER, BEGY_DEF + offsetY, TITLE_FONT_SIZE, WHITE);
 
-        // Imprime informações na janela
-        //rlj.text.DrawText(infoText, (int)background.getX(), (int)background.getY(), FONT_SIZE, WHITE);
+        // Escreve as informações
+        offsetY = offsetY + (int) (1.6*TITLE_FONT_SIZE);
+        String infoText = getStatsFromSimulation();
+        rlj.text.DrawText(infoText, BEGX_DEF + TEXT_OFFSET_FROM_BORDER, BEGY_DEF + offsetY, FONT_SIZE, WHITE);
 
     }
 
-    private String getGeneralStats() {
+    private String getStatsFromSimulation() {
 
-        int numSource = 0;
-        int numLenses = 0;
-        int numMirrors = 0;
-        int numImages = 0;
+        SourceObject source = simScreen.getSource();
+        SourceObject image = source.getImage();
+        OpticalDevice device = simScreen.getDevice();
 
-        return  "DETALHES DA SIMULAÇÃO" + 
-                "\nNúmero de objetos fonte: " + numSource + 
-                "\nNúmero de lentes: " + numLenses +
-                "\nNúmero de espelhos: " + numMirrors +
-                "\nNúmero de imagens geradas: " + numImages;
+        String infoSource = getSourceInfo(source);
+        String infoDevice = getDeviceInfo(device);
+        String infoImage = getImageInfo(image, device);
+
+        String text = infoSource + "\n" + infoDevice + "\n" + infoImage;
+        
+        return text;
+
+    }
+
+    private String getSourceInfo(SourceObject source) {
+        double distance = source.getDistanceToDevice() * CONVERSION_RATE;
+        double height = source.getHeight() * CONVERSION_RATE;
+
+        String distanceStr = "Distância da fonte ao dispositivo: " + String.format("%.2f", distance) + " m\n";
+        String heightStr = "Altura da fonte: " + String.format("%.2f", height) + " m";
+
+        return distanceStr + heightStr;
+
+    }
+
+    private String getDeviceInfo(OpticalDevice device) {
+        double focus = device.getFocus() * CONVERSION_RATE;
+        String type;
+        if(device instanceof Mirror) {
+            type = "Espelho ";
+
+            if(focus < 0)
+                type += "Côncavo";
+            else
+                type += "Convexo";
+        }
+        else {
+            type = "Lente ";
+
+            if(focus < 0)
+                type += "Divergente";
+            else
+                type += "Convergente";
+        }
+        type +="\n";
+
+        String focusStr = String.format("%.2f", focus) + " m";
+
+        return type + focusStr;
+
+    }
+
+    private String getImageInfo(SourceObject image, OpticalDevice device) {
+        double distance = device.getVertex().x - image.getX();
+        double height = image.getHeight() * CONVERSION_RATE;
+        
+        String type = "Imagem ";
+
+        if (distance > 0 && device instanceof Mirror ||
+            distance < 0 && device instanceof Lens) {
+                type += "real, ";
+            }
+        else
+            type += "virtual, ";
+
+        if(height < 0)
+            type += "invertida\n";
+        else
+            type += "direita\n";
+
+        String distanceStr = "Distância da imagem ao dispositivo: " + String.format("%.2f", Math.abs(distance)) + " m\n";
+        String heightStr = "Altura da imagem: " + String.format("%.2f", height) + " m";
+
+        return type + distanceStr + heightStr;
 
     }
 
