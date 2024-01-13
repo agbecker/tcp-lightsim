@@ -99,7 +99,7 @@ public class StatsScreen implements UIElement {
         }
         type +="\n";
 
-        String focusStr = String.format("%.2f", focus) + " m";
+        String focusStr = "Foco: " + String.format("%.2f", focus) + " m";
 
         return type + focusStr;
 
