@@ -51,4 +51,8 @@ public abstract class OpticalDevice implements UIElement {
 
     public abstract void unloadTexture();
 
+    public void setFocus(double focus) {
+        this.focus = focus;
+    }
+
 }

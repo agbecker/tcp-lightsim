@@ -95,5 +95,14 @@ public class UpdaterButton extends Button {
         this.isActive = active;
     }
 
+    public void adjustSliderValues(Slider slider) {
+        if(label.matches(".*(Côncavo|Divergente).*")) {
+            slider.setValuesSign(-1);
+        }
+
+        else {
+            slider.setValuesSign(1);
+        }
+    }
 
 }

@@ -74,15 +74,6 @@ public class SourceObject implements UIElement {
         this.opticalDevice = opticalDevice;
     }
 
-    /*public void setHeight(double height){
-        this.height = height;
-        //this.lightSource.setCoords(this.position.getX(), this.position.getY() + height);
-    }
-
-    public void adjustHeight(double delta){
-        this.setHeight(this.height + delta);
-    }*/
-
     public SourceObject generateImage() {
 
         this.beamParallel = new LightBeam(lightSource);
@@ -224,5 +215,15 @@ public class SourceObject implements UIElement {
 
     public void setX(int x) {
         this.vertex.setX(x);
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+        lightSource.setY((float) (vertex.y - height));
+    }
+
+    public void setPosition(double x) {
+        vertex.setX((float) x);
+        lightSource.setX((float) x);
     }
 }

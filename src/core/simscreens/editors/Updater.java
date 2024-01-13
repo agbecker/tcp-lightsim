@@ -26,8 +26,8 @@ public class Updater extends Screen {
     private static final int SLIDER_BEGX = WIDTH_DEF*3/4;
     private static final int SLIDER_OFFSET = 30;
 
-    private static final int MIN_SOURCE_X = 100;
-    private static final int MAX_SOURCE_X = 500;
+    private static final int MIN_SOURCE_X = 50;
+    private static final int MAX_SOURCE_X = 300;
     private static final int MIN_SOURCE_HEIGHT = 50;
     private static final int MAX_SOURCE_HEIGHT = 150;
     private static final int MIN_FOCUS = 0;
@@ -79,13 +79,6 @@ public class Updater extends Screen {
         setActiveButton(activeButton);
     }
 
-
-    void updateParameters() {
-        // Atualiza os parâmetros do objectSelected
-    }
-
-
-    // Versão simples do render
     public void render() {
 
         rShapes.DrawRectangleRec(border, DARK_BLUE);
@@ -100,12 +93,29 @@ public class Updater extends Screen {
         this.sliderHeight.render();
         this.sliderFocus.render();
 
+        // Verifica mudança nos valores
+        if(sliderDistance.hasChanged()) {
+            sliderDistance.setHasChanged(false);
+            setNewDistance();
+        }
+
+        if(sliderHeight.hasChanged()) {
+            sliderHeight.setHasChanged(false);
+            setNewHeight();
+        }
+
+        if(sliderFocus.hasChanged()) {
+            sliderFocus.setHasChanged(false);
+            setNewFocus();
+        }
+
     }
 
     public void setActiveButton(UpdaterButton button) {
         this.activeButton.setActive(false);
         this.activeButton = button;
         this.activeButton.setActive(true);
+        activeButton.adjustSliderValues(sliderFocus);
     }
 
     public OpticalDevice getOpticalDevice() {
@@ -114,6 +124,18 @@ public class Updater extends Screen {
 
     public void setOpticalDevice(OpticalDevice device) {
         simScreen.setOpticalDevice(device);
+    }
+
+    public void setNewDistance() {
+        simScreen.getSource().setPosition(sliderDistance.getCurrentValue());
+    }
+
+    public void setNewHeight() {
+        simScreen.getSource().setHeight(sliderHeight.getCurrentValue());
+    }
+
+    public void setNewFocus() {
+        simScreen.getOpticalDevice().setFocus(sliderFocus.getCurrentValue());
     }
 
 }
