@@ -3,7 +3,6 @@ package core.simscreens.editors;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.shapes.rShapes;
-
 import core.UI.Slider;
 import core.UI.UIElement;
 import core.simobjects.opticaldevice.OpticalDevice;
