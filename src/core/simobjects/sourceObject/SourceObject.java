@@ -205,4 +205,21 @@ public class SourceObject implements UIElement {
         return deviceVertex.getX() - this.vertex.getX();
     }
 
+    public double getX() {
+        return this.vertex.x;
+    }
+
+    public void setX(int x) {
+        this.vertex.setX(x);
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+        lightSource.setY((float) (vertex.y - height));
+    }
+
+    public void setPosition(double x) {
+        vertex.setX((float) x);
+        lightSource.setX((float) x);
+    }
 }

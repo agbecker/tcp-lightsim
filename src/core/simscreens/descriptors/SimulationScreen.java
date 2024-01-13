@@ -15,7 +15,7 @@ public class SimulationScreen implements UIElement {
 
     private final Vector2 SOURCE_DEFAULT_POSITION = new Vector2(100, HEIGHT_DEF/2);
     private final Vector2 DEVICE_DEFAULT_POSITION = new Vector2(WIDTH_DEF/2, HEIGHT_DEF/2);
-    private final double DEVICE_DEFAULT_FOCUS = -100;
+    private final double DEVICE_DEFAULT_FOCUS = -50;
 
     private int axisHeight;
     private SourceObject source, image;
@@ -73,6 +73,19 @@ public class SimulationScreen implements UIElement {
 
     public void setDevice(OpticalDevice device) {
         this.device = device;
+    }
+
+    public void setOpticalDevice(OpticalDevice device) {
+        this.device = device;
+        this.source.setOpticalDevice(device);
+    }
+
+    public OpticalDevice getOpticalDevice() {
+        return this.device;
+    }
+
+    public void setSourceX(int x) {
+        source.setX(x);
     }
 
 }

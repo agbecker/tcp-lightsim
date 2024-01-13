@@ -79,6 +79,12 @@ public abstract class Button implements UIElement {
             return;
         }
 
+        // Só pressiona o botão se o mouse estiver sobre ele
+        if(!rlj.shapes.CheckCollisionPointRec(cursor, button)) {
+            setIsBeingPressed(false);
+            return;
+        }
+
         // Se o usuário clicar no botão
         if(!isBeingPressed && rlj.shapes.CheckCollisionPointRec(cursor, button) && rCore.IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
             isBeingPressed = true;

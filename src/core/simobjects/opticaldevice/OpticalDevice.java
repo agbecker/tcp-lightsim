@@ -43,8 +43,16 @@ public abstract class OpticalDevice implements UIElement {
         return vertex;
     }
 
+    public boolean showsFocus() {
+        return this.displayFocus;
+    }
+
     public abstract Vector2 getFocalPoint();
 
     public abstract void unloadTexture();
+
+    public void setFocus(double focus) {
+        this.focus = focus;
+    }
 
 }

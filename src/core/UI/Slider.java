@@ -4,6 +4,9 @@ import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_BUTTON_LEFT;
 import com.raylib.java.Raylib;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.shapes.rShapes;
+
+import core.simscreens.editors.Updater;
+
 import com.raylib.java.core.Color;
 import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
@@ -17,6 +20,7 @@ public class Slider implements UIElement {
 
     private boolean wasBeingHeld;
     private double lastMouseX;
+    private boolean valueHasChanged;
 
     private double trackLeftX;
     private double trackRightX;
@@ -26,30 +30,31 @@ public class Slider implements UIElement {
     private Rectangle rect, shadow;
     private Rectangle track;
 
-    private static final Color LIGHT_PURPLE = UIElement.LIGHT_PURPLE;
-    private static final Color DARK_PURPLE = UIElement.DARK_PURPLE;
-    private static final Color TRACK_BLUE = UIElement.DARK_BLUE;
-    
     private static final int RECT_WIDTH = 24*2;
     private static final int RECT_HEIGHT = 12*2;
     private static final int SHADOW_HEIGHT = 6*2;
     private static final int TRACK_HEIGHT = 4*2;
     private static final int FONT_SIZE = RECT_HEIGHT;
     private static final int LABEL_GAP = 10;
+    private static final int TEXT_OFFSET_LEFT = 280;
+
+    private String settingLabel;
 
 
-    public Slider(double min, double max, Vector2 trackCenterPoint, double trackWidth) {
+    public Slider(double min, double max, Vector2 trackCenterPoint, double trackWidth, String label) {
+        this.settingLabel = label;
+        
         minValue = min;
         maxValue = max;
         percent = 50;
-        minLabel = Double.toString(min);
-        maxLabel = Double.toString(max);
+        setLabels();
 
         trackLeftX = trackCenterPoint.getX() - trackWidth/2;
         trackRightX = trackCenterPoint.getX() + trackWidth/2;
         trackCenterY = trackCenterPoint.getY();
 
         wasBeingHeld = false;
+        valueHasChanged = false;
 
         int rectX = (int) (trackCenterPoint.getX() - RECT_WIDTH/2);
         int rectY = (int) (trackCenterY + TRACK_HEIGHT/2 - RECT_HEIGHT);
@@ -61,7 +66,7 @@ public class Slider implements UIElement {
     public void render() {
         checkIsBeingDragged();
 
-        rShapes.DrawRectangleRec(this.track, TRACK_BLUE);
+        rShapes.DrawRectangleRec(this.track, DARK_BLUE);
         rShapes.DrawRectangleRec(this.shadow, DARK_PURPLE);
         rShapes.DrawRectangleRec(this.rect, LIGHT_PURPLE);
 
@@ -77,10 +82,18 @@ public class Slider implements UIElement {
         int currentLabelX = (int) rect.getX() + (RECT_WIDTH - currentLabelWidth)/2;
         int currentLabelY = (int) shadow.getY() + SHADOW_HEIGHT + LABEL_GAP;
         rlj.text.DrawText(currentValueLabel, currentLabelX, currentLabelY, FONT_SIZE, DARK_PURPLE);
+
+        rlj.text.DrawText(this.settingLabel, (int) (trackLeftX - TEXT_OFFSET_LEFT), (int) trackCenterY - FONT_SIZE/2, FONT_SIZE, WHITE);
     }
 
     public double getCurrentValue() {
         return (maxValue - minValue)*percent/100 + minValue;
+    }
+
+    public void setCurrentValue(double newValue) {
+        double newPercent = (newValue - minValue)/(maxValue - minValue);
+
+        updateKnobPosition(trackLeftX + newPercent*(trackRightX - trackLeftX - rect.width));        
     }
 
     public void updateKnobPosition(double newX) {
@@ -101,6 +114,7 @@ public class Slider implements UIElement {
         }
 
         percent = 100*((rect.getX() -trackLeftX)/((trackRightX - RECT_WIDTH) - trackLeftX));
+        setHasChanged(true);
         
     }
 
@@ -144,5 +158,37 @@ public class Slider implements UIElement {
         if(wasBeingHeld && !rCore.IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
             wasBeingHeld = false;
         }   
+    }
+
+    public void setValuesSign(int sign) {
+        // Verifica se precisa mudar
+        if (sign > 0 && this.maxValue > 0 ||
+                sign < 0 && this.minValue < 0) {
+
+            System.out.println("Sign: "+sign+"| Comparação: "+maxValue+" ou "+minValue);
+            return;
+        }
+
+        double currentValue = getCurrentValue();
+        double currentMax = this.maxValue;
+        double currentMin = this.minValue;
+
+        this.minValue = -currentMax;
+        this.maxValue = -currentMin;
+        this.setCurrentValue(-currentValue);
+        this.setLabels();
+    }
+
+    public void setLabels() {
+        this.minLabel = Double.toString(minValue);
+        this.maxLabel = Double.toString(maxValue);
+    }
+
+    public void setHasChanged(boolean state) {
+        this.valueHasChanged = state;
+    }
+
+    public boolean hasChanged() {
+        return this.valueHasChanged;
     }
 }
