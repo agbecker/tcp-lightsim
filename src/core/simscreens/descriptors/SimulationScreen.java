@@ -67,10 +67,6 @@ public class SimulationScreen implements UIElement {
         return device;
     }
 
-    public void setSource(SourceObject source) {
-        this.source = source;
-    }
-
     public void setOpticalDevice(OpticalDevice device) {
         this.device = device;
         this.source.setOpticalDevice(device);
@@ -78,10 +74,6 @@ public class SimulationScreen implements UIElement {
 
     public OpticalDevice getOpticalDevice() {
         return this.device;
-    }
-
-    public void setSourceX(int x) {
-        source.setX(x);
     }
 
 }
