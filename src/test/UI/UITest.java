@@ -15,7 +15,7 @@ public class UITest {
 
     public static void main(String[] args) {
         Raylib rlj = UIElement.rlj;
-        Slider slider = new Slider(-40, 28, new Vector2(400, 300), 200);
+        Slider slider = new Slider(-40, 28, new Vector2(400, 300), 200, "");
 
         //slider.updateKnobPosition(400);
         
