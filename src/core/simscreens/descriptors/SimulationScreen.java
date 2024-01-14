@@ -71,10 +71,6 @@ public class SimulationScreen implements UIElement {
         this.source = source;
     }
 
-    public void setDevice(OpticalDevice device) {
-        this.device = device;
-    }
-
     public void setOpticalDevice(OpticalDevice device) {
         this.device = device;
         this.source.setOpticalDevice(device);
