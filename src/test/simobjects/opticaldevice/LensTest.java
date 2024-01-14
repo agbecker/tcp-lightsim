@@ -11,13 +11,6 @@ import core.simobjects.opticaldevice.Lens;
 
 public class LensTest {
     
-    public static void main(String[] args) {
-        Lens lt = new Lens(0, new Vector2(0, 0), false);
-        
-        System.out.println(lt.getVertex().getX());
-        System.out.println(lt.getVertex().getY());
-    }
-
     private Lens l;
 
     @Before
