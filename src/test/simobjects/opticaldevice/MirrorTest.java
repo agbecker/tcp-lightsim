@@ -1,32 +1,48 @@
 package test.simobjects.opticaldevice;
 
-import com.raylib.java.Raylib;
-import com.raylib.java.core.Color;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import com.raylib.java.raymath.Vector2;
 
-import core.UI.UIElement;
 import core.simobjects.opticaldevice.Mirror;
-import core.simscreens.descriptors.SimulationScreen;
 
 public class MirrorTest {
-    public static void main(String[] args) {
-        SimulationScreen simulationScreen = new SimulationScreen();
 
-        Mirror mirror = new Mirror(50.0, new Vector2(SimulationScreen.WIDTH_DEF/2, simulationScreen.getAxisHeight()), true);
-        simulationScreen.setDevice(mirror);
+    private Mirror m;
 
-        Raylib rlj = UIElement.rlj;
+    @Before
+    public void init() {
+        this.m = new Mirror(0, new Vector2(0, 0), false);
+    }
 
-        while(!rlj.core.WindowShouldClose()){
-            rlj.core.BeginDrawing();
-            rlj.core.ClearBackground(Color.BLUE);
-            simulationScreen.render();
-            simulationScreen.renderObjects();
-            rlj.core.EndDrawing();
-        }
+    @Test
+    public void testDefaultFocus() {
+        assertEquals(0, this.m.getFocus(), 0);
+    }
 
-        simulationScreen.unloadTextures();
+    @Test
+    public void testDefaultHeight() {
+        assertEquals(200, this.m.getHeight());
+    }
 
+    @Test
+    public void testDefaultWidth() {
+        assertEquals(30, this.m.getWidth());
+    }
+
+    @Test
+    public void testDefaultFocalPoint() {
+        assertEquals(0, this.m.getFocalPoint().getX(), 0);
+        assertEquals(0, this.m.getFocalPoint().getY(), 0);
+    }
+
+    @Test
+    public void testDefaultVertex() {
+        assertEquals(0, this.m.getVertex().getX(), 0);
+        assertEquals(0, this.m.getVertex().getY(), 0);
     }
 
 }

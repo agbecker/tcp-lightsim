@@ -1,29 +1,48 @@
 package test.simobjects.opticaldevice;
 
-import com.raylib.java.Raylib;
-import com.raylib.java.core.Color;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import com.raylib.java.raymath.Vector2;
 
-import core.UI.UIElement;
 import core.simobjects.opticaldevice.Lens;
-import core.simscreens.descriptors.SimulationScreen;
 
 public class LensTest {
-    public static void main(String[] args) {
-        SimulationScreen simulationScreen = new SimulationScreen();
+    
+    private Lens l;
 
-        Lens lens = new Lens(50.0, new Vector2(SimulationScreen.WIDTH_DEF/2, simulationScreen.getAxisHeight()), true);
-        simulationScreen.setDevice(lens);
+    @Before
+    public void init() {
+        this.l = new Lens(0, new Vector2(0, 0), false);
+    }
 
-        Raylib rlj = UIElement.rlj;
+    @Test
+    public void testDefaultFocus() {
+        assertEquals(0, this.l.getFocus(), 0);
+    }
 
-        while(!rlj.core.WindowShouldClose()){
-            rlj.core.BeginDrawing();
-            rlj.core.ClearBackground(Color.BLUE);
-            simulationScreen.render();
-            rlj.core.EndDrawing();
-        }
+    @Test
+    public void testDefaultHeight() {
+        assertEquals(200, this.l.getHeight());
+    }
 
+    @Test
+    public void testDefaultWidth() {
+        assertEquals(30, this.l.getWidth());
+    }
+
+    @Test
+    public void testDefaultFocalPoint() {
+        assertEquals(0, this.l.getFocalPoint().getX(), 0);
+        assertEquals(0, this.l.getFocalPoint().getY(), 0);
+    }
+
+    @Test
+    public void testDefaultVertex() {
+        assertEquals(0, this.l.getVertex().getX(), 0);
+        assertEquals(0, this.l.getVertex().getY(), 0);
     }
 
 }

@@ -1,44 +1,61 @@
 package test.simobjects.sourceObject;
 
-import com.raylib.java.Raylib;
-import com.raylib.java.core.Color;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import com.raylib.java.raymath.Vector2;
 
-import core.UI.UIElement;
 import core.simobjects.opticaldevice.Lens;
 import core.simobjects.opticaldevice.Mirror;
 import core.simobjects.sourceObject.SourceObject;
-import core.simscreens.descriptors.SimulationScreen;
 
 public class SourceObjectTest {
-    
-    public static void main(String[] args) {
-        SimulationScreen simulationScreen = new SimulationScreen();
-        //Updater updater = new Updater(simulationScreen);
-        //StatsScreen statsScreen = new StatsScreen(simulationScreen);
 
-        SourceObject sourceObject = new SourceObject(new Vector2(100, simulationScreen.getAxisHeight()));
-        //Lens lens = new Lens(100.0, new Vector2(SimulationScreen.WIDTH_DEF/2, simulationScreen.getAxisHeight()), true);
-        Mirror mirror = new Mirror(-100.0, new Vector2(SimulationScreen.WIDTH_DEF/2, simulationScreen.getAxisHeight()), true);
+    private SourceObject so;
 
-        //sourceObject.setOpticalDevice(lens);
-        sourceObject.setOpticalDevice(mirror);
-
-        simulationScreen.setSource(sourceObject);
-        simulationScreen.setDevice(mirror);
-
-        Raylib rlj = UIElement.rlj;
-
-        while(!rlj.core.WindowShouldClose()){
-            rlj.core.BeginDrawing();
-            rlj.core.ClearBackground(Color.BLUE);
-            simulationScreen.render();
-            rlj.core.EndDrawing();
-        }
-
-        simulationScreen.unloadTextures();
-
+    @Before
+    public void init() {
+        this.so = new SourceObject();
     }
 
+    @Test
+    public void testDefaultVertexPosition() {
+        assertEquals(100, this.so.getX(), 0);
+    }
+
+    @Test
+    public void testDefaultDistanceToDevice() {
+        this.so.setOpticalDevice(new Lens(0, new Vector2(0, 0), false));
+        assertEquals(-100, this.so.getDistanceToDevice(), 0);
+        this.so.setOpticalDevice(new Lens(0, new Vector2(100, 100), false));
+        assertEquals(0, this.so.getDistanceToDevice(), 0);
+
+        this.so.setOpticalDevice(new Lens(0, new Vector2(0, 0), true));
+        assertEquals(-100, this.so.getDistanceToDevice(), 0);
+        this.so.setOpticalDevice(new Lens(0, new Vector2(100, 100), true));
+        assertEquals(0, this.so.getDistanceToDevice(), 0);
+
+        this.so.setOpticalDevice(new Mirror(0, new Vector2(0, 0), false));
+        assertEquals(-100, this.so.getDistanceToDevice(), 0);
+        this.so.setOpticalDevice(new Mirror(0, new Vector2(100, 100), false));
+        assertEquals(0, this.so.getDistanceToDevice(), 0);
+
+        this.so.setOpticalDevice(new Mirror(0, new Vector2(0, 0), true));
+        assertEquals(-100, this.so.getDistanceToDevice(), 0);
+        this.so.setOpticalDevice(new Mirror(0, new Vector2(100, 100), true));
+        assertEquals(0, this.so.getDistanceToDevice(), 0);
+    }
+
+    @Test
+    public void testDefaultHeight() {
+        assertEquals(100, this.so.getHeight(), 0);
+    }
+
+    @Test
+    public void testDefaultImage() {
+        assertEquals(null, this.so.getImage());
+    }
 
 }
