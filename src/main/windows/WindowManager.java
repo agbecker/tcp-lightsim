@@ -7,7 +7,7 @@ public class WindowManager {
     public WindowManager(Window initialWindow) {
         this.currWindow = initialWindow;
     }
- 
+
     protected void setCurrWindow(Window window) {
         currWindow = window;
     }
