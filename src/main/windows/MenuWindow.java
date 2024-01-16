@@ -16,11 +16,11 @@ public class MenuWindow extends Window {
         );
         manualButton = new WindowButton(
             UIElement.RLJ_WIDTH/2, 250, 200, 100, new String("Como Usar"),
-            super.getManager(), this
+            super.getManager(), new TextWindow(super.getManager(), this, "howTo")
         );
         aboutButton = new WindowButton(
             UIElement.RLJ_WIDTH/2, 400, 200, 100, new String("Sobre"),
-            super.getManager(), this
+            super.getManager(), new TextWindow(super.getManager(), this, "about")
         );
     }
 
