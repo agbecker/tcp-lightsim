@@ -7,7 +7,7 @@ import com.raylib.java.shapes.Rectangle;
 
 public abstract class OpticalDevice implements UIElement {
 
-    final protected static int HEIGHT_DEF = 200;
+    final protected static int HEIGHT_DEF = 400;
     final protected static int WIDTH_DEF = 30;
 
     protected double focus;
