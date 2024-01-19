@@ -36,7 +36,29 @@ public class SimulationScreen implements UIElement {
         this.source.render();
         this.device.render();
         image = source.generateImage();
-        if(image != null) this.image.render();
+        if(image != null) {
+            if(image.getX() > WIDTH_DEF) {
+                // right-arrow
+                rlj.shapes.DrawRectangle(BEGX_DEF+WIDTH_DEF-50, BEGY_DEF+50, 20, 6, WHITE);
+                rlj.shapes.DrawTriangle(
+                    new Vector2(BEGX_DEF+WIDTH_DEF-30, BEGY_DEF+53-8), 
+                    new Vector2(BEGX_DEF+WIDTH_DEF-30, BEGY_DEF+53+8), 
+                    new Vector2(BEGX_DEF+WIDTH_DEF-20, BEGY_DEF+53), 
+                    WHITE
+                );
+            } else if (image.getX()+image.getWidth() < 0) {
+                // left-arrow
+                rlj.shapes.DrawRectangle(BEGX_DEF+30, BEGY_DEF+50, 20, 6, WHITE);
+                rlj.shapes.DrawTriangle(
+                    new Vector2(BEGX_DEF+30, BEGY_DEF+53-8), 
+                    new Vector2(BEGX_DEF+30, BEGY_DEF+53+8), 
+                    new Vector2(BEGX_DEF+20, BEGY_DEF+53), 
+                    WHITE
+                );
+            } else {
+                this.image.render(true);
+            }
+        }
     }
 
     public void unloadTextures() {

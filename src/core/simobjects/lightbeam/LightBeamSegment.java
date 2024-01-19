@@ -121,9 +121,9 @@ public class LightBeamSegment implements UIElement {
 
         double epsilon = 0.05;
         boolean returnIntersection = (
-            (Math.abs(thetaRad - thetaRadPrime) > epsilon) &&
-            (dirMultiple > -epsilon && dirPrimeMultiple > -epsilon) && 
-            (ignoreBounds || (getSize(dirScaled) <= l1.getSegmentSize() && getSize(dirPrimeScaled) <= l2.getSegmentSize()))
+            (Math.abs(thetaRad - thetaRadPrime) > epsilon*0.0001) &&                // raios paralelos não se cruzam
+            (dirMultiple > -epsilon && dirPrimeMultiple > -epsilon) &&              // raios podem ser extendidos somente para frente
+            (ignoreBounds || (getSize(dirScaled) <= l1.getSegmentSize() && getSize(dirPrimeScaled) <= l2.getSegmentSize()))  // verificação das bounds
         );
                                      
 
