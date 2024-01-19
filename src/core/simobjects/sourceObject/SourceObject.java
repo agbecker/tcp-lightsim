@@ -3,6 +3,7 @@ package core.simobjects.sourceObject;
 import static core.utils.Geometry.*;
 
 import com.raylib.java.Raylib;
+import com.raylib.java.core.Color;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.textures.Image;
 import com.raylib.java.textures.Texture2D;
@@ -53,8 +54,7 @@ public class SourceObject implements UIElement {
     }
 
     public SourceObject(String texturePath, Vector2 vertex, double height, OpticalDevice opticalDevice) {
-        // O vértice é o ponto inferior direito,
-        // enquanto o ponto utilizado pela hitbox é o canto superior esquerdo
+        // O vértice é o ponto inferior esquerdo
         Image textureImage = rTextures.LoadImage(texturePath);
         this.texture = rTextures.LoadTextureFromImage(textureImage);
         rTextures.UnloadImage(textureImage);
@@ -161,6 +161,8 @@ public class SourceObject implements UIElement {
             rlj.shapes.DrawRectangle(xAbs+x, yAbs+y-height, width, height, WHITE);
         }
         rlj.textures.DrawTexture(texture, xAbs+x, yAbs+y, WHITE);
+        //rlj.shapes.DrawCircle((int)vertex.x+xAbs, (int)vertex.y+yAbs, 5, Color.RED);
+        //rlj.shapes.DrawCircle((int)lightSource.x+xAbs, (int)lightSource.y+yAbs, 5, Color.RED);
         if(beamParallel != null) beamParallel.render(xAbs, yAbs);
         if(beamVertex != null) beamVertex.render();
         if(beamFocus != null) beamFocus.render();
@@ -236,11 +238,12 @@ public class SourceObject implements UIElement {
         this.height = height;
         this.width = Math.abs(height)*WIDTH_HEIGHT_RATIO;
         lightSource.setY((float) (vertex.y - height));
+        lightSource.setX((float) (vertex.x + width/2));
     }
 
     public void setPosition(double x) {
         vertex.setX((float) x);
-        lightSource.setX((float) x);
+        lightSource.setX((float) (x+width/2));
     }
 
     public SourceObject getImage() {
