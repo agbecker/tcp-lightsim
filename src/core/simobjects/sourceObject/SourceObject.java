@@ -3,7 +3,6 @@ package core.simobjects.sourceObject;
 import static core.utils.Geometry.*;
 
 import com.raylib.java.Raylib;
-import com.raylib.java.core.Color;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.textures.Image;
 import com.raylib.java.textures.Texture2D;

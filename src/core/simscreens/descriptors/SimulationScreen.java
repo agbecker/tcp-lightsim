@@ -50,8 +50,8 @@ public class SimulationScreen implements UIElement {
                 // left-arrow
                 rlj.shapes.DrawRectangle(BEGX_DEF+30, BEGY_DEF+50, 20, 6, WHITE);
                 rlj.shapes.DrawTriangle(
-                    new Vector2(BEGX_DEF+30, BEGY_DEF+53-8), 
-                    new Vector2(BEGX_DEF+30, BEGY_DEF+53+8), 
+                    new Vector2(BEGX_DEF+30, BEGY_DEF+53+8),
+                    new Vector2(BEGX_DEF+30, BEGY_DEF+53-8),  
                     new Vector2(BEGX_DEF+20, BEGY_DEF+53), 
                     WHITE
                 );
