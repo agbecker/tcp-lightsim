@@ -215,6 +215,7 @@ public class SourceObject implements UIElement {
 
     public void setHeight(double height) {
         this.height = height;
+        this.width = Math.abs(height)*WIDTH_HEIGHT_RATIO;
         lightSource.setY((float) (vertex.y - height));
     }
 
