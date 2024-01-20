@@ -106,7 +106,7 @@ public class StatsScreen implements UIElement {
     }
 
     private String getImageInfo(SourceObject image, OpticalDevice device) {
-        double distance = device.getVertex().x - image.getX();
+        double distance = (device.getVertex().x - image.getX()) * CONVERSION_RATE;
         double height = image.getHeight() * CONVERSION_RATE;
         
         String type = "Imagem ";
