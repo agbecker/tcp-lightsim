@@ -16,6 +16,7 @@ import core.simobjects.opticaldevice.Lens;
 import core.simobjects.opticaldevice.Mirror;
 import core.simobjects.opticaldevice.OpticalDevice;
 import core.simscreens.descriptors.SimulationScreen;
+import static core.utils.Clamp.*;
 
 public class SourceObject implements UIElement {
 
@@ -52,8 +53,7 @@ public class SourceObject implements UIElement {
     }
 
     public SourceObject(String texturePath, Vector2 vertex, double height, OpticalDevice opticalDevice) {
-        // O vértice é o ponto inferior direito,
-        // enquanto o ponto utilizado pela hitbox é o canto superior esquerdo
+        // O vértice é o ponto inferior esquerdo
         Image textureImage = rTextures.LoadImage(texturePath);
         this.texture = rTextures.LoadTextureFromImage(textureImage);
         rTextures.UnloadImage(textureImage);
@@ -135,17 +135,33 @@ public class SourceObject implements UIElement {
     }
     
     public void render() {
-        render(SimulationScreen.BEGX_DEF, SimulationScreen.BEGY_DEF);
+        render(false);
     }
-    
-    public void render(int xAbs, int yAbs) {
+
+    public void render(boolean clipToScreen) {
+        render(SimulationScreen.BEGX_DEF, SimulationScreen.BEGY_DEF, clipToScreen);
+    }
+
+    public void render(int xAbs, int yAbs, boolean clipToScreen) {
         Raylib rlj = UIElement.rlj;
-        if(height < 0) {
-            rlj.shapes.DrawRectangle(xAbs+(int)vertex.x, yAbs+(int)vertex.y, (int)width, -(int)height, WHITE);
-        } else {
-            rlj.shapes.DrawRectangle(xAbs+(int)vertex.x, yAbs+(int)vertex.y-(int)height, (int)width, (int)height, WHITE);
+        int x = (int)vertex.x;
+        int y = (int)vertex.y;
+        int width = (int)this.width;
+        int height = (int)this.height;
+        if(clipToScreen) {
+            x = clamp(0, (int)vertex.x, SimulationScreen.WIDTH_DEF);
+            y = clamp(0, (int)vertex.y, SimulationScreen.HEIGHT_DEF);
+            width = clamp(-x, (int)(width+Math.min(vertex.x, 0.0)), SimulationScreen.WIDTH_DEF-x);
+            height = clamp(-y, (int)height, SimulationScreen.HEIGHT_DEF-y);
         }
-        rlj.textures.DrawTexture(texture, xAbs+(int)vertex.x, yAbs+(int)vertex.y, WHITE);
+        if(height < 0) {
+            rlj.shapes.DrawRectangle(xAbs+x, yAbs+y, width, -height, WHITE);
+        } else {
+            rlj.shapes.DrawRectangle(xAbs+x, yAbs+y-height, width, height, WHITE);
+        }
+        rlj.textures.DrawTexture(texture, xAbs+x, yAbs+y, WHITE);
+        //rlj.shapes.DrawCircle((int)vertex.x+xAbs, (int)vertex.y+yAbs, 5, Color.RED);
+        //rlj.shapes.DrawCircle((int)lightSource.x+xAbs, (int)lightSource.y+yAbs, 5, Color.RED);
         if(beamParallel != null) beamParallel.render(xAbs, yAbs);
         if(beamVertex != null) beamVertex.render();
         if(beamFocus != null) beamFocus.render();
@@ -199,6 +215,10 @@ public class SourceObject implements UIElement {
         return this.height;
     }
 
+    public double getWidth() {
+        return this.width;
+    }
+
     public double getDistanceToDevice() {
         Vector2 deviceVertex = this.opticalDevice.getVertex();
 
@@ -215,12 +235,14 @@ public class SourceObject implements UIElement {
 
     public void setHeight(double height) {
         this.height = height;
+        this.width = Math.abs(height)*WIDTH_HEIGHT_RATIO;
         lightSource.setY((float) (vertex.y - height));
+        lightSource.setX((float) (vertex.x + width/2));
     }
 
     public void setPosition(double x) {
         vertex.setX((float) x);
-        lightSource.setX((float) x);
+        lightSource.setX((float) (x+width/2));
     }
 
     public SourceObject getImage() {

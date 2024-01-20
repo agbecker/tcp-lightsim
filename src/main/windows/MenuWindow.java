@@ -11,16 +11,16 @@ public class MenuWindow extends Window {
 
     private void assignButtons() {
         simButton = new WindowButton(
-            UIElement.RLJ_WIDTH/2, 100, 200, 100, new String("Simular!"),
+            UIElement.RLJ_WIDTH/2-100, 200, 200, 100, new String("Simular!"),
             super.getManager(), new SimulationWindow(super.getManager(), this)
         );
         manualButton = new WindowButton(
-            UIElement.RLJ_WIDTH/2, 250, 200, 100, new String("Como Usar"),
-            super.getManager(), this
+            UIElement.RLJ_WIDTH/2-100, 340, 200, 100, new String("Como Usar"),
+            super.getManager(), new TextWindow(super.getManager(), this, "howTo")
         );
         aboutButton = new WindowButton(
-            UIElement.RLJ_WIDTH/2, 400, 200, 100, new String("Sobre"),
-            super.getManager(), this
+            UIElement.RLJ_WIDTH/2-100, 480, 200, 100, new String("Sobre"),
+            super.getManager(), new TextWindow(super.getManager(), this, "about")
         );
     }
 
@@ -39,7 +39,7 @@ public class MenuWindow extends Window {
     }
 
     public void render() {
-        rlj.text.DrawText("LightSim", UIElement.RLJ_WIDTH/2, 50, 20, UIElement.WHITE);
+        rlj.text.DrawText("LightSim", UIElement.RLJ_WIDTH/2-125, 80, 60, UIElement.WHITE);
         simButton.render();
         manualButton.render();
         aboutButton.render();
